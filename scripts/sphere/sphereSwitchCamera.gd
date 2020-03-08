@@ -13,7 +13,7 @@ func _on_body_entered(body: Node):
 	if switch_camera_node == null:
 		switch_camera_node = viewOrtho.find_node(switch_to_camera, true, false)
 	
-	if(body.get_name() == "joueur"):
+	if(body.get_name() == "player"):
 		var current_camera_node : Camera = viewOrtho.get_camera()
 		
 		if current_camera_node != switch_camera_node:
