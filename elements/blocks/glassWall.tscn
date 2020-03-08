@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://eftv-core/assets/textures/glass.tres" type="Material" id=1]
+
+[sub_resource type="CubeMesh" id=1]
+size = Vector3( 16, 12, 0.2 )
+
+[sub_resource type="ConvexPolygonShape" id=2]
+points = PoolVector3Array( -8, 6, 0.1, 8, 6, -0.1, 8, 6, 0.1, -8, 6, -0.1, -8, -6, 0.1, 8, -6, -0.1, 8, -6, 0.1, -8, -6, -0.1, 8, 6, 0.1, -8, 6, -0.1, 8, 6, -0.1, -8, 6, 0.1, 8, -6, 0.1, -8, -6, -0.1, 8, -6, -0.1, -8, -6, 0.1, 8, 6, 0.1, -8, -6, 0.1, -8, 6, 0.1, 8, -6, 0.1, 8, 6, -0.1, -8, -6, -0.1, -8, 6, -0.1, 8, -6, -0.1 )
+
+[node name="glassWall" type="StaticBody"]
+input_capture_on_drag = true
+collision_layer = 3
+collision_mask = 3
+
+[node name="mesh" type="MeshInstance" parent="."]
+layers = 3
+material_override = ExtResource( 1 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 2 )

@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://eftv-core/assets/3d_assets/platform_sharp.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://eftv-core/assets/textures/metal.tres" type="Material" id=2]
+
+[sub_resource type="ConvexPolygonShape" id=1]
+points = PoolVector3Array( -8, 2, 8, -8, -2, 8, -8, 2, -8, -8, -2, -8, -8, 2, -8, -8, -2, -8, 8, 2, -8, 8, -2, -8, 8, 2, -8, 8, -2, -8, 8, 2, 8, 8, -2, 8, 8, 2, 8, 8, -2, 8, -8, 2, 8, -8, -2, 8, 8, -2, -8, -8, -2, -8, 8, -2, 8, -8, -2, 8, -8, 2, -8, 8, 2, -8, -8, 2, 8, 8, 2, 8 )
+
+[node name="immobile" type="StaticBody"]
+input_capture_on_drag = true
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="mesh" type="MeshInstance" parent="."]
+layers = 3
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 0.213171, 0.961932, 0.17101, -0.498097, -0.0435779, 0.866025, 0.84051, -0.269791, 0.469846, 0, 8, 0 )
+visible = false
+editor_only = true

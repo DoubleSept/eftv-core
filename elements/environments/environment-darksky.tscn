@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[sub_resource type="PanoramaSky" id=1]
+
+[sub_resource type="Environment" id=2]
+background_mode = 1
+background_sky = SubResource( 1 )
+background_energy = 0.0
+ambient_light_energy = 0.0
+ambient_light_sky_contribution = 0.0
+fog_depth_enabled = false
+fog_depth_begin = 50.0
+ss_reflections_enabled = true
+glow_enabled = true
+
+[node name="DarkEnvironment" type="WorldEnvironment"]
+environment = SubResource( 2 )

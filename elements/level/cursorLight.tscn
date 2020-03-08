@@ -1,0 +1,47 @@
+[gd_scene format=2]
+
+[node name="cursorLight" type="SpotLight"]
+transform = Transform( 1, 0, 0, 0, 1, -1.1921e-007, 0, 1.1921e-007, 1, 0, 0, 0 )
+layers = 3
+light_color = Color( 0.996078, 1, 0.811765, 1 )
+light_energy = 5.0
+light_specular = 0.0
+spot_range = 60.0
+spot_angle = 10.0
+spot_angle_attenuation = 0.450625
+
+[node name="cursorLight2" type="SpotLight" parent="."]
+transform = Transform( 0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, 15, 0, 0 )
+layers = 3
+light_color = Color( 0.996078, 1, 0.811765, 1 )
+light_specular = 0.0
+spot_range = 100.0
+spot_angle = 15.0
+spot_angle_attenuation = 0.450625
+
+[node name="cursorLight3" type="SpotLight" parent="."]
+transform = Transform( 0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, -15, 0, 0 )
+layers = 3
+light_color = Color( 0.996078, 1, 0.811765, 1 )
+light_specular = 0.0
+spot_range = 100.0
+spot_angle = 15.0
+spot_angle_attenuation = 0.450625
+
+[node name="cursorLight4" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 15, 0 )
+layers = 3
+light_color = Color( 0.996078, 1, 0.811765, 1 )
+light_specular = 0.0
+spot_range = 100.0
+spot_angle = 15.0
+spot_angle_attenuation = 0.450625
+
+[node name="cursorLight5" type="SpotLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.965926, -0.258819, 0, 0.258819, 0.965926, 0, -15, 0 )
+layers = 3
+light_color = Color( 0.996078, 1, 0.811765, 1 )
+light_specular = 0.0
+spot_range = 100.0
+spot_angle = 15.0
+spot_angle_attenuation = 0.450625

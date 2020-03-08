@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://eftv-core/scripts/main.gd" type="Script" id=1]
+[ext_resource path="res://eftv-core/assets/menus/png/arrowTransparent.png" type="Texture" id=2]
+[ext_resource path="res://eftv-core/assets/menus/png/arrowMiddle.png" type="Texture" id=3]
+[ext_resource path="res://eftv-core/assets/menus/png/arrowWhite.png" type="Texture" id=4]
+[ext_resource path="res://eftv-core/scripts/menus/arrowBackButton.gd" type="Script" id=5]
+
+
+[node name="world" type="Spatial"]
+script = ExtResource( 1 )
+__meta__ = {
+"__editor_plugin_screen__": "3D"
+}
+
+[node name="vc" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 5
+alignment = 1
+
+[node name="vcOrthogonal" type="ViewportContainer" parent="vc"]
+margin_right = 1920.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+stretch = true
+
+[node name="viewportOrthogonal" type="Viewport" parent="vc/vcOrthogonal"]
+size = Vector2( 1920, 1080 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="topLeft" type="MarginContainer" parent="vc/vcOrthogonal"]
+margin_left = 25.0
+margin_top = 25.0
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="arrowButton" type="TextureButton" parent="vc/vcOrthogonal/topLeft"]
+margin_right = 60.0
+margin_bottom = 41.0
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 4 )
+script = ExtResource( 5 )
+
+[node name="viewportPlayer" type="Viewport" parent="."]
+arvr = true
+size = Vector2( 1598, 1000 )
+handle_input_locally = false
+render_target_update_mode = 3
+[connection signal="pressed" from="vc/vcOrthogonal/topLeft/arrowButton" to="vc/vcOrthogonal/topLeft/arrowButton" method="_on_pressed"]

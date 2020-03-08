@@ -1,0 +1,26 @@
+[gd_resource type="SpatialMaterial" format=2]
+
+[resource]
+resource_name = "concrete"
+flags_transparent = true
+flags_do_not_receive_shadows = true
+albedo_color = Color( 0.313726, 0.313726, 0.490196, 1 )
+metallic = 0.2
+metallic_texture_channel = 4
+roughness = 0.7
+ao_enabled = true
+ao_light_affect = 0.05
+ao_on_uv2 = false
+ao_texture_channel = 0
+depth_enabled = true
+depth_scale = 0.01
+depth_deep_parallax = true
+depth_min_layers = 8
+depth_max_layers = 32
+depth_flip_tangent = false
+depth_flip_binormal = false
+subsurf_scatter_enabled = true
+subsurf_scatter_strength = 0.1
+uv1_scale = Vector3( 0.25, 0.25, 0.25 )
+uv1_triplanar = true
+uv1_triplanar_sharpness = 2.07053
