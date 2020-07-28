@@ -2,7 +2,7 @@
 
 Core project (assets, scripts, elements...) for [Escape from the void](https://doublesept.itch.io/escape).
 
-Project made to be used as a submodule (see eftv-demo project for more infos)
+Project made to be used as a submodule (see [eftv-demo](https://github.com/DoubleSept/eftv-demo) project for more infos)
 
 Made for Godot 3.0
 
