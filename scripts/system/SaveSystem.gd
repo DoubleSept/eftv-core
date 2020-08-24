@@ -91,7 +91,6 @@ func initGameData():
 	requestNode = HTTPRequest.new()
 	add_child(requestNode)
 	requestNode.connect("request_completed", self, "_uuid_request_completed")
-
 	var error = requestNode.request(LevelsList.URL_TELEMETRY+ "new", PoolStringArray(), true, HTTPClient.METHOD_POST)
 	
 	loadedData = true
