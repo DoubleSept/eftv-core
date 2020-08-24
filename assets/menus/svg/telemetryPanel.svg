@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1920mm"
+   height="1080mm"
+   viewBox="0 0 1920 1080"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
+   sodipodi:docname="telemetryPanel.svg"
+   inkscape:export-filename="C:\Users\massa\projets\EFTV\eftv-full\eftv-core\assets\menus\png\telemetryPanel.png"
+   inkscape:export-xdpi="25.4"
+   inkscape:export-ydpi="25.4">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.175"
+     inkscape:cx="3230.9542"
+     inkscape:cy="1866.7715"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showguides="true"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid815" />
+    <sodipodi:guide
+       position="0,0"
+       orientation="0,7256.6929"
+       id="guide817"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="1920,0"
+       orientation="-4081.8898,0"
+       id="guide819"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="1920,1080"
+       orientation="0,-7256.6929"
+       id="guide821"
+       inkscape:locked="false" />
+    <sodipodi:guide
+       position="0,1080"
+       orientation="4081.8898,0"
+       id="guide823"
+       inkscape:locked="false" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,783)">
+    <rect
+       style="opacity:1;fill:#000000;fill-opacity:0.86274511;stroke:#000000;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers"
+       id="rect825"
+       width="1920"
+       height="1080"
+       x="0"
+       y="-783"
+       ry="0.56297249" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.79999924px;line-height:1.25;font-family:Dubai;-inkscape-font-specification:Dubai;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="960.29211"
+       y="-346.58508"
+       id="text829"><tspan
+         sodipodi:role="line"
+         x="960.29211"
+         y="-346.58508"
+         style="text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan839">This game send anonymous data about your experience to our server</tspan><tspan
+         sodipodi:role="line"
+         x="960.29211"
+         y="-283.08508"
+         style="text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan841" /><tspan
+         sodipodi:role="line"
+         x="966.39404"
+         y="-219.58508"
+         style="text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan843">You can disable this by clicking the        icon on the main menu </tspan><tspan
+         sodipodi:role="line"
+         x="960.29211"
+         y="-156.08508"
+         style="text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan835" /><tspan
+         sodipodi:role="line"
+         x="960.29211"
+         y="-92.585083"
+         style="text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan831" /><tspan
+         sodipodi:role="line"
+         x="960.29211"
+         y="-29.085089"
+         style="text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan833" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.79999924px;line-height:1.25;font-family:Dubai;-inkscape-font-specification:Dubai;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="404.11151"
+       y="-596.74933"
+       id="text851"><tspan
+         sodipodi:role="line"
+         id="tspan849"
+         x="404.11151"
+         y="-552.04633"
+         style="stroke-width:0.26458332" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.79999924px;line-height:1.25;font-family:Dubai;-inkscape-font-specification:Dubai;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+       x="957.3988"
+       y="-653.711"
+       id="text829-9"><tspan
+         sodipodi:role="line"
+         id="tspan827-9"
+         x="957.3988"
+         y="-653.711"
+         style="font-size:70.55555725px;text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.26458332">Informations about telemetry</tspan><tspan
+         sodipodi:role="line"
+         x="957.3988"
+         y="-582.90106"
+         style="text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan835-5" /><tspan
+         sodipodi:role="line"
+         x="957.3988"
+         y="-519.40106"
+         style="text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan831-5" /><tspan
+         sodipodi:role="line"
+         x="957.3988"
+         y="-455.90106"
+         style="text-align:center;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.26458332"
+         id="tspan833-7" /></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.79999924px;line-height:1.25;font-family:'Cambria Math';-inkscape-font-specification:'Cambria Math';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332;"
+       x="666.78082"
+       y="91.736969"
+       id="text930"><tspan
+         sodipodi:role="line"
+         id="tspan928"
+         x="666.78082"
+         y="91.736969"
+         style="fill:#ffffff;fill-opacity:1;stroke-width:0.26458332;-inkscape-font-specification:'Cambria Math';font-family:'Cambria Math';font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;">- Press any key to continue -</tspan></text>
+    <g
+       id="g1042"
+       transform="translate(56.66114,-126.68576)"
+       inkscape:export-filename="C:\Users\massa\projets\EFTV\eftv-full\eftv-core\assets\menus\png\telemetry.png"
+       inkscape:export-xdpi="25"
+       inkscape:export-ydpi="25">
+      <circle
+         r="34.916"
+         cy="-110.96886"
+         cx="1025.7483"
+         id="path936"
+         style="opacity:1;fill:#cccccc;fill-opacity:1;stroke:#000000;stroke-width:3.58900142;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
+      <circle
+         r="29.269577"
+         cy="-110.96885"
+         cx="1025.7483"
+         id="path938"
+         style="opacity:1;fill:#808080;fill-opacity:1;stroke:none;stroke-width:4.41586018;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
+      <circle
+         r="23.081915"
+         cy="-110.96883"
+         cx="1025.7483"
+         id="path940"
+         style="opacity:1;fill:#cccccc;fill-opacity:1;stroke:none;stroke-width:5.75746202;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:stroke fill markers" />
+      <text
+         id="text1032"
+         y="-97.607201"
+         x="1016"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:50.79999924px;line-height:1.25;font-family:Dubai;-inkscape-font-specification:Dubai;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
+         xml:space="preserve"><tspan
+           style="stroke-width:0.26458332"
+           y="-97.607201"
+           x="1016"
+           id="tspan1030"
+           sodipodi:role="line">t</tspan></text>
+    </g>
+  </g>
+</svg>
