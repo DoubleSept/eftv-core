@@ -28,11 +28,14 @@ func _ready():
 	Engine.target_fps = 90
 	
 	SaveSystem = get_node("/root/SaveSystem")
-	current_level_resource = SaveSystem.get_current_level()
+	current_level_resource = SaveSystem.start_run()
 	load_level()
 
 func _on_sceneNode_level_finished():
 	current_level_resource = SaveSystem.level_finished()
+	if current_level_resource == null:
+		get_tree().change_scene("res://eftv-core/scenes/menus/runEnd/endRunMain.tscn")
+		return
 	print("Next scene: "+current_level_resource.resource_path)
 	load_level()
 

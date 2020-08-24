@@ -8,10 +8,9 @@ var isFirstGame = false
 func _ready():
 	# Check if it is first launch
 	SaveSystem = get_node("/root/SaveSystem")
-	isFirstGame = SaveSystem.gameData.keys().size() < 1
 	
 	# Disable options in first game
-	if isFirstGame:
+	if SaveSystem.isFirstGame:
 		$sections/menus/bt_PressToPlay.visible = true
 	else:
 		$sections/menus/options.visible = true
@@ -38,7 +37,6 @@ func _input(event):
 func _on_switchMenu(newMenu):
 	print_debug("Switch to menu: ", newMenu)
 	
-	$sections/menus/levelsMenu.visible = false
 	$sections/menus/options.visible = false
 	$sections/menus/loadingScreen.visible = false
 	
@@ -50,8 +48,6 @@ func _on_switchMenu(newMenu):
 	if newMenu == "options":
 		$sections/menus/options.visible = true
 		$sections/menus/options.set_process_input(true)
-	elif newMenu == "levelsMenu":
-		$sections/menus/levelsMenu.visible = true
 	elif newMenu == "loading":
 		$sections/menus/loadingScreen.visible = true
 
@@ -59,7 +55,6 @@ func _on_switchMenu(newMenu):
 func _on_noHeadset():
 	if($sections/menus.has_node("bt_PressToPlay")):
 		$sections/menus/bt_PressToPlay.visible = false
-	$sections/menus/levelsMenu.visible = false
 	$sections/menus/options.visible = false
 	$sections/menus/loadingScreen.visible = false
 	$sections/menus/options.set_process_input(false)

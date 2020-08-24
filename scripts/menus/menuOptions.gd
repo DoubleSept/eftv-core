@@ -48,7 +48,7 @@ func optionContinue():
 	
 func optionChooseLevel():
 	get_tree().set_input_as_handled()
-	emit_signal("switchMenu", "levelsMenu")
+	get_tree().change_scene("res://eftv-core/scenes/menus/runSelection/runSelectionMain.tscn")
 
 func update_buttons(node):
 	for optionNode in self.get_children():
