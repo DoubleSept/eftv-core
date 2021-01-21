@@ -1,14 +1,16 @@
 [gd_resource type="Environment" load_steps=2 format=2]
 
-[sub_resource type="ProceduralSky" id=1]
-sky_horizon_color = Color( 0.0392157, 0.0392157, 0.0392157, 1 )
-sky_curve = 0.0465871
-sky_energy = 1.55
-ground_bottom_color = Color( 0, 0, 0, 1 )
-ground_horizon_color = Color( 0.254902, 0.254902, 0.254902, 1 )
-ground_curve = 4.45722
+[ext_resource path="res://eftv-core/elements/camera/camera_environments/camera_sky.tres" type="ProceduralSky" id=1]
 
 [resource]
 background_mode = 2
-background_sky = SubResource( 1 )
-background_sky_orientation = Basis( 1, 0, 0, 0, 1.19249e-008, 1, 0, -1, 1.19249e-008 )
+background_sky = ExtResource( 1 )
+background_sky_orientation = Basis( 1, 0, 0, 0, 0, 1, 0, -1, 0 )
+ambient_light_color = Color( 1, 1, 1, 1 )
+ambient_light_energy = 3.0
+ambient_light_sky_contribution = 0.0
+tonemap_mode = 2
+auto_exposure_scale = 0.77
+auto_exposure_min_luma = 0.25
+auto_exposure_max_luma = 0.5
+auto_exposure_speed = 10.0

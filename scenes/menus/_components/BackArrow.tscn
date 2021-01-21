@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://eftv-core/scripts/menus/arrowBackButton.gd" type="Script" id=1]
+[ext_resource path="res://eftv-core/assets/menus/png/arrowTransparent.png" type="Texture" id=2]
+[ext_resource path="res://eftv-core/assets/menus/png/arrowMiddle.png" type="Texture" id=3]
+[ext_resource path="res://eftv-core/assets/menus/png/arrowWhite.png" type="Texture" id=4]
+
+[node name="BackArrow" type="MarginContainer"]
+margin_left = 25.0
+margin_top = 25.0
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="arrowButton" type="TextureButton" parent="."]
+margin_right = 60.0
+margin_bottom = 41.0
+texture_normal = ExtResource( 2 )
+texture_pressed = ExtResource( 3 )
+texture_hover = ExtResource( 4 )
+script = ExtResource( 1 )
+[connection signal="pressed" from="arrowButton" to="arrowButton" method="_on_pressed"]

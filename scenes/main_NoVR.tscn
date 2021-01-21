@@ -1,0 +1,47 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://eftv-core/scripts/main.gd" type="Script" id=1]
+[ext_resource path="res://eftv-core/scenes/menus/_components/BackArrow.tscn" type="PackedScene" id=2]
+
+[node name="world" type="Spatial"]
+script = ExtResource( 1 )
+__meta__ = {
+"__editor_plugin_screen__": "3D"
+}
+use_vr = false
+
+[node name="vc" type="HBoxContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/separation = 5
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="vcOrthogonal" type="ViewportContainer" parent="vc"]
+margin_top = 270.0
+margin_right = 957.0
+margin_bottom = 810.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="viewportOrthogonal" type="Viewport" parent="vc/vcOrthogonal"]
+size = Vector2( 957, 540 )
+handle_input_locally = false
+render_target_update_mode = 3
+
+[node name="BackArrow" parent="vc/vcOrthogonal" instance=ExtResource( 2 )]
+
+[node name="vcPlayer" type="ViewportContainer" parent="vc"]
+margin_left = 962.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+stretch = true
+
+[node name="viewportPlayer" type="Viewport" parent="vc/vcPlayer"]
+arvr = true
+size = Vector2( 958, 1080 )
+handle_input_locally = false
+render_target_update_mode = 3

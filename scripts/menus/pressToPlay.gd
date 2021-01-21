@@ -24,4 +24,4 @@ func startGame():
 	yield(t, "timeout")
 	
 	# Change scene
-	print("Start: ",get_tree().change_scene("res://eftv-core/scenes/main-vr.tscn"))
+	print("Start: ",get_tree().change_scene(Constants.SCENE_MAIN))

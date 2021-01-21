@@ -13,6 +13,8 @@ func _ready():
 	
 	if not Engine.editor_hint:
 		player = get_tree().get_current_scene().find_node("player", true, false)
+		if player == null:
+			print_debug("Player cannot be found")
 	
 func move(moveVector: Vector3):
 	if not Engine.editor_hint:
@@ -43,7 +45,7 @@ func _unhovered():
 	
 func set_mesh_color(color):
 	mesh_color = color
-	var newMaterial = load("res://eftv-core/assets/textures/metal.tres").duplicate()
+	var newMaterial = load("res://eftv-core/assets/textures/metalCoude.tres").duplicate()
 	newMaterial.albedo_color = mesh_color
 	for node in get_children():
 		if(node.get_class() == "MeshInstance"): 

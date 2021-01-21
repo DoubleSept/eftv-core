@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://eftv-core/addons/SIsilicon.3d.text/label_3d.gd" type="Script" id=1]
 [ext_resource path="res://eftv-core/addons/SIsilicon.3d.text/icon_label_3d.svg" type="Texture" id=2]
+[ext_resource path="res://eftv-core/assets/fonts/Heebo-Bold.otf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 48
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 3 )
 
 [node name="Label3D" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.05194, 0 )
@@ -12,4 +19,7 @@ __meta__ = {
 text = "Hello!
 This is my 3D text plugin."
 extrude = 0.1
+font = SubResource( 1 )
 align = 2
+metallic = 1.0
+roughness = 1.0

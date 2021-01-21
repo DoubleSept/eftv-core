@@ -65,6 +65,7 @@ func set_text(string):
 		viewport.render_target_update_mode = Viewport.UPDATE_ALWAYS
 		yield(get_tree(), "idle_frame")
 		
+		print("IN LABEL")
 		label.rect_size = Vector2()
 		label.force_update_transform()
 		

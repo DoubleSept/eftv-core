@@ -97,8 +97,9 @@ func _input(event):
 		dragNdrop(mouse_position)
 	
 	# Keyboard
-	if Input.is_action_pressed("ui_cancel"):
-		get_tree().change_scene("res://eftv-core/scenes/menus/menuMain.tscn")
+	if(event.is_action_pressed("ui_cancel")):
+		get_tree().set_input_as_handled()
+		get_tree().change_scene(Constants.SCENE_MENU_MAIN)
 
 func hide_selecteur():
 	selecteur.visible = false

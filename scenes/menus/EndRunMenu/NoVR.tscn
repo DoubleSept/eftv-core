@@ -1,0 +1,165 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://eftv-core/scenes/menus/EndRunMenu/Text.gd" type="Script" id=1]
+[ext_resource path="res://levels/defaultPreview.png" type="Texture" id=2]
+[ext_resource path="res://eftv-core/assets/fonts/menuFont_small.tres" type="DynamicFont" id=3]
+[ext_resource path="res://eftv-core/assets/fonts/menuFont.tres" type="DynamicFont" id=4]
+
+
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=6]
+
+[sub_resource type="StyleBoxEmpty" id=7]
+
+[sub_resource type="StyleBoxEmpty" id=8]
+
+[sub_resource type="StyleBoxEmpty" id=9]
+
+[sub_resource type="StyleBoxEmpty" id=10]
+
+[node name="MenuText" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Preview" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+centered = false
+
+[node name="recordBox" type="MarginContainer" parent="."]
+margin_right = 1920.0
+margin_bottom = 1080.0
+custom_constants/margin_right = 450
+custom_constants/margin_top = 150
+custom_constants/margin_left = 450
+custom_constants/margin_bottom = 250
+
+[node name="ColorRect" type="ColorRect" parent="recordBox"]
+margin_left = 450.0
+margin_top = 150.0
+margin_right = 1470.0
+margin_bottom = 830.0
+color = Color( 1, 1, 1, 0.364706 )
+
+[node name="recordInside" type="MarginContainer" parent="recordBox"]
+margin_left = 450.0
+margin_top = 150.0
+margin_right = 1470.0
+margin_bottom = 830.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="ColorRect2" type="ColorRect" parent="recordBox/recordInside"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 1010.0
+margin_bottom = 670.0
+color = Color( 0, 0, 0, 0.784314 )
+
+[node name="Vbox" type="VBoxContainer" parent="recordBox/recordInside"]
+margin_left = 260.0
+margin_top = 157.0
+margin_right = 759.0
+margin_bottom = 523.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Completed" type="Label" parent="recordBox/recordInside/Vbox"]
+margin_right = 499.0
+margin_bottom = 122.0
+custom_fonts/font = ExtResource( 3 )
+text = "You completed"
+align = 1
+
+[node name="Title" type="Label" parent="recordBox/recordInside/Vbox"]
+margin_top = 126.0
+margin_right = 499.0
+margin_bottom = 244.0
+custom_fonts/font = ExtResource( 4 )
+text = "The Beginning"
+align = 1
+
+[node name="Time" type="Label" parent="recordBox/recordInside/Vbox"]
+margin_top = 248.0
+margin_right = 499.0
+margin_bottom = 366.0
+custom_fonts/font = ExtResource( 4 )
+text = "00:00"
+align = 1
+
+[node name="Record" type="Label" parent="recordBox/recordInside/Vbox"]
+visible = false
+margin_top = 370.0
+margin_right = 491.0
+margin_bottom = 492.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 0.27451, 0.27451, 1 )
+text = "New Record"
+align = 1
+
+[node name="footer" type="MarginContainer" parent="."]
+margin_right = 1920.0
+margin_bottom = 1080.0
+custom_constants/margin_right = 50
+custom_constants/margin_top = 875
+custom_constants/margin_left = 50
+custom_constants/margin_bottom = 25
+
+[node name="footerSplitter" type="HBoxContainer" parent="footer"]
+margin_left = 50.0
+margin_top = 875.0
+margin_right = 1870.0
+margin_bottom = 1055.0
+
+[node name="backToMenu" type="Button" parent="footer/footerSplitter"]
+margin_right = 411.0
+margin_bottom = 180.0
+mouse_default_cursor_shape = 2
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 0.498039 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+custom_colors/font_color_pressed = Color( 1, 1, 1, 0.784314 )
+shortcut_in_tooltip = false
+button_mask = 3
+text = "TEXT_BACK_MENU"
+
+[node name="nextRun" type="Button" parent="footer/footerSplitter"]
+margin_left = 1398.0
+margin_right = 1820.0
+margin_bottom = 180.0
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 10
+size_flags_vertical = 3
+custom_styles/hover = SubResource( 6 )
+custom_styles/pressed = SubResource( 7 )
+custom_styles/focus = SubResource( 8 )
+custom_styles/disabled = SubResource( 9 )
+custom_styles/normal = SubResource( 10 )
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 0.498039 )
+custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
+shortcut_in_tooltip = false
+text = "TEXT_START_NEXT"
+align = 2
+[connection signal="pressed" from="footer/footerSplitter/backToMenu" to="." method="_on_backToMenu_pressed"]
+[connection signal="pressed" from="footer/footerSplitter/nextRun" to="." method="_on_nextRun_pressed"]

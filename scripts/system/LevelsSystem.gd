@@ -17,24 +17,21 @@ func get_index_from_string(search: String):
 	
 # Load all levels from specified index
 # Array elements are of type: [name: String, level: Resource]
-func get_run_infos(runName: String):
+func get_run_infos(runName: String) -> RunInfos:
 	# Load level
 	var runPath = LEVELS_ROOT+runName+'/'
 	var run = load(runPath+'infos.gd').new()
+
+	var runInfos : RunInfos = RunInfos.new()
+	runInfos.id = runName
+	runInfos.index = get_index_from_string(runName)
+	runInfos.hasNextRun = runInfos.index < (LEVELS_LIST.size() - 1)
+	runInfos.name = run.getTitle()
+
+	# Add level path list
+	runInfos.levels = []
 	var levelList = run.getLevelList()
-	
-	var runIndex = get_index_from_string(runName)
-	var hasNextRun = runIndex < (LEVELS_LIST.size() - 1)
-	
-	print(runIndex, "/", LEVELS_LIST.size(), "/", hasNextRun)
-	
-	var runInfos = {
-		'id': runName, 
-		'index': runIndex,
-		'name': run.getTitle(),
-		'hasNextRun': hasNextRun, 
-		'levels': []}
-		
 	for x in range(0, levelList.size()):
-		runInfos.levels.push_back(load(runPath + 'levels/' + levelList[x]))
+		runInfos.levels.push_back(runPath + 'levels/' + levelList[x])
+
 	return runInfos

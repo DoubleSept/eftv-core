@@ -1,0 +1,201 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://eftv-core/scripts/menus/menuMain.gd" type="Script" id=1]
+[ext_resource path="res://eftv-core/assets/fonts/Heebo-Regular.otf" type="DynamicFontData" id=2]
+[ext_resource path="res://eftv-core/assets/fonts/Heebo-Thin.otf" type="DynamicFontData" id=3]
+[ext_resource path="res://eftv-core/assets/logo/png/logoText.png" type="Texture" id=4]
+[ext_resource path="res://eftv-core/assets/logo/png/centralWhite.png" type="Texture" id=5]
+[ext_resource path="res://eftv-core/assets/logo/png/logoGrey.png" type="Texture" id=6]
+[ext_resource path="res://eftv-core/scenes/menus/_components/options.tscn" type="PackedScene" id=7]
+[ext_resource path="res://eftv-core/scenes/menus/_components/Button.tscn" type="PackedScene" id=8]
+[ext_resource path="res://eftv-core/scenes/menus/_components/ButtonStyleBackground.tres" type="StyleBox" id=9]
+[ext_resource path="res://eftv-core/assets/fonts/menuFont.tres" type="DynamicFont" id=10]
+[ext_resource path="res://eftv-core/scenes/menus/MainMenu/loadingText.gd" type="Script" id=11]
+[ext_resource path="res://eftv-core/assets/fonts/Heebo-Bold.otf" type="DynamicFontData" id=12]
+
+[sub_resource type="DynamicFont" id=1]
+size = 24
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 12 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 24
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.5, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 0.4, 0.4, 0.4, 0.745098, 1, 1, 1, 0 )
+
+[sub_resource type="GradientTexture" id=4]
+gradient = SubResource( 3 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 48
+use_mipmaps = true
+use_filter = true
+extra_spacing_top = 5
+font_data = ExtResource( 3 )
+
+[node name="MenuText" type="MarginContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 50.0
+margin_bottom = -50.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+margin_right = 1920.0
+margin_bottom = 980.0
+color = Color( 0.588235, 1, 0.992157, 1 )
+
+[node name="margin" type="MarginContainer" parent="."]
+margin_right = 1920.0
+margin_bottom = 980.0
+custom_constants/margin_right = 25
+custom_constants/margin_top = 875
+custom_constants/margin_bottom = 25
+
+[node name="footer" type="RichTextLabel" parent="margin"]
+margin_top = 875.0
+margin_right = 1895.0
+margin_bottom = 955.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_default_cursor_shape = 8
+custom_fonts/bold_font = SubResource( 1 )
+custom_fonts/normal_font = SubResource( 2 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+bbcode_enabled = true
+bbcode_text = "[right]Version 3.0
+Report bugs on [b]GitHub[/b][/right]"
+text = "Version 3.0
+Report bugs on GitHub"
+scroll_active = false
+
+[node name="sections" type="VBoxContainer" parent="."]
+margin_right = 1920.0
+margin_bottom = 980.0
+
+[node name="logoContainer" type="MarginContainer" parent="sections"]
+margin_right = 1920.0
+margin_bottom = 400.0
+
+[node name="TextureRect" type="TextureRect" parent="sections/logoContainer"]
+margin_right = 1920.0
+margin_bottom = 400.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = SubResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="logo" type="MarginContainer" parent="sections/logoContainer"]
+margin_right = 1920.0
+margin_bottom = 400.0
+custom_constants/margin_top = 40
+custom_constants/margin_bottom = 40
+
+[node name="logo" type="TextureRect" parent="sections/logoContainer/logo"]
+margin_top = 40.0
+margin_right = 1920.0
+margin_bottom = 360.0
+rect_min_size = Vector2( 1920, 320 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 6
+
+[node name="pv" type="Sprite" parent="sections/logoContainer/logo"]
+position = Vector2( 1005, 212 )
+scale = Vector2( 0.37, 0.37 )
+texture = ExtResource( 5 )
+
+[node name="fromThe" type="Sprite" parent="sections/logoContainer/logo"]
+position = Vector2( 1083, 194 )
+scale = Vector2( 0.8, 0.8 )
+texture = ExtResource( 6 )
+
+[node name="menus" type="CenterContainer" parent="sections"]
+margin_top = 404.0
+margin_right = 1920.0
+margin_bottom = 980.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="options" parent="sections/menus" instance=ExtResource( 7 )]
+margin_left = 593.0
+margin_top = 36.0
+margin_right = 1326.0
+margin_bottom = 540.0
+
+[node name="PressToPlay" parent="sections/menus" instance=ExtResource( 8 )]
+visible = false
+margin_left = 601.0
+margin_top = 229.0
+margin_right = 1318.0
+margin_bottom = 347.0
+custom_styles/hover = ExtResource( 9 )
+custom_styles/pressed = ExtResource( 9 )
+custom_styles/normal = ExtResource( 9 )
+text = "TEXT_FIRST_START"
+
+[node name="noHeadset" type="VBoxContainer" parent="sections/menus"]
+visible = false
+margin_left = 601.0
+margin_top = 176.0
+margin_right = 1319.0
+margin_bottom = 399.0
+
+[node name="text" type="Label" parent="sections/menus/noHeadset"]
+margin_right = 718.0
+margin_bottom = 118.0
+custom_fonts/font = ExtResource( 10 )
+custom_colors/font_color = Color( 0.815686, 0, 0, 1 )
+text = "TEXT_NO_HEADSET"
+align = 1
+
+[node name="text2" type="Label" parent="sections/menus/noHeadset"]
+margin_top = 122.0
+margin_right = 718.0
+margin_bottom = 199.0
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 0.247059, 0.0901961, 0.0901961, 1 )
+text = "TEXT_NO_HEADSET_LONG"
+align = 1
+
+[node name="Button" type="Button" parent="sections/menus/noHeadset"]
+margin_left = 317.0
+margin_top = 203.0
+margin_right = 401.0
+margin_bottom = 223.0
+size_flags_horizontal = 4
+text = "MENU_EXIT"
+
+[node name="loadingScreen" type="MarginContainer" parent="sections/menus"]
+visible = false
+margin_left = 672.0
+margin_top = 229.0
+margin_right = 1248.0
+margin_bottom = 347.0
+
+[node name="text" type="Label" parent="sections/menus/loadingScreen"]
+margin_right = 576.0
+margin_bottom = 118.0
+custom_fonts/font = ExtResource( 10 )
+text = "TEXT_LOADING.."
+script = ExtResource( 11 )
+[connection signal="start" from="sections/menus/options" to="." method="_on_start"]
+[connection signal="pressed" from="sections/menus/PressToPlay" to="." method="_on_start"]
+[connection signal="pressed" from="sections/menus/noHeadset/Button" to="." method="_on_exit_button_pressed"]

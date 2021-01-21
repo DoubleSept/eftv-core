@@ -14,7 +14,7 @@ const SAVE_VERSION = 2
 var loadedData = false
 var gameData : Dictionary = {}
 var LevelSystem
-var runInfos = {} # Lazy loading
+var runInfos : RunInfos # Lazy loading
 
 var runStartMs
 var runTitle
@@ -30,6 +30,7 @@ func _ready():
 		dir.make_dir(SAVE_DIR)
 	LevelSystem = get_node("/root/LevelSystem")
 	self.loadGameData()
+	print("LOADED")
 
 func saveGameData():
 	var save_file = File.new()
@@ -92,7 +93,7 @@ func initGameData():
 	add_child(requestNode)
 	requestNode.connect("request_completed", self, "_uuid_request_completed")
 	var error = requestNode.request(LevelsList.URL_TELEMETRY+ "new", PoolStringArray(), true, HTTPClient.METHOD_POST)
-	
+		
 	loadedData = true
 	
 func _uuid_request_completed(result, response_code, headers, body):
@@ -145,15 +146,19 @@ func start_run():
 		loadGameData()
 	
 	runInfos = LevelSystem.get_run_infos(gameData[KEY_CURRENT_LEVEL])
-	print(gameData[KEY_CURRENT_LEVEL], runInfos.levels.size())
+	print_debug("Starting: %s (%d levels)" % [
+		gameData[KEY_CURRENT_LEVEL], 
+		runInfos.levels.size()])
 	runStartMs = OS.get_ticks_msec()
-	return runInfos.levels.front()
+	return load(runInfos.levels.front())
 
 func level_finished():
+	print_debug("Level finished")
 	runInfos.levels.pop_front()
 	if runInfos.levels.size() > 0:
 		# Run is not finished
-		return runInfos.levels.front()
+		print_debug("Loading level %s" % runInfos.levels.front())
+		return load(runInfos.levels.front())
 	
 	# Run is finished
 	runDurationMs = OS.get_ticks_msec() - runStartMs
