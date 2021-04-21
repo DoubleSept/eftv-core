@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://eftv-core/VR/player/Guardian.gd" type="Script" id=1]
+
+[sub_resource type="SpatialMaterial" id=1]
+flags_transparent = true
+flags_unshaded = true
+flags_no_depth_test = true
+albedo_color = Color( 1, 1, 1, 0.388235 )
+
+[sub_resource type="ArrayMesh" id=2]
+
+[node name="Guardian" type="MeshInstance"]
+material_override = SubResource( 1 )
+mesh = SubResource( 2 )
+script = ExtResource( 1 )
