@@ -185,16 +185,16 @@ text = "MENU_EXIT"
 
 [node name="loadingScreen" type="MarginContainer" parent="sections/menus"]
 visible = false
-margin_left = 672.0
+margin_left = 662.0
 margin_top = 229.0
-margin_right = 1248.0
+margin_right = 1257.0
 margin_bottom = 347.0
 
 [node name="text" type="Label" parent="sections/menus/loadingScreen"]
-margin_right = 576.0
+margin_right = 595.0
 margin_bottom = 118.0
 custom_fonts/font = ExtResource( 10 )
-text = "TEXT_LOADING.."
+text = "TEXT_LOADING."
 script = ExtResource( 11 )
 [connection signal="start" from="sections/menus/options" to="." method="_on_start"]
 [connection signal="pressed" from="sections/menus/PressToPlay" to="." method="_on_start"]

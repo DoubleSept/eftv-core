@@ -1,9 +1,8 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://eftv-core/scripts/blockMove/basicMovable.gd" type="Script" id=1]
 [ext_resource path="res://eftv-core/assets/textures/metal/Metal29_colGrey.jpg" type="Texture" id=2]
 [ext_resource path="res://eftv-core/assets/textures/metal/Metal29_met.jpg" type="Texture" id=3]
-[ext_resource path="res://eftv-core/assets/textures/metal/Metal29_nrm.jpg" type="Texture" id=4]
 [ext_resource path="res://eftv-core/assets/textures/metal/Metal29_rgh.jpg" type="Texture" id=5]
 [ext_resource path="res://eftv-core/assets/3d_assets/platform_sharp.obj" type="ArrayMesh" id=6]
 [ext_resource path="res://eftv-core/assets/sounds/deny_sound.wav" type="AudioStream" id=7]
@@ -16,13 +15,10 @@ metallic_texture = ExtResource( 3 )
 metallic_texture_channel = 4
 roughness_texture = ExtResource( 5 )
 roughness_texture_channel = 4
-normal_enabled = true
-normal_scale = -1.0
-normal_texture = ExtResource( 4 )
 rim_enabled = true
 rim = 0.1
 rim_tint = 0.5
-uv1_scale = Vector3( 8, 8, 1 )
+uv1_scale = Vector3( 16, 32, 1 )
 
 [sub_resource type="ConvexPolygonShape" id=2]
 points = PoolVector3Array( -8, 2, 8, -8, -2, 8, -8, 2, -8, -8, -2, -8, -8, 2, -8, -8, -2, -8, 8, 2, -8, 8, -2, -8, 8, 2, -8, 8, -2, -8, 8, 2, 8, 8, -2, 8, 8, 2, 8, 8, -2, 8, -8, 2, 8, -8, -2, 8, 8, -2, -8, -8, -2, -8, 8, -2, 8, -8, -2, 8, -8, 2, -8, 8, 2, -8, -8, 2, 8, 8, 2, 8 )
