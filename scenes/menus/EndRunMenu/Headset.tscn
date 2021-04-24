@@ -3,9 +3,10 @@
 [ext_resource path="res://eftv-core/scenes/menus/EndRunMenu/Headset.gd" type="Script" id=1]
 [ext_resource path="res://eftv-core/elements/environments/environment-bluesky.tscn" type="PackedScene" id=2]
 [ext_resource path="res://addons/Label3D.tscn" type="PackedScene" id=3]
-[ext_resource path="res://eftv-core/VR/VROrigin_Movement_V2.tscn" type="PackedScene" id=4]
+[ext_resource path="res://eftv-core/VR/VROrigin_Movement.tscn" type="PackedScene" id=4]
 [ext_resource path="res://eftv-core/elements/blocks/immobile.tscn" type="PackedScene" id=5]
 [ext_resource path="res://eftv-core/assets/fonts/menuFont_headset.tres" type="DynamicFont" id=6]
+
 
 [node name="MenuHeadset" type="Spatial"]
 script = ExtResource( 1 )

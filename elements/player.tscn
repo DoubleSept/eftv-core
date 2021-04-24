@@ -1,7 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://eftv-core/scripts/player/playerScript.gd" type="Script" id=1]
-[ext_resource path="res://eftv-core/VR/VROrigin_Movement_V2.tscn" type="PackedScene" id=2]
+[ext_resource path="res://eftv-core/VR/VROrigin_Movement.tscn" type="PackedScene" id=2]
+
 
 [sub_resource type="BoxShape" id=2]
 
