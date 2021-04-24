@@ -7,6 +7,7 @@ func _ready():
 	var VR = ARVRServer.find_interface("OpenVR")
 	if VR and VR.initialize():
 		# VR MODE
+		print("ARVR Enabled")
 		get_viewport().arvr = true
 		get_viewport().hdr = false
 	else :

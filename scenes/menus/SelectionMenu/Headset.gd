@@ -3,7 +3,7 @@ extends "res://eftv-core/scripts/menus/ScriptMenu.gd"
 func _ready():
 	pass
 		
-func _on_run_changed(id, name, recordStr):
+func _on_run_changed(_id, name, recordStr):
 	$Spatial/Title.text = name
 	
 	if recordStr == null:

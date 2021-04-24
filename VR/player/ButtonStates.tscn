@@ -14,7 +14,7 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if controller:
 		$VBoxContainer/JoyX/Value.value = 100.0 * controller.get_joystick_axis(JOY_OPENVR_TOUCHPADX)
 		$VBoxContainer/JoyY/Value.value = 100.0 * controller.get_joystick_axis(JOY_OPENVR_TOUCHPADY)

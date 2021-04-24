@@ -25,7 +25,7 @@ func _input(event):
 		if player_node.is_on_floor():
 			 player_node.vel.y = player_node.JUMP_SPEED
 
-func _process(delta):
+func _process(_delta):
 	if currentCameraSpeed < -DEATH_STICK or currentCameraSpeed > DEATH_STICK:
 		rotation.x -= currentCameraSpeed*CAMERA_SPEED
 	if rotation.x > MAX_X:

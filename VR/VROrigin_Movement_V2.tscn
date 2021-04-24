@@ -37,7 +37,6 @@ far = 8192.0
 
 [node name="Left_Hand" parent="." instance=ExtResource( 13 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.25, 0 )
-show_controller_mesh = false
 
 [node name="Right_Hand" type="ARVRController" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.25, 0 )

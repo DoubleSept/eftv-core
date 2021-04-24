@@ -4,7 +4,7 @@ export (bool) var can_move = true
 var player_node
 var player_camera : Camera setget set_camera
 
-func _process(delta):
+func _process(_delta):
 	# Test for escape to close application, space to reset our reference frame
 	if (Input.is_key_pressed(KEY_ESCAPE)):
 		get_tree().quit()

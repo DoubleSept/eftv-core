@@ -2,7 +2,7 @@
 
 [ext_resource path="res://eftv-core/scenes/menus/SelectionMenu/Headset.gd" type="Script" id=1]
 [ext_resource path="res://eftv-core/elements/environments/environment-bluesky.tscn" type="PackedScene" id=2]
-[ext_resource path="res://eftv-core/addons/Label3D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/Label3D.tscn" type="PackedScene" id=3]
 [ext_resource path="res://eftv-core/VR/VROrigin_Movement_V2.tscn" type="PackedScene" id=4]
 [ext_resource path="res://eftv-core/elements/blocks/immobile.tscn" type="PackedScene" id=5]
 [ext_resource path="res://eftv-core/assets/fonts/menuFont_headset.tres" type="DynamicFont" id=6]
@@ -28,6 +28,8 @@ text = "TEXT_WAITING_OTHER"
 text_scale = 0.006
 font = ExtResource( 6 )
 color = Color( 0.4, 0.4, 0.4, 1 )
+max_steps = 256
+step_size = 1.0
 
 [node name="Time" parent="Spatial" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3.05194, 0 )
@@ -35,6 +37,8 @@ text = "00:00"
 text_scale = 0.012
 font = ExtResource( 6 )
 color = Color( 0.8, 0.8, 0.8, 1 )
+max_steps = 256
+step_size = 1.0
 
 [node name="Title" parent="Spatial" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 5.05194, 0 )
@@ -42,3 +46,5 @@ text = "The Beginning"
 text_scale = 0.012
 font = ExtResource( 6 )
 color = Color( 0.8, 0.8, 0.8, 1 )
+max_steps = 256
+step_size = 1.0

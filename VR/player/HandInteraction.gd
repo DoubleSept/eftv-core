@@ -23,7 +23,7 @@ func _ready():
 	set_haptic(haptic_action)
 	set_on_hand(on_hand)
 
-func _process(delta):
+func _process(_delta):
 	var parent = get_parent()
 	if parent:
 		if !is_active:

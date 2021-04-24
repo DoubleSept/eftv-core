@@ -73,7 +73,7 @@ func loadGameData():
 			add_child(requestNode)
 			requestNode.connect("request_completed", self, "_request_completed")
 		
-			var error = requestNode.request(
+			var _error = requestNode.request(
 				LevelsList.URL_TELEMETRY+ "launch/"+ gameData[KEY_UUID],
 				[], true, HTTPClient.METHOD_POST)
 	
@@ -92,11 +92,11 @@ func initGameData():
 	requestNode = HTTPRequest.new()
 	add_child(requestNode)
 	requestNode.connect("request_completed", self, "_uuid_request_completed")
-	var error = requestNode.request(LevelsList.URL_TELEMETRY+ "new", PoolStringArray(), true, HTTPClient.METHOD_POST)
+	var _error = requestNode.request(LevelsList.URL_TELEMETRY+ "new", PoolStringArray(), true, HTTPClient.METHOD_POST)
 		
 	loadedData = true
 	
-func _uuid_request_completed(result, response_code, headers, body):
+func _uuid_request_completed(_result, response_code, _headers, body):
 	var uuid = body.get_string_from_utf8()
 	if response_code == 200:
 		gameData[KEY_UUID] = uuid
@@ -130,14 +130,14 @@ func run_finished():
 		add_child(requestNode)
 		requestNode.connect("request_completed", self, "_request_completed")
 	
-		var error = requestNode.request(
+		var _error = requestNode.request(
 			LevelsList.URL_TELEMETRY+ "run/"+ gameData[KEY_UUID],
 			["Content-Type: application/json"], 
 			true, 
 			HTTPClient.METHOD_POST,
 			JSON.print({'levelName': runInfos.id, 'timeMs': runDurationMs}))
 
-func _request_completed(result, response_code, headers, body):
+func _request_completed(_result, _response_code, _headers, _body):
 	remove_child(requestNode)
 	requestNode = null
 	
