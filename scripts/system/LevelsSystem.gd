@@ -4,6 +4,9 @@ const LEVELS_ROOT = "res://levels/"
 
 # For debug purposes: you can specify a level that will by displayed at launch
 const TEST_LEVEL = null
+#const TEST_LEVEL = "00-demo"
+
+var IsDemoMode = false
 
 const LEVELS_LIST = LevelsList.LIST
 

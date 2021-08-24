@@ -224,4 +224,5 @@ anims/Neon = SubResource( 4 )
 
 [node name="Animation" type="AnimationPlayer" parent="."]
 anims/Neon = SubResource( 5 )
+
 [connection signal="animation_finished" from="Animation" to="." method="_on_Animation_animation_finished"]

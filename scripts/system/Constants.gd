@@ -1,6 +1,6 @@
 extends Node
 
-const useVR = true
+const useVR = false
 
 const pathPart = "VR" if useVR else "NoVR"
 

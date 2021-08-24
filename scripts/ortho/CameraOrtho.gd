@@ -29,7 +29,7 @@ func checkHover(event):
 			return
 			
 		var colpos = col["position"]/2
-		var blockpos = Vector3(ceil(colpos[0]), ceil(colpos[1]), 0)
+		var _blockpos = Vector3(ceil(colpos[0]), ceil(colpos[1]), 0)
 		
 		if obj != currentSelected:
 			obj._hovered()
@@ -99,7 +99,7 @@ func _input(event):
 	# Keyboard
 	if(event.is_action_pressed("ui_cancel")):
 		get_tree().set_input_as_handled()
-		get_tree().change_scene(Constants.SCENE_MENU_MAIN)
+		var _changed = get_tree().change_scene(Constants.SCENE_MENU_MAIN)
 
 func hide_selecteur():
 	selecteur.visible = false

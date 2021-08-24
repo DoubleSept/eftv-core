@@ -17,12 +17,6 @@ func _ready():
 	# Check if it is first launch
 	SaveSystem = get_node("/root/SaveSystem")
 	
-	# Disable options in first game
-	#if SaveSystem.isFirstGame:
-	#	$sections/menus/bt_PressToPlay.visible = true
-	#else:
-	#	$sections/menus/options.visible = true
-	
 	# Enable input
 	set_process_input(true)
 		
@@ -48,7 +42,7 @@ func _on_exit_button_pressed():
 
 func _on_start():
 	_on_switchMenu(LOADING_MENU)
-	get_tree().change_scene(Constants.SCENE_MAIN)
+	var _changed = get_tree().change_scene(Constants.SCENE_MAIN)
 
 # LOGO ANIMATION
 func _process(delta):
