@@ -2,6 +2,12 @@ extends MarginContainer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	
+	# Check if demo
+	if LevelSystem.IsDemoMode:
+		$footer/footerSplitter/nextRun.text = tr("TEXT_RETRY")
+	
+	# Infos box
 	$recordBox/recordInside/Vbox/Title.text = SaveSystem.runInfos.name
 	var durationMs = SaveSystem.runDurationMs
 	var minutes = durationMs / 60000

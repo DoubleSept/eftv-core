@@ -11,6 +11,8 @@ onready var VR_camera : Camera = viewPlayer.find_node("Player_Camera", true, fal
 onready var orthoCam: Node
 onready var selecteur: Node
 
+onready var onScreenHolder= $vc/GameMapContainer/OptionalOnScreenHolder
+
 var current_level_resource : Resource
 
 func _ready():
@@ -26,48 +28,68 @@ func _ready():
 	OS.vsync_enabled = false
 	Engine.target_fps = 90
 	
+	if(level==null):
+		print_debug("Null level at start")
+	
 	current_level_resource = SaveSystem.start_run()
-	load_level()
+	load_level(current_level_resource)
 
 func _on_sceneNode_level_finished():
-	print_debug("ENDING LEVEL")
-	current_level_resource = SaveSystem.level_finished()
-	if current_level_resource == null:
+	print_debug("\n\nENDING LEVEL %s" % [current_level_resource.resource_path])
+	var next_level_resource = SaveSystem.level_finished()
+	if next_level_resource == null:
 		print_debug("End Run")
-		get_tree().change_scene(Constants.SCENE_MENU_END_RUN)
+		var _changed = get_tree().change_scene(Constants.SCENE_MENU_END_RUN)
 		return
-	print_debug("Next scene: "+current_level_resource.resource_path)
-	load_level()
+	else:
+		print_debug("Loading next scene: %s" % [next_level_resource.resource_path])
+	
+	call_deferred("load_level", next_level_resource)
 
-func load_level():
-	print("Level loading")
-	viewPlayer.remove_child(level)
-	viewOrtho.remove_child(orthoCam)
+func load_level(level_resource):
+	print_debug("Level loading (%s): Remove old" % [current_level_resource.resource_path])
 	
-	print_debug("Level loading 2/4")
+	if(level != null):
+		viewPlayer.remove_child(level)
+	else:
+		print_debug("WARN: No level node (%s)" % [current_level_resource.resource_path])
 	
+	if(orthoCam != null):
+		viewOrtho.remove_child(orthoCam)
+	else:
+		print_debug("WARN: No OrthoCam node (%s)" % [current_level_resource.resource_path])
+	
+	print_debug("Level loading 2/4 (%s): Load new" % [current_level_resource.resource_path])
+	current_level_resource = level_resource
 	level = current_level_resource.instance()
 	level.set_name("sceneNode")
 	level.connect("player_fall", self, "_on_sceneNode_player_fall")
-	level.connect("level_finished", self, "_on_sceneNode_level_finished")
 	viewPlayer.add_child(level)
 	
-	print_debug("Level loading 3/4")
+	for obj in onScreenHolder.get_children():
+		onScreenHolder.remove_child(obj)
+	
+	if level.has_node("OnScreenContainer"):
+		var onScreenContainer = level.get_node("OnScreenContainer")
+		level.remove_child(onScreenContainer)
+		onScreenHolder.add_child(onScreenContainer)
+	
+	print_debug("Level loading 3/4 (%s): Player and Camera" % [current_level_resource.resource_path])
 
 	var player = viewPlayer.find_node("player", true, false)
-	player.setUsingVR(use_vr)
+	player.set_using_vr(use_vr)
 	
 	moveOrthogonalCameraToViewport()
-	print("Level loading 4/4 : LOADED")
+	print_debug("Level loading 4/4 (%s): LOADED" % [current_level_resource.resource_path])
 
 func moveOrthogonalCameraToViewport():
 	orthoCam = viewPlayer.find_node("orthogonalCamera", true, false)
 	selecteur = orthoCam.find_node("selecteur", true, false)
 	
 	if orthoCam == null:
-		print("\tOthogonalCamera node not found")
+		print_debug("\tOrthogonalCamera node not found")
 	else:
-		print("\tOthogonalCamera node found")
+		print_debug("\tOrthogonalCamera node found")
 	
 	orthoCam.get_parent().remove_child(orthoCam)
 	viewOrtho.add_child(orthoCam)
@@ -86,7 +108,7 @@ func moveOrthogonalCameraToViewport():
 
 func _on_sceneNode_player_fall():
 	print_debug("Scene restart")
-	load_level()
+	load_level(current_level_resource)
 	if not use_vr:
 		noVR_camera.current = true
 	else:

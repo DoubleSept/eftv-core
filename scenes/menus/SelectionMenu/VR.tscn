@@ -4,13 +4,10 @@
 [ext_resource path="res://eftv-core/scenes/menus/SelectionMenu/Headset.tscn" type="PackedScene" id=2]
 [ext_resource path="res://eftv-core/scenes/menus/SelectionMenu/NoVR.tscn" type="PackedScene" id=3]
 
-
-
-
 [node name="MenuMain" type="Spatial"]
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.819152, -0.573577, 0, 0.573577, 0.819152, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 0.927184, -0.374607, 0, 0.374607, 0.927184, 0, 0, 0 )
 cull_mask = 1048574
 current = true
 script = ExtResource( 1 )
@@ -23,4 +20,5 @@ size = Vector2( 100, 100 )
 render_target_update_mode = 3
 
 [node name="MenuHeadset" parent="viewportPlayer" instance=ExtResource( 2 )]
+
 [connection signal="runChanged" from="MenuText" to="viewportPlayer/MenuHeadset" method="_on_run_changed"]

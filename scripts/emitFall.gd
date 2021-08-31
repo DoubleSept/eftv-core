@@ -1,6 +1,5 @@
 extends Node
 
-signal level_finished
 signal player_fall
 
 # Called when the node enters the scene tree for the first time.

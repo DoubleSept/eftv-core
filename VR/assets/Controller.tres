@@ -1,7 +1,0 @@
-[gd_resource type="SpatialMaterial" format=2]
-
-[resource]
-ao_enabled = true
-ao_light_affect = 0.1
-ao_on_uv2 = false
-ao_texture_channel = 0

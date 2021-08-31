@@ -14,20 +14,34 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/separation = 5
 alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="vcOrthogonal" type="ViewportContainer" parent="vc"]
+[node name="GameMapContainer" type="MarginContainer" parent="vc"]
+margin_right = 1920.0
+margin_bottom = 1080.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="vcOrthogonal" type="ViewportContainer" parent="vc/GameMapContainer"]
 margin_right = 1920.0
 margin_bottom = 1080.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 stretch = true
 
-[node name="viewportOrthogonal" type="Viewport" parent="vc/vcOrthogonal"]
+[node name="viewportOrthogonal" type="Viewport" parent="vc/GameMapContainer/vcOrthogonal"]
 size = Vector2( 1920, 1080 )
 handle_input_locally = false
 render_target_update_mode = 3
 
-[node name="BackArrow" parent="vc/vcOrthogonal" instance=ExtResource( 2 )]
+[node name="BackArrow" parent="vc/GameMapContainer/vcOrthogonal" instance=ExtResource( 2 )]
+
+[node name="OptionalOnScreenHolder" type="MarginContainer" parent="vc/GameMapContainer"]
+margin_right = 1920.0
+margin_bottom = 1080.0
+mouse_filter = 2
 
 [node name="viewportPlayer" type="Viewport" parent="."]
 arvr = true

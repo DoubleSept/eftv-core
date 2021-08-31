@@ -5,7 +5,7 @@ func _ready():
 	$Parts/Buttons/Accept.grab_focus()
 
 func start_game():
-	get_tree().change_scene(Constants.SCENE_MENU_MAIN)
+	var _scene_changed = get_tree().change_scene(Constants.SCENE_MENU_MAIN)
 
 func _on_Exit_pressed():
 	get_tree().quit()
