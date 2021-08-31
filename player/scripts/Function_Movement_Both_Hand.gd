@@ -91,11 +91,12 @@ func _physics_process(delta):
 	collision_shape.transform.origin.y = (player_height / 2.0)
 	
 	# We should be the child or the controller on which the function is implemented
-	for controller in [controllers_nodes[0]]:#controllers_nodes:
+	for controller in controllers_nodes:
 		if controller.get_is_active():
 			var left_right = controller.get_joystick_axis(0)
 			var forwards_backwards = controller.get_joystick_axis(1)
-			#print("Value LR: %f | Value FB: %f" % [left_right, forwards_backwards])
+			if(left_right > 0 && forwards_backwards > 0):
+				print("Value LR: %f | Value FB: %f" % [left_right, forwards_backwards])
 			
 			# if jump_button_id is pressed and we can jump and we are on floor
 			if controller.is_button_pressed(jump_button_id) && canJump && tail.is_colliding():
@@ -103,9 +104,8 @@ func _physics_process(delta):
 			
 			################################################################
 			# first process turning, no problems there :)
-			# move_type == MOVEMENT_TYPE.move_and_strafe
 			else:
-				if true:
+				if move_type == MOVEMENT_TYPE.MOVE_AND_STRAFE:
 					pass
 				elif(move_type == MOVEMENT_TYPE.MOVE_AND_ROTATE && abs(left_right) > 0.35):
 					if smooth_rotation:
@@ -167,16 +167,9 @@ func _physics_process(delta):
 				#curr_transform.origin = camera_transform.origin
 				#curr_transform.origin.y = origin_node.global_transform.origin.y
 				
-				# now we move it slightly back
-				#var forward_dir = -camera_transform.basis.z
-				#forward_dir.y = 0.0
-				#if forward_dir.length() > 0.01:
-				#	curr_transform.origin += forward_dir.normalized() * -0.75 * player_radius
-				
 				player_node.global_transform = curr_transform
 				
 				# we'll handle gravity separately
-#				var gravity_velocity = Vector3(0.0, velocity.y, 0.0)
 				velocity.y = 0.0
 				
 				# Apply our drag
@@ -189,12 +182,12 @@ func _physics_process(delta):
 						or
 						(move_when == MOVEMENT_WHEN.ON_AIR && !tail.is_colliding())
 					)
-				if can_move and false:
+				if can_move:
 					if move_type == MOVEMENT_TYPE.MOVE_AND_ROTATE:
 						if abs(forwards_backwards) > 0.1 && not abs(left_right) > 0.35:
 							var dir = camera_transform.basis.z
 							dir.y = 0.0					
-							velocity = dir.normalized() * -forwards_backwards * delta * player_node.max_speed * ARVRServer.world_scale
+							velocity = dir.normalized() * -forwards_backwards * delta * player_node.movement_speed * ARVRServer.world_scale
 					elif move_type == MOVEMENT_TYPE.MOVE_AND_STRAFE:
 						if abs(forwards_backwards) > 0.1 ||  abs(left_right) > 0.1:
 							var dir_forward = camera_transform.basis.z
@@ -202,21 +195,8 @@ func _physics_process(delta):
 							# VR Capsule will strafe left and right
 							var dir_right = camera_transform.basis.x;
 							dir_right.y = 0.0				
-							velocity = (dir_forward * -forwards_backwards + dir_right * left_right).normalized() * delta * player_node.max_speed * ARVRServer.world_scale
+							velocity = (dir_forward * -forwards_backwards + dir_right * left_right).normalized() * delta * player_node.movement_speed * ARVRServer.world_scale
 							
 				# apply move and slide to our kinematic body
-				velocity = player_node.move_and_slide(
-					velocity, 
-					Vector3(0.0, 1.0, 0.0), 
-					false,
-					1)
-				
-				# apply our gravity
-#				gravity_velocity.y += gravity * delta
-#				gravity_velocity = player_node.move_and_slide(
-#					gravity_velocity, 
-#					Vector3(0.0, 1.0, 0.0),
-#					false,
-#					1)
-#				velocity.y = gravity_velocity.y
-
+				print("Value Velocity: %s" % [velocity])
+				player_node.translate(velocity)

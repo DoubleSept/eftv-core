@@ -1,9 +1,12 @@
 extends PanelContainer
 
 signal start
+signal settings
 
 func _ready():
 	$MarginContainer/VBoxContainer/Continue.grab_focus()
+	if LevelsList.DEMO_RUN == null:
+		$MarginContainer/VBoxContainer/Demo.visible = false
 	
 func _on_Continue_pressed():
 	LevelSystem.IsDemoMode = false
@@ -19,3 +22,6 @@ func _on_Exit_pressed():
 func _on_Demo_pressed():
 	LevelSystem.IsDemoMode = true
 	emit_signal("start")
+
+func _on_Options_pressed():
+	emit_signal("settings")

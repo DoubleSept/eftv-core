@@ -1,0 +1,102 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://eftv-core/scenes/menus/_components/Button.tscn" type="PackedScene" id=1]
+[ext_resource path="res://eftv-core/scenes/menus/_components/settingsMenu.gd" type="Script" id=2]
+[ext_resource path="res://eftv-core/assets/fonts/menuFont_small.tres" type="DynamicFont" id=3]
+[ext_resource path="res://eftv-core/scripts/menus/versionLabel.gd" type="Script" id=4]
+[ext_resource path="res://eftv-core/assets/fonts/Heebo-Light.otf" type="DynamicFontData" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.15, 0.15, 0.15, 0.823529 )
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="DynamicFont" id=2]
+size = 40
+use_mipmaps = true
+use_filter = true
+extra_spacing_top = 60
+font_data = ExtResource( 5 )
+
+[node name="SettingsMenu" type="PanelContainer"]
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_styles/panel = SubResource( 1 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 971.0
+margin_bottom = 386.0
+rect_min_size = Vector2( 700, 0 )
+custom_constants/margin_right = 25
+custom_constants/margin_top = 10
+custom_constants/margin_left = 25
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 25.0
+margin_top = 10.0
+margin_right = 941.0
+margin_bottom = 381.0
+
+[node name="Language" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_right = 916.0
+margin_bottom = 122.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LabelLang" type="Label" parent="MarginContainer/VBoxContainer/Language"]
+margin_right = 379.0
+margin_bottom = 122.0
+custom_fonts/font = ExtResource( 3 )
+text = "TEXT_LANGUAGE"
+
+[node name="OptionsLang" parent="MarginContainer/VBoxContainer/Language" instance=ExtResource( 1 )]
+margin_left = 383.0
+margin_right = 916.0
+margin_bottom = 122.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 3 )
+text = "TEXT_LANGUAGE_NAME"
+align = 2
+
+[node name="VersionLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+margin_top = 126.0
+margin_right = 916.0
+margin_bottom = 245.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.701961, 0.701961, 0.701961, 1 )
+text = "Version 3.0.0"
+script = ExtResource( 4 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 249.0
+margin_right = 916.0
+margin_bottom = 371.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Settings" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 1 )]
+margin_right = 916.0
+margin_bottom = 122.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 3 )
+text = "TEXT_BACK"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Language/OptionsLang" to="." method="_on_lang_switch"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Settings" to="." method="_on_back"]

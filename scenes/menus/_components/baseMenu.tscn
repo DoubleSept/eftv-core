@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://eftv-core/scenes/menus/_components/Button.tscn" type="PackedScene" id=1]
-[ext_resource path="res://eftv-core/scripts/menus/menuOptions.gd" type="Script" id=2]
+[ext_resource path="res://eftv-core/scripts/menus/menuBaseMenu.gd" type="Script" id=2]
+[ext_resource path="res://eftv-core/assets/fonts/menuFont_small.tres" type="DynamicFont" id=3]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.15, 0.15, 0.15, 0.823529 )
@@ -14,7 +15,7 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[node name="options" type="PanelContainer"]
+[node name="BaseMenu" type="PanelContainer"]
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_styles/panel = SubResource( 1 )
@@ -27,7 +28,7 @@ __meta__ = {
 margin_left = 5.0
 margin_top = 5.0
 margin_right = 728.0
-margin_bottom = 499.0
+margin_bottom = 503.0
 custom_constants/margin_right = 25
 custom_constants/margin_top = 10
 custom_constants/margin_left = 25
@@ -39,7 +40,7 @@ __meta__ = {
 margin_left = 25.0
 margin_top = 10.0
 margin_right = 698.0
-margin_bottom = 494.0
+margin_bottom = 498.0
 
 [node name="Continue" parent="MarginContainer/VBoxContainer" instance=ExtResource( 1 )]
 margin_left = 12.0
@@ -59,13 +60,33 @@ margin_right = 577.0
 margin_bottom = 362.0
 text = "MENU_DEMO"
 
-[node name="Exit" parent="MarginContainer/VBoxContainer" instance=ExtResource( 1 )]
-margin_left = 124.0
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 margin_top = 366.0
-margin_right = 548.0
-margin_bottom = 484.0
+margin_right = 673.0
+margin_bottom = 488.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Settings" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 1 )]
+margin_right = 356.0
+margin_bottom = 122.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 3 )
+text = "MENU_OPTIONS"
+align = 0
+
+[node name="Exit" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource( 1 )]
+margin_left = 360.0
+margin_right = 673.0
+margin_bottom = 122.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 3 )
 text = "MENU_EXIT"
+align = 2
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Continue" to="." method="_on_Continue_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Selection" to="." method="_on_Selection_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Demo" to="." method="_on_Demo_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Exit" to="." method="_on_Exit_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Settings" to="." method="_on_Options_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Exit" to="." method="_on_Exit_pressed"]

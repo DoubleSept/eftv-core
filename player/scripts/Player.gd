@@ -84,7 +84,13 @@ func set_using_vr(value: bool):
 	using_vr = value
 	cameraNOVR.current = not using_vr
 	cameraVR.current = using_vr
-	$Function_Movement_NoVR.set_camera(cameraNOVR)
+	
+	if(value == false):
+		$Function_Movement_NoVR.set_camera(cameraNOVR)
+		
+	# Update move function
+	set_can_move(can_move)
+		
 	current_camera = cameraVR if using_vr else cameraNOVR
 	
 func collides_with(object: Node) -> bool:

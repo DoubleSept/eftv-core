@@ -20,3 +20,5 @@ size = Vector2( 100, 100 )
 render_target_update_mode = 3
 
 [node name="MenuHeadset" parent="viewportPlayer" instance=ExtResource( 2 )]
+
+[connection signal="noHeadset" from="viewportPlayer/MenuHeadset" to="MenuText" method="_on_noHeadset"]
