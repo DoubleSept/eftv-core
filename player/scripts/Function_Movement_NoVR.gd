@@ -8,6 +8,7 @@ var player_camera : Camera setget set_camera
 
 const CONTROLLER_DEADZONE = 0.25
 
+export var canJump = true
 
 func _ready():
 	pass
@@ -40,7 +41,7 @@ func _physics_process(delta):
 	
 func _input(event):
 	if event.is_action_pressed("jump_novr"):
-		if player_node.is_on_floor():
+		if player_node.is_on_floor() && canJump:
 			player_node.jump()
 	
 func get_joystick_movement(delta: float) -> Vector3:

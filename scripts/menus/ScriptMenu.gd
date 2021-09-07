@@ -14,3 +14,9 @@ func _ready():
 		emit_signal("noHeadset")
 	OS.vsync_enabled = false
 	Engine.target_fps = 90
+
+
+func _on_newTranslation():
+	$Label3D.set_text(tr("TEXT_OTHER_MENU"))
+	var choosePanel = get_tree().get_root().find_node("ChooseMovement", true, false)
+	choosePanel.updateWindow()

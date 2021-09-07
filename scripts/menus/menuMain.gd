@@ -1,5 +1,7 @@
 extends MarginContainer
 
+signal newTranslation
+
 var logoGrowthDirection = 1.0
 var SaveSystem
 var isFirstGame = false
@@ -25,6 +27,12 @@ func _ready():
 		_on_switchMenu(FIRST_GAME)
 	else:
 		_on_switchMenu(BASE_MENU)
+		
+	if LevelsList.TAGLINE != null:
+		$sections/TagLine.visible = true
+		$sections/TagLine.text = LevelsList.TAGLINE
+	else:
+		$sections/TagLine.visible = false
 		
 func _input(event):
 	if(event.is_action_pressed("ui_cancel")):
@@ -71,3 +79,7 @@ func _on_baseMenu():
 
 func _on_exit():
 	get_tree().quit()
+
+
+func _on_newTranslation():
+	emit_signal("newTranslation")

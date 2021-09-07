@@ -20,10 +20,15 @@ const DEACCEL= 4
 export var jump_speed = 19.0
 export var max_speed = 350.0
 export var movement_speed = 8.5
+export var can_jump = true setget set_can_jump
 
 func _ready():
 	set_physics_process(can_move)
 	set_using_vr(using_vr)
+	updateMovementType()
+	
+func updateMovementType():
+	$Function_Movement_Both_Hand.move_type = SaveSystem.gameData[SaveSystem.KEY_MOVEMENT_TYPE]
 
 func _physics_process(delta):
 	# Reset when falling
@@ -65,6 +70,11 @@ func do_gravity(delta):
 	
 func jump():
 	vel.y = jump_speed
+	
+func set_can_jump(new_can_jump: bool):
+	can_jump = new_can_jump
+	$Function_Movement_Both_Hand.canJump = new_can_jump
+	$Function_Movement_NoVR.canJump = new_can_jump
 		
 func set_can_move(new_move: bool):
 	can_move = new_move
