@@ -47,19 +47,19 @@ func _on_sceneNode_level_finished():
 	call_deferred("load_level", next_level_resource)
 
 func load_level(level_resource):
-	print_debug("Level loading (%s): Remove old" % [current_level_resource.resource_path])
+	var old_path = current_level_resource.resource_path  if (current_level_resource != null) else "No previous path"
 	
 	if(level != null):
 		viewPlayer.remove_child(level)
 	else:
-		print_debug("WARN: No level node (%s)" % [current_level_resource.resource_path])
+		print_debug("WARN: No level node (%s)" % [old_path])
 	
 	if(orthoCam != null):
 		viewOrtho.remove_child(orthoCam)
 	else:
-		print_debug("WARN: No OrthoCam node (%s)" % [current_level_resource.resource_path])
+		print_debug("WARN: No OrthoCam node (%s)" % [old_path])
 	
-	print_debug("Level loading 2/4 (%s): Load new" % [current_level_resource.resource_path])
+	print_debug("Level loading 2/4 (%s): Load new" % [old_path])
 	current_level_resource = level_resource
 	level = current_level_resource.instance()
 	level.set_name("sceneNode")

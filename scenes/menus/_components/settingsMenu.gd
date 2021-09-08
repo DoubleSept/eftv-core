@@ -1,5 +1,6 @@
 extends PanelContainer
 
+signal newTranslation
 signal basemenu
 
 onready var locales = TranslationServer.get_loaded_locales()
@@ -18,6 +19,7 @@ func _on_lang_switch():
 			
 	currentIdx = (currentIdx+1) % len(locales)
 	TranslationServer.set_locale(locales[currentIdx])
+	emit_signal("newTranslation")
 
 
 func _on_back():

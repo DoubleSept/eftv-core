@@ -1,5 +1,7 @@
 extends Node
 
+enum MovementTypeEnum { MOVE_AND_ROTATE = 10, MOVE_AND_HYBRID = 15, MOVE_AND_STRAFE = 20 }
+
 const SAVE_DIR = "user://saves/"
 const SAVE_PATH = SAVE_DIR+"save.json"
 
@@ -8,6 +10,7 @@ const KEY_UUID = "uuid"
 const KEY_CURRENT_LEVEL = "currentLevel"
 const KEY_MAX_LEVEL_FINISHED = "maxLevel"
 const KEY_LEVELS_INFOS_MS = "levelsInfos"
+const KEY_MOVEMENT_TYPE = "movementType"
 
 const SAVE_VERSION = 2
 
@@ -61,6 +64,9 @@ func loadGameData():
 		if not KEY_MAX_LEVEL_FINISHED in gameData:
 			gameData[KEY_MAX_LEVEL_FINISHED] = ""
 			
+		if not KEY_MOVEMENT_TYPE in gameData:
+			gameData[KEY_MOVEMENT_TYPE] = MovementTypeEnum.MOVE_AND_HYBRID
+			
 		if not KEY_UUID in gameData:
 			_uuid_request_start()
 		
@@ -75,7 +81,7 @@ func loadGameData():
 		if gameData[KEY_ALLOW_TELEMETRY]:
 			_launch_request_start()
 	
-func initGameData():
+func initGameData(new_uuid = true):
 	if LevelSystem.TEST_LEVEL != null:
 		print("Test level found")
 		gameData[KEY_CURRENT_LEVEL] = LevelSystem.TEST_LEVEL
@@ -84,11 +90,13 @@ func initGameData():
 	gameData[KEY_LEVELS_INFOS_MS] = {}
 	gameData[KEY_MAX_LEVEL_FINISHED] = LevelsList.LIST[0]
 	gameData[KEY_ALLOW_TELEMETRY] = true
+	gameData[KEY_MOVEMENT_TYPE] = MovementTypeEnum.MOVE_AND_HYBRID
 	gameData["version"] = SAVE_VERSION
 	
 	# Get an UUID
-	print_debug("Starting id request")
-	_uuid_request_start()
+	if new_uuid:
+		print_debug("Starting id request")
+		_uuid_request_start()
 	
 	loadedData = true
 	
@@ -117,7 +125,7 @@ func _launch_request_start():
 	
 	var data = {
 		"user": gameData[KEY_UUID],
-		"version": LevelsList.CURRENT_VERSION
+		"version": SAVE_VERSION
 	}
 	
 	var _error = requestNode.request(
@@ -144,7 +152,7 @@ func _run_request_start():
 	var data = {
 		"user": gameData[KEY_UUID],
 		"launch": currentLaunchUuid,
-		"version": LevelsList.CURRENT_VERSION,
+		"version": SAVE_VERSION,
 		"levelName": runInfos.id,
 		"timeMs": runDurationMs
 	}
