@@ -3,7 +3,6 @@
 [ext_resource path="res://eftv-core/assets/skydome/kloofendal_48d_partly_cloudy_8k.hdr" type="Texture" id=1]
 [ext_resource path="res://eftv-core/elements/environments/environment-rotate.gd" type="Script" id=2]
 
-
 [sub_resource type="PanoramaSky" id=1]
 radiance_size = 0
 panorama = ExtResource( 1 )
@@ -11,13 +10,14 @@ panorama = ExtResource( 1 )
 [sub_resource type="Environment" id=2]
 background_mode = 2
 background_sky = SubResource( 1 )
-background_sky_orientation = Basis( 0.186595, 0, 0.982437, 0, 1, 0, -0.982437, 0, 0.186595 )
+background_sky_orientation = Basis( -0.637943, 0, 0.770084, 0, 1, 0, -0.770084, 0, -0.637943 )
 ambient_light_color = Color( 1, 0.996078, 0.929412, 1 )
 ambient_light_energy = 0.75
 ambient_light_sky_contribution = 0.75
 fog_enabled = true
 fog_depth_enabled = false
 fog_depth_begin = 50.0
+tonemap_exposure = 1.2
 glow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment"]

@@ -1,4 +1,4 @@
-extends "res://eftv-core/scripts/menus/ScriptMenu.gd"
+xtends "res://eftv-core/scripts/menus/ScriptMenu.gd"
 
 var SaveSystem
 

@@ -32,4 +32,4 @@ MENU_MOVEMENT_ROTATION_DESCR,"Putting a joystick on the side will make you turn 
 MENU_MOVEMENT_STRAFE,"Free","Libre","Libre"
 MENU_MOVEMENT_STRAFE_DESCR,"Use your head to look around and joystick to slide. You need 360°VR for this mode.","Utilise ta tête pour t'orienter et le joystick pour glisser. Ce mode nécessite un VR à 360°","Usa la cabeza para mirar a tu alrededor y el joystick para mover. Necesita 360° VR para este modo."
 MENU_MOVEMENT_HYBRID,"Hybrid","Hybride","Híbrido"
-MENU_MOVEMENT_HYBRID_DESCR,"You move freely but putting both joystick on the side will make you turn step by step.","Vous bouger librement mais orienter les deux joysticks sur le côté vous permet de tourner par pas.","Te mueves libremente pero poner ambos joysticks a un lado te hará girar paso a paso."
+MENU_MOVEMENT_HYBRID_DESCR,"You move freely but putting both joystick on the side will make you turn step by step. Recommended Mode.","Vous bouger librement mais orienter les deux joysticks sur le côté vous permet de tourner par pas. Ceci est le mode conseillé.","Te mueves libremente pero poner ambos joysticks a un lado te hará girar paso a paso. Modo recomendado."
