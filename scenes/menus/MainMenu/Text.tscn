@@ -1,6 +1,7 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://eftv-core/scripts/menus/menuMain.gd" type="Script" id=1]
+[ext_resource path="res://eftv-core/assets/fonts/Heebo-Regular.otf" type="DynamicFontData" id=2]
 [ext_resource path="res://eftv-core/assets/fonts/Heebo-Thin.otf" type="DynamicFontData" id=3]
 [ext_resource path="res://eftv-core/assets/logo/png/logoText.png" type="Texture" id=4]
 [ext_resource path="res://eftv-core/assets/logo/png/centralWhite.png" type="Texture" id=5]
@@ -19,6 +20,14 @@ colors = PoolColorArray( 1, 1, 1, 0, 0.77, 0.77, 0.77, 0.745098, 1, 1, 1, 0 )
 
 [sub_resource type="GradientTexture" id=2]
 gradient = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=11]
+size = 80
+outline_size = 4
+outline_color = Color( 0.266667, 0.266667, 0.266667, 0.498039 )
+use_mipmaps = true
+use_filter = true
+font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 48
@@ -62,19 +71,19 @@ __meta__ = {
 [node name="ColorRect" type="ColorRect" parent="."]
 visible = false
 margin_right = 1920.0
-margin_bottom = 980.0
+margin_bottom = 1034.0
 color = Color( 0.588235, 1, 0.992157, 1 )
 
 [node name="margin" type="MarginContainer" parent="."]
 margin_right = 1920.0
-margin_bottom = 980.0
+margin_bottom = 1034.0
 custom_constants/margin_right = 25
 custom_constants/margin_top = 875
 custom_constants/margin_bottom = 25
 
 [node name="sections" type="VBoxContainer" parent="."]
 margin_right = 1920.0
-margin_bottom = 980.0
+margin_bottom = 1034.0
 
 [node name="logoContainer" type="MarginContainer" parent="sections"]
 margin_right = 1920.0
@@ -118,25 +127,33 @@ position = Vector2( 1083, 194 )
 scale = Vector2( 0.8, 0.8 )
 texture = ExtResource( 6 )
 
-[node name="menus" type="CenterContainer" parent="sections"]
+[node name="TagLine" type="Label" parent="sections"]
 margin_top = 404.0
 margin_right = 1920.0
-margin_bottom = 980.0
+margin_bottom = 522.0
+custom_fonts/font = SubResource( 11 )
+text = "Tagline"
+align = 1
+valign = 1
+
+[node name="menus" type="CenterContainer" parent="sections"]
+margin_top = 526.0
+margin_right = 1920.0
+margin_bottom = 1034.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="baseMenu" parent="sections/menus" instance=ExtResource( 7 )]
-visible = false
-margin_left = 955.0
-margin_top = 283.0
-margin_right = 965.0
-margin_bottom = 293.0
+margin_left = 593.0
+margin_right = 1326.0
+margin_bottom = 508.0
 
 [node name="firstGame" type="VBoxContainer" parent="sections/menus"]
+visible = false
 margin_left = 601.0
-margin_top = 107.0
+margin_top = 73.0
 margin_right = 1318.0
-margin_bottom = 469.0
+margin_bottom = 435.0
 custom_constants/separation = 50
 
 [node name="PressToPlay" parent="sections/menus/firstGame" instance=ExtResource( 8 )]
@@ -173,9 +190,9 @@ text = "MENU_EXIT"
 [node name="noHeadset" type="VBoxContainer" parent="sections/menus"]
 visible = false
 margin_left = 601.0
-margin_top = 157.0
+margin_top = 123.0
 margin_right = 1319.0
-margin_bottom = 419.0
+margin_bottom = 385.0
 
 [node name="text" type="Label" parent="sections/menus/noHeadset"]
 margin_right = 718.0
@@ -210,24 +227,24 @@ text = "MENU_EXIT"
 
 [node name="loadingScreen" type="MarginContainer" parent="sections/menus"]
 visible = false
-margin_left = 662.0
-margin_top = 229.0
-margin_right = 1257.0
-margin_bottom = 347.0
+margin_left = 672.0
+margin_top = 195.0
+margin_right = 1248.0
+margin_bottom = 313.0
 
 [node name="text" type="Label" parent="sections/menus/loadingScreen"]
-margin_right = 595.0
+margin_right = 576.0
 margin_bottom = 118.0
 custom_fonts/font = ExtResource( 10 )
-text = "TEXT_LOADING.."
+text = "TEXT_LOADING."
 script = ExtResource( 11 )
 
 [node name="SettingsMenu" parent="sections/menus" instance=ExtResource( 14 )]
 visible = false
 margin_left = 955.0
-margin_top = 283.0
+margin_top = 249.0
 margin_right = 965.0
-margin_bottom = 293.0
+margin_bottom = 259.0
 
 [connection signal="settings" from="sections/menus/baseMenu" to="." method="_on_settings"]
 [connection signal="start" from="sections/menus/baseMenu" to="." method="_on_start"]
@@ -236,3 +253,4 @@ margin_bottom = 293.0
 [connection signal="pressed" from="sections/menus/firstGame/Exit" to="." method="_on_exit"]
 [connection signal="pressed" from="sections/menus/noHeadset/Exit" to="." method="_on_exit"]
 [connection signal="basemenu" from="sections/menus/SettingsMenu" to="." method="_on_baseMenu"]
+[connection signal="newTranslation" from="sections/menus/SettingsMenu" to="." method="_on_newTranslation"]

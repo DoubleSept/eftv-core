@@ -178,10 +178,10 @@ __meta__ = {
 }
 
 [node name="77" type="TextureRect" parent="DoubleSept/Logos"]
-margin_left = 560.0
-margin_top = 140.0
-margin_right = 1360.0
-margin_bottom = 940.0
+margin_left = 760.0
+margin_top = 340.0
+margin_right = 1160.0
+margin_bottom = 740.0
 texture = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false

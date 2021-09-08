@@ -1,0 +1,122 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://eftv-core/scripts/menus/ChooseMovement.gd" type="Script" id=1]
+[ext_resource path="res://eftv-core/assets/fonts/textFont_big.tres" type="DynamicFont" id=2]
+[ext_resource path="res://eftv-core/assets/fonts/textFont_medium.tres" type="DynamicFont" id=3]
+[ext_resource path="res://eftv-core/assets/fonts/textFont_small.tres" type="DynamicFont" id=4]
+
+[node name="ChooseMovement" type="Control"]
+margin_left = 0.749161
+margin_right = 378.749
+margin_bottom = 272.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Margin1" type="MarginContainer" parent="."]
+margin_left = 51.0
+margin_bottom = 394.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.75
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Border" type="ReferenceRect" parent="Margin1"]
+margin_right = 682.0
+margin_bottom = 394.0
+border_color = Color( 0.199219, 0.199219, 0.199219, 0.870588 )
+border_width = 10.0
+editor_only = false
+
+[node name="Margin2" type="MarginContainer" parent="Margin1"]
+margin_right = 682.0
+margin_bottom = 394.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 3
+custom_constants/margin_top = 3
+custom_constants/margin_left = 3
+custom_constants/margin_bottom = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="Margin1/Margin2"]
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 679.0
+margin_bottom = 391.0
+
+[node name="Background" type="ColorRect" parent="Margin1/Margin2"]
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 679.0
+margin_bottom = 391.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color( 0.195313, 0.195313, 0.195313, 0.498039 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Margin3" type="MarginContainer" parent="Margin1/Margin2"]
+margin_left = 3.0
+margin_top = 3.0
+margin_right = 679.0
+margin_bottom = 391.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_right = 15
+custom_constants/margin_top = 5
+custom_constants/margin_left = 15
+custom_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Margin1/Margin2/Margin3"]
+margin_left = 15.0
+margin_top = 5.0
+margin_right = 661.0
+margin_bottom = 383.0
+size_flags_horizontal = 0
+custom_constants/separation = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Title" type="Label" parent="Margin1/Margin2/Margin3/VBoxContainer"]
+margin_right = 646.0
+margin_bottom = 74.0
+rect_clip_content = true
+custom_fonts/font = ExtResource( 2 )
+text = "MENU_MOVEMENT_ROTATION"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Description" type="Label" parent="Margin1/Margin2/Margin3/VBoxContainer"]
+margin_top = 79.0
+margin_right = 646.0
+margin_bottom = 323.0
+rect_min_size = Vector2( 0, 240 )
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 4 )
+text = "MENU_MOVEMENT_ROTATION_DESCR"
+align = 3
+autowrap = true
+
+[node name="TriggerChange" type="Label" parent="Margin1/Margin2/Margin3/VBoxContainer"]
+margin_top = 328.0
+margin_right = 646.0
+margin_bottom = 378.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+text = "MENU_TRIGGER_TO_CHANGE"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}

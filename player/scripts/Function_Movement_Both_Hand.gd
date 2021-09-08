@@ -1,7 +1,7 @@
 extends Node
 
 enum MOVEMENT_WHEN { ALWAYS, ON_AIR, ON_FLOOR }
-enum MOVEMENT_TYPE { MOVE_AND_ROTATE, MOVE_AND_STRAFE }
+const MOVEMENT_TYPE = SaveSystem.MovementTypeEnum
 
 # Is this active?
 export var enabled = true setget set_enabled, get_enabled
@@ -20,10 +20,13 @@ export var smooth_turn_speed = 2.0
 export var step_turn_delay = 0.2
 export var step_turn_angle = 20.0
 
+# Move And Rotation variable
+var mnr_rotation_limit = 0.40
+
 # and movement
 export var drag_factor = 0.1
 
-export (MOVEMENT_TYPE) var move_type = MOVEMENT_TYPE.MOVE_AND_STRAFE
+export (SaveSystem.MovementTypeEnum) var move_type = MOVEMENT_TYPE.MOVE_AND_STRAFE
 export (MOVEMENT_WHEN) var move_when = MOVEMENT_WHEN.ALWAYS
 
 # Jump
@@ -90,113 +93,123 @@ func _physics_process(delta):
 	collision_shape.shape.height = player_height - (player_radius * 2.0)
 	collision_shape.transform.origin.y = (player_height / 2.0)
 	
-	# We should be the child or the controller on which the function is implemented
+	# We check witch controller is currently in use by checking the one with the more distance from the center
+	var all_turning = true
+	var left_right = 0
+	var forwards_backwards = 0
+	var max_distance = 0
+	var current_controller = null
 	for controller in controllers_nodes:
-		if controller.get_is_active():
-			var left_right = controller.get_joystick_axis(0)
-			var forwards_backwards = controller.get_joystick_axis(1)
-			if(left_right > 0 && forwards_backwards > 0):
-				print("Value LR: %f | Value FB: %f" % [left_right, forwards_backwards])
-			
-			# if jump_button_id is pressed and we can jump and we are on floor
+		if controller.get_is_active():	
+			# If jump we do not move
 			if controller.is_button_pressed(jump_button_id) && canJump && tail.is_colliding():
 				player_node.jump()
+				current_controller = null
+				break
+				
+			var tmp_left_right = controller.get_joystick_axis(0)
+			var tmp_forwards_backwards = controller.get_joystick_axis(1)
+			var tmp_distance = abs(tmp_left_right) + abs(tmp_forwards_backwards)
+			if  tmp_distance > max_distance:
+				left_right = tmp_left_right
+				forwards_backwards = tmp_forwards_backwards
+				max_distance = tmp_distance
+				current_controller = controller
+				
+			if abs(tmp_left_right) < mnr_rotation_limit:
+				all_turning = false
+				
+	if current_controller == null:
+		# No need to move
+		return
 			
-			################################################################
-			# first process turning, no problems there :)
+	if(left_right > 0 && forwards_backwards > 0):
+		print("Value LR: %f | Value FB: %f" % [left_right, forwards_backwards])
+	
+	# Check if we move or turn
+	var isTurning = false
+	match move_type:
+		MOVEMENT_TYPE.MOVE_AND_STRAFE:
+			pass
+		MOVEMENT_TYPE.MOVE_AND_ROTATE:
+			if abs(left_right) > mnr_rotation_limit:
+				isTurning = true
 			else:
-				if move_type == MOVEMENT_TYPE.MOVE_AND_STRAFE:
-					pass
-				elif(move_type == MOVEMENT_TYPE.MOVE_AND_ROTATE && abs(left_right) > 0.35):
-					if smooth_rotation:
-						# we rotate around our Camera, but we adjust our origin, so we need a little bit of trickery
-						var t1 = Transform()
-						var t2 = Transform()
-						var rot = Transform()
-						
-						t1.origin = -camera_node.transform.origin
-						t2.origin = camera_node.transform.origin
-						rot = rot.rotated(Vector3(0.0, -1.0, 0.0), smooth_turn_speed * delta * left_right)
-						origin_node.transform *= t2 * rot * t1
-						
-						# reset turn step, doesn't apply
-						turn_step = 0.0
-					else:
-						if left_right > 0.0:
-							if turn_step < 0.0:
-								# reset step
-								turn_step = 0
-							
-							turn_step += left_right * delta
-						else:
-							if turn_step > 0.0:
-								# reset step
-								turn_step = 0
-							
-							turn_step += left_right * delta
-						
-						if abs(turn_step) > step_turn_delay:
-							# we rotate around our Camera, but we adjust our origin, so we need a little bit of trickery
-							var t1 = Transform()
-							var t2 = Transform()
-							var rot = Transform()
-							
-							t1.origin = -camera_node.transform.origin
-							t2.origin = camera_node.transform.origin
-							
-							# Rotating
-							while abs(turn_step) > step_turn_delay:
-								if (turn_step > 0.0):
-									rot = rot.rotated(Vector3(0.0, -1.0, 0.0), step_turn_angle * PI / 180.0)
-									turn_step -= step_turn_delay
-								else:
-									rot = rot.rotated(Vector3(0.0, 1.0, 0.0), step_turn_angle * PI / 180.0)
-									turn_step += step_turn_delay
-							
-							origin_node.transform *= t2 * rot * t1
-				else:
-					# reset turn step, no longer turning
-					turn_step = 0.0
+				turn_step = 0.0
+		MOVEMENT_TYPE.MOVE_AND_HYBRID:
+			if all_turning :
+				isTurning = true
+			else:
+				turn_step = 0.0
+
+	var can_move =  (
+			move_when == MOVEMENT_WHEN.ALWAYS
+			or
+			(move_when == MOVEMENT_WHEN.ON_FLOOR && tail.is_colliding())
+			or
+			(move_when == MOVEMENT_WHEN.ON_AIR && !tail.is_colliding())
+	)
+	
+	# Check not rotation
+	if isTurning:
+		rotateBuffer(delta, left_right)
+	elif(can_move):
+		movePlayer(delta, forwards_backwards, left_right)
+				
+func rotateBuffer(delta, left_right):
+	if smooth_rotation:
+		# we rotate around our Camera, but we adjust our origin, so we need a little bit of trickery
+		var t1 = Transform()
+		var t2 = Transform()
+		var rot = Transform()
+		
+		t1.origin = -camera_node.transform.origin
+		t2.origin = camera_node.transform.origin
+		rot = rot.rotated(Vector3(0.0, -1.0, 0.0), smooth_turn_speed * delta * left_right)
+		origin_node.transform *= t2 * rot * t1
+		
+		# reset turn step, doesn't apply
+		turn_step = 0.0
+	else:
+		if left_right > 0.0:
+			if turn_step < 0.0:
+				# reset step
+				turn_step = 0
 			
-				################################################################
-				# now we do our movement
-				# We start with placing our KinematicBody in the right place
-				# by centering it on the camera but placing it on the ground
-				var curr_transform = player_node.global_transform
-				var camera_transform = camera_node.global_transform
-				#curr_transform.origin = camera_transform.origin
-				#curr_transform.origin.y = origin_node.global_transform.origin.y
-				
-				player_node.global_transform = curr_transform
-				
-				# we'll handle gravity separately
-				velocity.y = 0.0
-				
-				# Apply our drag
-				velocity *= (1.0 - drag_factor)
-				
-				var can_move = (
-						move_when == MOVEMENT_WHEN.ALWAYS
-						or
-						(move_when == MOVEMENT_WHEN.ON_FLOOR && tail.is_colliding())
-						or
-						(move_when == MOVEMENT_WHEN.ON_AIR && !tail.is_colliding())
-					)
-				if can_move:
-					if move_type == MOVEMENT_TYPE.MOVE_AND_ROTATE:
-						if abs(forwards_backwards) > 0.1 && not abs(left_right) > 0.35:
-							var dir = camera_transform.basis.z
-							dir.y = 0.0					
-							velocity = dir.normalized() * -forwards_backwards * delta * player_node.movement_speed * ARVRServer.world_scale
-					elif move_type == MOVEMENT_TYPE.MOVE_AND_STRAFE:
-						if abs(forwards_backwards) > 0.1 ||  abs(left_right) > 0.1:
-							var dir_forward = camera_transform.basis.z
-							dir_forward.y = 0.0				
-							# VR Capsule will strafe left and right
-							var dir_right = camera_transform.basis.x;
-							dir_right.y = 0.0				
-							velocity = (dir_forward * -forwards_backwards + dir_right * left_right).normalized() * delta * player_node.movement_speed * ARVRServer.world_scale
-							
-				# apply move and slide to our kinematic body
-				print("Value Velocity: %s" % [velocity])
-				player_node.translate(velocity)
+			turn_step += left_right * delta
+		else:
+			if turn_step > 0.0:
+				# reset step
+				turn_step = 0
+			
+			turn_step += left_right * delta
+		
+		if abs(turn_step) > step_turn_delay:
+			# we rotate around our Camera, but we adjust our origin, so we need a little bit of trickery
+			var t1 = Transform()
+			var t2 = Transform()
+			var rot = Transform()
+			
+			t1.origin = -camera_node.transform.origin
+			t2.origin = camera_node.transform.origin
+			
+			# Rotating
+			while abs(turn_step) > step_turn_delay:
+				if (turn_step > 0.0):
+					rot = rot.rotated(Vector3(0.0, -1.0, 0.0), step_turn_angle * PI / 180.0)
+					turn_step -= step_turn_delay
+				else:
+					rot = rot.rotated(Vector3(0.0, 1.0, 0.0), step_turn_angle * PI / 180.0)
+					turn_step += step_turn_delay
+			
+			origin_node.transform *= t2 * rot * t1
+
+func movePlayer(delta, forwards_backwards, left_right):
+	var camera_transform = camera_node.global_transform
+	var dir_forward = camera_transform.basis.z if abs(forwards_backwards) > 0.1 else Vector3(0,0,0)
+	dir_forward.y = 0.0				
+	# VR Capsule will strafe left and right
+	var dir_right = camera_transform.basis.x if abs(left_right) > 0.1 else Vector3(0,0,0)
+	dir_right.y = 0.0	
+	velocity = (dir_forward * -forwards_backwards + dir_right * left_right).normalized() * delta * player_node.movement_speed * ARVRServer.world_scale
+	player_node.translate(velocity)			
