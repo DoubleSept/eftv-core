@@ -28,7 +28,7 @@ func _ready():
 	updateMovementType()
 	
 func updateMovementType():
-	$Function_Movement_Both_Hand.move_type = SaveSystem.gameData[SaveSystem.KEY_MOVEMENT_TYPE]
+	$Function_Movement_Both_Hand.move_type = SaveSystem.gameData[SaveSystem.KEY_MOVEMENT_TYPE] as int
 
 func _physics_process(delta):
 	# Reset when falling

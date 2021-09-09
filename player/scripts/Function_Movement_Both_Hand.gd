@@ -1,7 +1,6 @@
 extends Node
 
 enum MOVEMENT_WHEN { ALWAYS, ON_AIR, ON_FLOOR }
-const MOVEMENT_TYPE = SaveSystem.MovementTypeEnum
 
 # Is this active?
 export var enabled = true setget set_enabled, get_enabled
@@ -26,7 +25,7 @@ var mnr_rotation_limit = 0.40
 # and movement
 export var drag_factor = 0.1
 
-export (SaveSystem.MovementTypeEnum) var move_type = MOVEMENT_TYPE.MOVE_AND_STRAFE
+export (SaveSystem.MovementTypeEnum) var move_type = SaveSystem.MovementTypeEnum.MOVE_AND_HYBRID
 export (MOVEMENT_WHEN) var move_when = MOVEMENT_WHEN.ALWAYS
 
 # Jump
@@ -129,14 +128,14 @@ func _physics_process(delta):
 	# Check if we move or turn
 	var isTurning = false
 	match move_type:
-		MOVEMENT_TYPE.MOVE_AND_STRAFE:
+		SaveSystem.MovementTypeEnum.MOVE_AND_STRAFE:
 			pass
-		MOVEMENT_TYPE.MOVE_AND_ROTATE:
+		SaveSystem.MovementTypeEnum.MOVE_AND_ROTATE:
 			if abs(left_right) > mnr_rotation_limit:
 				isTurning = true
 			else:
 				turn_step = 0.0
-		MOVEMENT_TYPE.MOVE_AND_HYBRID:
+		SaveSystem.MovementTypeEnum.MOVE_AND_HYBRID:
 			if all_turning :
 				isTurning = true
 			else:

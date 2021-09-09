@@ -11,9 +11,11 @@ func _on_Exit_pressed():
 	get_tree().quit()
 
 func _on_Accept_pressed():
+	print("ACCEPT TELEMETRY")
 	SaveSystem.gameData[SaveSystem.KEY_ALLOW_TELEMETRY] = true
 	start_game()
 
 func _on_Deny_pressed():
+	print("DENY TELEMETRY")
 	SaveSystem.gameData[SaveSystem.KEY_ALLOW_TELEMETRY] = false
 	start_game()

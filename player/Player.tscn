@@ -80,7 +80,6 @@ left_controller = NodePath("../ARVROrigin/Left_Hand")
 right_controller = NodePath("../ARVROrigin/Right_Hand")
 step_turn_delay = 0.3
 step_turn_angle = 45.0
-move_type = 0
 
 [node name="Function_Movement_NoVR" type="Node" parent="."]
 script = ExtResource( 8 )
