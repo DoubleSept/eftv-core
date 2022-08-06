@@ -3,7 +3,7 @@ extends "basicMovable.gd"
 
 func _ready():
 	pass
-	
+
 func move(speedSent):
 	if not Engine.editor_hint:
 		if player.collides_with(self):
@@ -11,7 +11,7 @@ func move(speedSent):
 				sound_playing = true
 				$denySound.play()
 			return
-		
+
 		var speed = speedSent/3000.0
 		print(speed)
 		if Input.is_action_pressed("move_left"):
@@ -22,5 +22,5 @@ func move(speedSent):
 			rotate_x(-speed)
 		if Input.is_action_pressed("move_backwards"):
 			rotate_x(speed)
-	
+
 

@@ -26,6 +26,6 @@ func _process(_delta):
 		rotation.x = MAX_X
 	elif rotation.x < MIN_X:
 		rotation.x = MIN_X
-		
+
 	if currentPlayerTurningSpeed < -DEATH_STICK or currentPlayerTurningSpeed > DEATH_STICK:
 		rotation.y -= currentPlayerTurningSpeed*CAMERA_SPEED

@@ -3,8 +3,8 @@ extends Node
 const LEVELS_ROOT = "res://levels/"
 
 # For debug purposes: you can specify a level that will by displayed at launch
-const TEST_LEVEL = null
-#const TEST_LEVEL = "02-transparent"
+#const TEST_LEVEL = null
+const TEST_LEVEL = "03-puzzle"
 
 var IsDemoMode = false
 
@@ -17,7 +17,7 @@ func get_index_from_string(search: String):
 			return x
 	# If not found, we return index 0
 	return 0
-	
+
 # Load all levels from specified index
 # Array elements are of type: [name: String, level: Resource]
 func get_run_infos(runName: String) -> RunInfos:

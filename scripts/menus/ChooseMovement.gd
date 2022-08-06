@@ -11,32 +11,32 @@ var isSwitching = false
 
 func _ready():
 	updateWindow()
-	
-	var currentScene = get_tree().get_root()  
+
+	var currentScene = get_tree().get_root()
 	controllers_nodes.append( currentScene.find_node("Left_Hand", true, false))
 	controllers_nodes.append( currentScene.find_node("Right_Hand", true, false))
 	player_node = currentScene.find_node("Player", true, false)
 	print("Code execution")
-	
+
 func updateWindow():
 	var mode = SaveSystem.gameData[SaveSystem.KEY_MOVEMENT_TYPE]
 	var modeStr = "ROTATION"
-	
+
 	if mode == SaveSystem.MovementTypeEnum.MOVE_AND_STRAFE:
 		modeStr = "STRAFE"
 	elif mode == SaveSystem.MovementTypeEnum.MOVE_AND_HYBRID:
 		modeStr = "HYBRID"
-		
+
 	title_node.text = tr("MENU_MOVEMENT_%s" % [modeStr])
 	descr_node.text = tr("MENU_MOVEMENT_%s_DESCR" % [modeStr])
-	
+
 func get_movement_idx(value):
 	var x = 0
 	for i in SaveSystem.MovementTypeEnum.values():
 		if i == value:
 			return x
 		x = x+1
-	
+
 func switchType():
 	print_debug("Switching movement type")
 	var previous_idx = get_movement_idx(SaveSystem.gameData[SaveSystem.KEY_MOVEMENT_TYPE])
@@ -54,7 +54,7 @@ func _physics_process(delta):
 		if controller != null && controller.get_is_active():
 			if controller.is_button_pressed(trigger_button_id):
 				some_switching = true
-	
+
 	if not some_switching:
 		isSwitching = false
 	elif isSwitching == false:

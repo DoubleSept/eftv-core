@@ -4,7 +4,7 @@ var SaveSystem
 
 func _ready():
 	SaveSystem = get_node("/root/SaveSystem")
-	
+
 	$Text/Title.text = SaveSystem.runInfos.name
 	var durationMs = SaveSystem.runDurationMs
 	var minutes = durationMs / 60000

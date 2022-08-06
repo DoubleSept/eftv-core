@@ -13,14 +13,15 @@ use_vr = false
 [node name="vc" type="HBoxContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_constants/separation = 5
+custom_constants/separation = 0
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="GameMapContainer" type="MarginContainer" parent="vc"]
-margin_right = 957.0
+margin_left = 5.0
+margin_right = 962.0
 margin_bottom = 1080.0
 
 [node name="vcOrthogonal" type="ViewportContainer" parent="vc/GameMapContainer"]
@@ -38,19 +39,26 @@ render_target_update_mode = 3
 [node name="BackArrow" parent="vc/GameMapContainer/vcOrthogonal" instance=ExtResource( 2 )]
 
 [node name="OptionalOnScreenHolder" type="MarginContainer" parent="vc/GameMapContainer"]
+visible = false
 margin_right = 957.0
 margin_bottom = 1080.0
 mouse_filter = 2
 
-[node name="vcPlayer" type="ViewportContainer" parent="vc"]
+[node name="ColorRect" type="ColorRect" parent="vc"]
 margin_left = 962.0
-margin_right = 1920.0
+margin_right = 972.0
 margin_bottom = 1080.0
-size_flags_horizontal = 3
+rect_min_size = Vector2( 10, 0 )
+color = Color( 0.305882, 0.796078, 0.188235, 1 )
+
+[node name="vcPlayer" type="ViewportContainer" parent="vc"]
+margin_left = 972.0
+margin_right = 1915.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 943, 0 )
 stretch = true
 
 [node name="viewportPlayer" type="Viewport" parent="vc/vcPlayer"]
-arvr = true
-size = Vector2( 958, 1080 )
+size = Vector2( 943, 1080 )
 handle_input_locally = false
 render_target_update_mode = 3

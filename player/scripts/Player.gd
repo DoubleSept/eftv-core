@@ -26,7 +26,7 @@ func _ready():
 	set_physics_process(can_move)
 	set_using_vr(using_vr)
 	updateMovementType()
-	
+
 func updateMovementType():
 	$Function_Movement_Both_Hand.move_type = SaveSystem.gameData[SaveSystem.KEY_MOVEMENT_TYPE] as int
 
@@ -37,12 +37,12 @@ func _physics_process(delta):
 		emit_signal("player_fall")
 
 	if(player_triangle):
-		player_triangle.rotation = Vector3(player_triangle.rotation.x, 
-			current_camera.rotation.y, 
+		player_triangle.rotation = Vector3(player_triangle.rotation.x,
+			current_camera.rotation.y,
 			0)
-	
+
 	do_gravity(delta)
-			
+
 func do_gravity(delta):
 	var dir = Vector3() # Where does the player intend to walk to
 
@@ -67,15 +67,15 @@ func do_gravity(delta):
 	vel.z = hvel.z
 
 	vel = move_and_slide(vel,Vector3(0,1,0))
-	
+
 func jump():
 	vel.y = jump_speed
-	
+
 func set_can_jump(new_can_jump: bool):
 	can_jump = new_can_jump
 	$Function_Movement_Both_Hand.canJump = new_can_jump
 	$Function_Movement_NoVR.canJump = new_can_jump
-		
+
 func set_can_move(new_move: bool):
 	can_move = new_move
 	set_physics_process(can_move)
@@ -94,15 +94,15 @@ func set_using_vr(value: bool):
 	using_vr = value
 	cameraNOVR.current = not using_vr
 	cameraVR.current = using_vr
-	
+
 	if(value == false):
 		$Function_Movement_NoVR.set_camera(cameraNOVR)
-		
+
 	# Update move function
 	set_can_move(can_move)
-		
+
 	current_camera = cameraVR if using_vr else cameraNOVR
-	
+
 func collides_with(object: Node) -> bool:
 	for i in range(self.get_slide_count()):
 		var current : KinematicCollision = self.get_slide_collision(i)

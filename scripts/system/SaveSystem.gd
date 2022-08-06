@@ -34,16 +34,16 @@ func _ready():
 		dir.make_dir(SAVE_DIR)
 	LevelSystem = get_node("/root/LevelSystem")
 	self.loadGameData()
-	print("LOADED")
+	print("SaveSystem: Loaded")
 
 func saveGameData():
 	var save_file = File.new()
-	
+
 	save_file.open(SAVE_PATH, File.WRITE)
 	save_file.store_line(JSON.print(gameData))
-	
+
 	save_file.close()
-	
+
 func loadGameData():
 	var save_file = File.new()
 	if not save_file.file_exists(SAVE_PATH):
@@ -51,10 +51,10 @@ func loadGameData():
 		initGameData()
 		isFirstGame = true
 		return
-	
+
 	save_file.open(SAVE_PATH, File.READ)
 	gameData = JSON.parse(save_file.get_as_text()).result
-	
+
 	# Check if previous version
 	if gameData.version == 1:
 		initGameData()
@@ -63,24 +63,24 @@ func loadGameData():
 	else :
 		if not KEY_MAX_LEVEL_FINISHED in gameData:
 			gameData[KEY_MAX_LEVEL_FINISHED] = ""
-			
+
 		if not KEY_MOVEMENT_TYPE in gameData:
 			gameData[KEY_MOVEMENT_TYPE] = MovementTypeEnum.MOVE_AND_HYBRID
-			
+
 		if not KEY_UUID in gameData:
 			_uuid_request_start()
-		
+
 		if LevelSystem.TEST_LEVEL != null:
 			print("Test level found")
 			gameData[KEY_CURRENT_LEVEL] = LevelSystem.TEST_LEVEL
-		
+
 		save_file.close()
 		loadedData = true
-		
+
 		# Send launch infos
 		if gameData[KEY_ALLOW_TELEMETRY]:
 			_launch_request_start()
-	
+
 func initGameData(new_uuid = true):
 	if LevelSystem.TEST_LEVEL != null:
 		print("Test level found")
@@ -92,24 +92,24 @@ func initGameData(new_uuid = true):
 	gameData[KEY_ALLOW_TELEMETRY] = true
 	gameData[KEY_MOVEMENT_TYPE] = MovementTypeEnum.MOVE_AND_HYBRID
 	gameData["version"] = SAVE_VERSION
-	
+
 	# Get an UUID
 	if new_uuid:
 		print_debug("Starting id request")
 		_uuid_request_start()
-	
+
 	loadedData = true
-	
+
 func _uuid_request_start():
 	requestNode = HTTPRequest.new()
 	add_child(requestNode)
 	requestNode.connect("request_completed", self, "_uuid_request_completed")
 	var _error = requestNode.request(
-		LevelsList.URL_TELEMETRY+ "user", 
-		PoolStringArray(), 
+		LevelsList.URL_TELEMETRY+ "user",
+		PoolStringArray(),
 		true,
 		HTTPClient.METHOD_POST)
-	
+
 func _uuid_request_completed(_result, response_code, _headers, body):
 	var uuid = body.get_string_from_utf8()
 	if response_code in [200, 201]:
@@ -117,38 +117,38 @@ func _uuid_request_completed(_result, response_code, _headers, body):
 		gameData[KEY_UUID] = uuid
 		saveGameData()
 	_request_completed(_result, response_code, _headers, body)
-	
+
 func _launch_request_start():
 	requestNode = HTTPRequest.new()
 	add_child(requestNode)
 	requestNode.connect("request_completed", self, "_launch_request_completed")
-	
+
 	var data = {
 		"user": gameData[KEY_UUID],
 		"version": SAVE_VERSION
 	}
-	
+
 	var _error = requestNode.request(
 		LevelsList.URL_TELEMETRY+ "launch",
-		["Content-Type: application/json"], 
-		true, 
+		["Content-Type: application/json"],
+		true,
 		HTTPClient.METHOD_POST,
 		# Data
 		JSON.print(data)
 	)
-	
+
 func _launch_request_completed(_result, response_code, _headers, body):
 	var launch_uuid = body.get_string_from_utf8()
 	if response_code in [200, 201]:
 		currentLaunchUuid = launch_uuid
 		saveGameData()
 	_request_completed(_result, response_code, _headers, body)
-	
+
 func _run_request_start():
 	requestNode = HTTPRequest.new()
 	add_child(requestNode)
 	requestNode.connect("request_completed", self, "_request_completed")
-	
+
 	var data = {
 		"user": gameData[KEY_UUID],
 		"launch": currentLaunchUuid,
@@ -156,19 +156,19 @@ func _run_request_start():
 		"levelName": runInfos.id,
 		"timeMs": runDurationMs
 	}
-	
+
 	var _error = requestNode.request(
 		LevelsList.URL_TELEMETRY+ "run",
-		["Content-Type: application/json"], 
-		true, 
+		["Content-Type: application/json"],
+		true,
 		HTTPClient.METHOD_POST,
 		JSON.print(data)
 	)
-	
+
 func _request_completed(_result, _response_code, _headers, _body):
 	remove_child(requestNode)
 	requestNode = null
-	
+
 ### RUN
 func run_finished():
 	var runId = runInfos.id
@@ -184,28 +184,34 @@ func run_finished():
 		var maxLevelIndex = LevelSystem.get_index_from_string(gameData[KEY_MAX_LEVEL_FINISHED])
 		if reachedIndex > maxLevelIndex:
 			gameData[KEY_MAX_LEVEL_FINISHED] = runId;
-	
+
 		# Edit current and save
 		if(runInfos.hasNextRun):
 			gameData[KEY_CURRENT_LEVEL] = LevelSystem.LEVELS_LIST[runInfos.index + 1]
-	
+
 		saveGameData()
-	
+
 	# Send run infos
 	if gameData[KEY_ALLOW_TELEMETRY]:
 		_run_request_start()
-	
+
 func start_run():
 	if not loadedData:
 		loadGameData()
-		
+
 	# If demo mode, override current
 	if LevelSystem.IsDemoMode:
 		runInfos = LevelSystem.get_run_infos(LevelsList.DEMO_RUN)
 	else:
 		runInfos = LevelSystem.get_run_infos(gameData[KEY_CURRENT_LEVEL])
 	runStartMs = OS.get_ticks_msec()
-	return load(runInfos.levels.front())
+
+	var levelPath = runInfos.levels.front()
+	if not ".tscn" in levelPath:
+		levelPath += ".tscn"
+
+	print_debug("Loading level: %s" % [levelPath])
+	return load(levelPath)
 
 func level_finished():
 	print_debug("Level finished")
@@ -214,7 +220,7 @@ func level_finished():
 		# Run is not finished
 		print_debug("\n######\nLoading level %s" % runInfos.levels.front())
 		return load(runInfos.levels.front())
-	
+
 	# Run is finished
 	runDurationMs = OS.get_ticks_msec() - runStartMs
 	return null

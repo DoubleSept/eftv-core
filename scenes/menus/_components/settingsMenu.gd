@@ -16,7 +16,7 @@ func _on_lang_switch():
 	for i in range(len(locales)):
 		if locales[i] == current_locale:
 			currentIdx = i
-			
+
 	currentIdx = (currentIdx+1) % len(locales)
 	TranslationServer.set_locale(locales[currentIdx])
 	emit_signal("newTranslation")

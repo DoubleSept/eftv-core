@@ -27,10 +27,10 @@ func checkHover(event):
 		if not "is_movable" in obj or not obj.is_movable:
 			#Not a selectable
 			return
-			
+
 		var colpos = col["position"]/2
 		var _blockpos = Vector3(ceil(colpos[0]), ceil(colpos[1]), 0)
-		
+
 		if obj != currentSelected:
 			obj._hovered()
 			changeSelection(obj)
@@ -43,7 +43,7 @@ func checkHover(event):
 func changeSelection(obj):
 	currentSelected = obj
 	print("New selected: ", currentSelected.name)
-	
+
 	# Manage selector
 	# Set visible
 	selecteur.visible = true
@@ -58,15 +58,15 @@ func changeSelection(obj):
 
 func dragNdrop(position: Vector2):
 	var newPosition3D = self.project_ray_origin(position)
-	
+	 # TODO pass to follow move
 	var moveVector = newPosition3D - oldPosition3D
 	if Input.is_action_pressed("improved_precision"):
 		moveVector /= 2
-	currentSelected.move(moveVector)
+	currentSelected.move(newPosition3D)
 	selecteur.global_transform = currentSelected.global_transform
-	
+
 	oldPosition3D = newPosition3D
-	
+
 func release():
 	selecteur.visible = false
 	currentSelected._on_release()
@@ -75,10 +75,10 @@ func release():
 func _input(event):
 	if self.current == false:
 		return
-	
+
 	if event is InputEventMouse:
 		mouse_position = event.position
-	
+
 	# Check if mouse button is pressed
 	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
 		mouse_pressed = event.pressed
@@ -87,15 +87,15 @@ func _input(event):
 		if not mouse_pressed and currentSelected != null:
 			# When mouse released call correct function
 			release()
-	
+
 	if not mouse_pressed and event is InputEventMouseMotion:
 		# Mouse is moving without click, selection may change
 		checkHover(event)
-		
+
 	if mouse_pressed and event is InputEventMouseMotion and currentSelected != null:
 		# Drag N drop
 		dragNdrop(mouse_position)
-	
+
 	# Keyboard
 	if(event.is_action_pressed("ui_cancel")):
 		get_tree().set_input_as_handled()
