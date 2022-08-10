@@ -172,7 +172,7 @@ func _request_completed(_result, _response_code, _headers, _body):
 ### RUN
 func run_finished():
 	var runId = runInfos.id
-	if not runId in gameData[KEY_LEVELS_INFOS_MS].keys():
+	if not runId in gameData[KEY_LEVELS_INFOS_MS].keys() or gameData[KEY_LEVELS_INFOS_MS][runId] == null:
 		gameData[KEY_LEVELS_INFOS_MS][runId] = runDurationMs
 	elif runDurationMs < gameData[KEY_LEVELS_INFOS_MS][runId] :
 		# New record

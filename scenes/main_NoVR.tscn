@@ -39,7 +39,6 @@ render_target_update_mode = 3
 [node name="BackArrow" parent="vc/GameMapContainer/vcOrthogonal" instance=ExtResource( 2 )]
 
 [node name="OptionalOnScreenHolder" type="MarginContainer" parent="vc/GameMapContainer"]
-visible = false
 margin_right = 957.0
 margin_bottom = 1080.0
 mouse_filter = 2

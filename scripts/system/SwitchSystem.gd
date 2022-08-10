@@ -12,6 +12,10 @@ func _ready():
 func show_error():
 	print("Error in background loading")
 
+func _input(event):
+	if event.is_action_pressed("switch_fullscreen"):
+		OS.window_fullscreen = !OS.window_fullscreen
+
 func goto_scene(path):
 	loader = ResourceLoader.load_interactive(path)
 	if loader == null: # check for errors
@@ -20,9 +24,7 @@ func goto_scene(path):
 	set_process(true)
 
 	#current_scene.queue_free() # get rid of the old scene
-	
 	wait_frames = 1
-
 
 func _process(_time):
 	if loader == null:

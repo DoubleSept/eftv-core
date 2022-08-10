@@ -1,14 +1,13 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://eftv-core/scripts/blockMove/moveOnce.gd" type="Script" id=1]
 [ext_resource path="res://eftv-core/assets/textures/metal/Metal29_colGrey.jpg" type="Texture" id=2]
 [ext_resource path="res://eftv-core/assets/textures/metal/Metal29_met.jpg" type="Texture" id=3]
-[ext_resource path="res://eftv-core/assets/textures/metal/Metal29_nrm.jpg" type="Texture" id=4]
 [ext_resource path="res://eftv-core/assets/textures/metal/Metal29_rgh.jpg" type="Texture" id=5]
 [ext_resource path="res://eftv-core/assets/3d_assets/platform_sharp.obj" type="ArrayMesh" id=6]
 [ext_resource path="res://eftv-core/assets/sounds/deny_sound.wav" type="AudioStream" id=7]
 
-[sub_resource type="SpatialMaterial" id=1]
+[sub_resource type="SpatialMaterial" id=3]
 albedo_color = Color( 0, 0.5, 1, 1 )
 albedo_texture = ExtResource( 2 )
 metallic = 0.4
@@ -16,13 +15,10 @@ metallic_texture = ExtResource( 3 )
 metallic_texture_channel = 4
 roughness_texture = ExtResource( 5 )
 roughness_texture_channel = 4
-normal_enabled = true
-normal_scale = -1.0
-normal_texture = ExtResource( 4 )
 rim_enabled = true
 rim = 0.1
 rim_tint = 0.5
-uv1_scale = Vector3( 8, 8, 1 )
+uv1_scale = Vector3( 16, 32, 1 )
 
 [sub_resource type="ConvexPolygonShape" id=2]
 points = PoolVector3Array( -8, 2, 8, -8, -2, 8, -8, 2, -8, -8, -2, -8, -8, 2, -8, -8, -2, -8, 8, 2, -8, 8, -2, -8, 8, 2, -8, 8, -2, -8, 8, 2, 8, 8, -2, 8, 8, 2, 8, 8, -2, 8, -8, 2, 8, -8, -2, 8, 8, -2, -8, -8, -2, -8, 8, -2, 8, -8, -2, 8, -8, 2, -8, 8, 2, -8, -8, 2, 8, 8, 2, 8 )
@@ -34,7 +30,7 @@ script = ExtResource( 1 )
 
 [node name="mesh" type="MeshInstance" parent="."]
 layers = 3
-material_override = SubResource( 1 )
+material_override = SubResource( 3 )
 mesh = ExtResource( 6 )
 material/0 = null
 
@@ -49,4 +45,5 @@ volume_db = -20.0
 transform = Transform( 0.456416, 0, -0.889767, 0.760469, 0.519149, 0.390091, 0.461922, -0.854684, 0.236948, 0, 14.1669, 0 )
 visible = false
 editor_only = true
+
 [connection signal="finished" from="denySound" to="." method="_on_denySound_finished"]

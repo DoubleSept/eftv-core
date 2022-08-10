@@ -40,13 +40,21 @@ func checkHover(event):
 		currentSelected = null
 		selecteur.visible = false
 
+func _physics_process(delta):
+	if currentSelected == null or selecteur == null:
+		set_physics_process(false)
+		return
+
+	selecteur.global_transform = currentSelected.global_transform
+
 func changeSelection(obj):
 	currentSelected = obj
-	print("New selected: ", currentSelected.name)
 
 	# Manage selector
 	# Set visible
 	selecteur.visible = true
+	set_physics_process(true)
+
 	# Set shape
 	var meshNode : MeshInstance = currentSelected.find_node("mesh", false)
 	selecteur.set_mesh( meshNode.get_mesh().create_outline(0.1) )
@@ -58,11 +66,10 @@ func changeSelection(obj):
 
 func dragNdrop(position: Vector2):
 	var newPosition3D = self.project_ray_origin(position)
-	 # TODO pass to follow move
-	var moveVector = newPosition3D - oldPosition3D
-	if Input.is_action_pressed("improved_precision"):
-		moveVector /= 2
-	currentSelected.move(newPosition3D)
+
+	var cameraVector = self.project_ray_normal(Vector2(0,0)).abs()
+
+	currentSelected.move(newPosition3D, cameraVector.x == 1, cameraVector.y == 1, cameraVector.z == 1)
 	selecteur.global_transform = currentSelected.global_transform
 
 	oldPosition3D = newPosition3D

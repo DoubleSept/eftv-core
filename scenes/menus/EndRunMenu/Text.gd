@@ -25,7 +25,7 @@ func _ready():
 
 	# Check if new record
 	var records = SaveSystem.gameData[SaveSystem.KEY_LEVELS_INFOS_MS]
-	if (not id in records) or (durationMs < records[id]):
+	if (not id in records) or (records[id] == null) or (durationMs < records[id]):
 		$recordBox/recordInside/Vbox/Record.visible = true
 
 	# Has next run?

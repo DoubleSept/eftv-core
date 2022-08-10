@@ -4,7 +4,7 @@ const LEVELS_ROOT = "res://levels/"
 
 # For debug purposes: you can specify a level that will by displayed at launch
 #const TEST_LEVEL = null
-const TEST_LEVEL = "03-puzzle"
+const TEST_LEVEL = null
 
 var IsDemoMode = false
 
