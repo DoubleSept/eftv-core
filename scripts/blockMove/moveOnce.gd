@@ -1,5 +1,5 @@
 tool
-extends "res://eftv-core/scripts/blockMove/basicMovable.gd"
+extends BasicMovable
 
 const DEFAULT_COLOR = Color(0.5, 0.5, 0.5, 1.0)
 

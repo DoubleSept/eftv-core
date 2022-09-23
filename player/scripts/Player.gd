@@ -21,10 +21,15 @@ export var jump_speed = 19.0
 export var max_speed = 350.0
 export var movement_speed = 8.5
 export var can_jump = true setget set_can_jump
+export var spotlight_enabled = false setget set_spotlight
+export var spotlight_angle = 30 setget set_spotlight_angle
+export var spotlight_range = 40 setget set_spotlight_range
+
+var last_movable_floor: BasicMovable = null
 
 func _ready():
 	set_physics_process(can_move)
-	set_using_vr(using_vr)
+	set_using_vr(Constants.useVR)
 	updateMovementType()
 
 func updateMovementType():
@@ -32,7 +37,7 @@ func updateMovementType():
 
 func _physics_process(delta):
 	# Reset when falling
-	if(get_translation().y < -25):
+	if(get_global_translation().y < -25):
 		print("Player is falling")
 		emit_signal("player_fall")
 
@@ -42,6 +47,18 @@ func _physics_process(delta):
 			0)
 
 	do_gravity(delta)
+
+	# When we touch the floor, we want to block the last movable that were on our feet (the lowest one on Y-axis
+	if self.get_slide_count():
+		var lowestElmt = null
+		for i in range(self.get_slide_count()):
+			var current : KinematicCollision = self.get_slide_collision(i)
+			if current.collider is BasicMovable:
+				var movable: BasicMovable = current.collider
+				if lowestElmt == null or movable.global_translation.y < lowestElmt.global_translation.y:
+					lowestElmt = movable
+		last_movable_floor = lowestElmt
+
 
 func do_gravity(delta):
 	var dir = Vector3() # Where does the player intend to walk to
@@ -103,15 +120,23 @@ func set_using_vr(value: bool):
 
 	current_camera = cameraVR if using_vr else cameraNOVR
 
-func collides_with(object: Node) -> bool:
-	for i in range(self.get_slide_count()):
-		var current : KinematicCollision = self.get_slide_collision(i)
-		if current.collider == object:
-			return true
-	return false
+func last_movable_floor() -> BasicMovable:
+	return last_movable_floor
 
 func _on_Left_Hand_visibility_changed():
 	$ARVROrigin/ovr_left_hand.visible = $ARVROrigin/Left_Hand.visible
 
 func _on_Right_Hand_visibility_changed():
 	$ARVROrigin/ovr_right_hand.visible = $ARVROrigin/Right_Hand.visible
+
+func set_spotlight(new_spot):
+	spotlight_enabled = new_spot
+	$ARVROrigin/NoVR_Camera/DarkPlayerSpotlight.visible = true
+
+func set_spotlight_range(new_range):
+	spotlight_range = new_range
+	$ARVROrigin/NoVR_Camera/DarkPlayerSpotlight.spot_range = spotlight_range
+
+func set_spotlight_angle(new_angle):
+	spotlight_angle = new_angle
+	$ARVROrigin/NoVR_Camera/DarkPlayerSpotlight.spot_angle = new_angle

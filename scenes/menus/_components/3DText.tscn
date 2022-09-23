@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://eftv-core/scenes/menus/MainMenu/Fond3D.tres" type="DynamicFont" id=1]
+[ext_resource path="res://eftv-core/scenes/menus/MainMenu/Font3D_Material.tres" type="Material" id=2]
+
+[sub_resource type="TextMesh" id=3]
+material = ExtResource( 2 )
+text = "TEXT_WAITING_OTHER"
+font = ExtResource( 1 )
+depth = 0.2
+
+[node name="WaitingOther" type="MeshInstance"]
+transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 1, 1, 11.0519, 0 )
+mesh = SubResource( 3 )

@@ -1,5 +1,5 @@
 tool
-extends "basicMovable.gd"
+extends BasicMovable
 
 func _ready():
 	pass

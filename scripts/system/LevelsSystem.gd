@@ -3,8 +3,8 @@ extends Node
 const LEVELS_ROOT = "res://levels/"
 
 # For debug purposes: you can specify a level that will by displayed at launch
-#const TEST_LEVEL = null
-const TEST_LEVEL = null
+const TEST_RUN = null
+var TEST_LEVEL = null
 
 var IsDemoMode = false
 
@@ -20,21 +20,35 @@ func get_index_from_string(search: String):
 
 # Load all levels from specified index
 # Array elements are of type: [name: String, level: Resource]
-func get_run_infos(runName: String) -> RunInfos:
+func get_run_infos(runName: String, secret: bool = false) -> RunInfos:
 	# Load level
 	var runPath = LEVELS_ROOT+runName+'/'
 	var run = load(runPath+'infos.gd').new()
 
 	var runInfos : RunInfos = RunInfos.new()
-	runInfos.id = runName
-	runInfos.index = get_index_from_string(runName)
-	runInfos.hasNextRun = runInfos.index < (LEVELS_LIST.size() - 1)
-	runInfos.name = run.getTitle()
-
-	# Add level path list
+	runInfos.secretFound = false
 	runInfos.levels = []
-	var levelList = run.getLevelList()
+
+	var levelList
+	if not secret:
+		runInfos.id = runName
+		runInfos.index = get_index_from_string(runName)
+		runInfos.hasNextRun = runInfos.index < (LEVELS_LIST.size() - 1)
+		runInfos.name = run.getTitle()
+		runInfos.isSecret = false
+		levelList = run.getLevelList()
+	else:
+		runInfos.id = runName+"-secret"
+		runInfos.index = -1
+		runInfos.hasNextRun = false
+		runInfos.name = run.getSecretName()
+		runInfos.isSecret = true
+		levelList = run.getSecretList()
+
 	for x in range(0, levelList.size()):
-		runInfos.levels.push_back(runPath + 'levels/' + levelList[x])
+		var levelPath = runPath + 'levels/' + levelList[x]
+		if not ".tscn" in levelPath:
+			levelPath += ".tscn"
+		runInfos.levels.push_back(levelPath)
 
 	return runInfos

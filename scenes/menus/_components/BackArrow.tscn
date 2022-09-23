@@ -21,4 +21,5 @@ texture_normal = ExtResource( 2 )
 texture_pressed = ExtResource( 3 )
 texture_hover = ExtResource( 4 )
 script = ExtResource( 1 )
+
 [connection signal="pressed" from="arrowButton" to="arrowButton" method="_on_pressed"]

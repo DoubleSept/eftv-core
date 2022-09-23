@@ -1,0 +1,194 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://eftv-core/assets/fonts/barlow/BarlowCondensed-BoldItalic.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://eftv-core/assets/logo/png/ShadowBottom.png" type="Texture" id=2]
+[ext_resource path="res://eftv-core/assets/logo/png/FlatBottom.png" type="Texture" id=3]
+[ext_resource path="res://eftv-core/scenes/menus/_components/LogoContainer.gd" type="Script" id=4]
+[ext_resource path="res://eftv-core/assets/logo/png/ShadowTop.png" type="Texture" id=5]
+[ext_resource path="res://eftv-core/assets/logo/png/FlatTop.png" type="Texture" id=6]
+
+[sub_resource type="DynamicFont" id=16]
+size = 64
+outline_size = 2
+outline_color = Color( 0.956863, 1, 0.247059, 1 )
+extra_spacing_char = 5
+extra_spacing_space = 8
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=17]
+resource_name = "AnimationColor"
+length = 2.0
+loop = true
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("logo/topShadow:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( -2, -0.5, 0, 0.5, 0, 6, -0.3, -4.61814, 0.3, -4.15301, -2, -0.5, 0, 0.5, 0 ),
+"times": PoolRealArray( 0, 1, 2 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("logo/topShadow:rect_position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 38, -0.25, 0, 0.25, 0, 42, -0.5, -4.45014, 0.4, -3.32857, 38, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1, 2 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("logo/bottomShadow:rect_position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( -2, -0.25, 0, 0.25, 0, -8, -0.3, 1.97859, 0.4, 1.97859, -2, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1, 2 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("logo/bottomShadow:rect_position:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 38, -0.25, 0, 0.25, 0, 42, -0.4, -1.64664, 0.4, -1.52144, 38, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1, 2 )
+}
+
+[sub_resource type="Animation" id=18]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("logo/topShadow:rect_position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("logo/topShadow:rect_position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 40, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("logo/bottomShadow:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 38 ) ]
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("logo/bottomShadow:rect_position:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/4/type = "bezier"
+tracks/4/path = NodePath("logo/bottomShadow:rect_position:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"points": PoolRealArray( 38, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+
+[node name="LogoContainer" type="MarginContainer"]
+margin_right = 1920.0
+margin_bottom = 330.0
+script = ExtResource( 4 )
+
+[node name="logo" type="MarginContainer" parent="."]
+margin_right = 1920.0
+margin_bottom = 330.0
+custom_constants/margin_top = 40
+custom_constants/margin_bottom = 40
+
+[node name="topShadow" type="TextureRect" parent="logo"]
+margin_top = 40.0
+margin_right = 1920.0
+margin_bottom = 290.0
+rect_min_size = Vector2( 1920, 250 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 6
+
+[node name="topFlat" type="TextureRect" parent="logo"]
+margin_top = 40.0
+margin_right = 1920.0
+margin_bottom = 290.0
+rect_min_size = Vector2( 1920, 250 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 6 )
+expand = true
+stretch_mode = 6
+
+[node name="bottomShadow" type="TextureRect" parent="logo"]
+margin_top = 38.0
+margin_right = 1920.0
+margin_bottom = 288.0
+rect_min_size = Vector2( 1920, 250 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 6
+
+[node name="bottomFlat" type="TextureRect" parent="logo"]
+margin_top = 40.0
+margin_right = 1920.0
+margin_bottom = 290.0
+rect_min_size = Vector2( 1920, 250 )
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="TagLine" type="Label" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.870588 )
+margin_left = 851.0
+margin_top = 253.0
+margin_right = 1068.0
+margin_bottom = 330.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+custom_colors/font_color = Color( 0.329412, 0.447059, 1, 1 )
+custom_colors/font_color_shadow = Color( 0.184314, 0.188235, 0.141176, 1 )
+custom_constants/shadow_offset_x = 2
+custom_constants/shadow_offset_y = 2
+custom_fonts/font = SubResource( 16 )
+text = "Tagline"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="LogoAnimationPlayer" type="AnimationPlayer" parent="."]
+anims/AnimationColor = SubResource( 17 )
+anims/RESET = SubResource( 18 )

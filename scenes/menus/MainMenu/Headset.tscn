@@ -1,21 +1,43 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://eftv-core/scripts/menus/ScriptMenu.gd" type="Script" id=1]
 [ext_resource path="res://eftv-core/elements/environments/environment-bluesky.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/Label3D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://eftv-core/scenes/menus/MainMenu/Font3D_Material.tres" type="Material" id=3]
 [ext_resource path="res://eftv-core/scenes/menus/_components/BaseHeadsetMenuElements.tscn" type="PackedScene" id=4]
+[ext_resource path="res://eftv-core/scenes/menus/MainMenu/Fond3D.tres" type="DynamicFont" id=5]
+[ext_resource path="res://eftv-core/assets/skydome/cloud_painting.hdr" type="Texture" id=6]
+
+[sub_resource type="PanoramaSky" id=3]
+radiance_size = 0
+panorama = ExtResource( 6 )
+
+[sub_resource type="Environment" id=4]
+background_mode = 2
+background_sky = SubResource( 3 )
+background_sky_orientation = Basis( 0.0586244, 0, 0.99828, 0, 1, 0, -0.99828, 0, 0.0586244 )
+ambient_light_color = Color( 1, 0.996078, 0.929412, 1 )
+ambient_light_energy = 0.75
+ambient_light_sky_contribution = 0.75
+fog_enabled = true
+fog_depth_enabled = false
+fog_depth_begin = 50.0
+tonemap_exposure = 1.2
+glow_enabled = true
+
+[sub_resource type="TextMesh" id=1]
+material = ExtResource( 3 )
+text = "TEXT_OTHER_MENU"
+font = ExtResource( 5 )
+depth = 0.2
 
 [node name="MenuHeadset" type="Spatial"]
 script = ExtResource( 1 )
 
 [node name="WorldEnvironment" parent="." instance=ExtResource( 2 )]
-
-[node name="Label3D" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 6.05194, -8 )
-text = "TEXT_OTHER_MENU"
-text_scale = 0.02
-color = Color( 0.294118, 0.294118, 0.294118, 1 )
-max_steps = 512
-step_size = 0.1
+environment = SubResource( 4 )
 
 [node name="BaseHeadsetMenuElements" parent="." instance=ExtResource( 4 )]
+
+[node name="Text" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, -15 )
+mesh = SubResource( 1 )

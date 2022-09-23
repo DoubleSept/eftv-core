@@ -1,7 +1,7 @@
 [gd_scene format=2]
 
 [node name="cursorLight" type="SpotLight"]
-transform = Transform( 1, 0, 0, 0, 1, -1.1921e-007, 0, 1.1921e-007, 1, 0, 0, 0 )
+transform = Transform( 1, 0, 0, 0, 1, -1.1921e-07, 0, 1.1921e-07, 1, 0, 0, 0 )
 layers = 3
 light_color = Color( 0.996078, 1, 0.811765, 1 )
 light_energy = 5.0

@@ -7,7 +7,7 @@ func _ready():
 	$MarginContainer/VBoxContainer/Continue.grab_focus()
 	if LevelsList.DEMO_RUN == null:
 		$MarginContainer/VBoxContainer/Demo.visible = false
-	
+
 func _on_Continue_pressed():
 	LevelSystem.IsDemoMode = false
 	emit_signal("start")

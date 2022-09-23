@@ -8,8 +8,9 @@ const SAVE_PATH = SAVE_DIR+"save.json"
 const KEY_ALLOW_TELEMETRY = "telemetry"
 const KEY_UUID = "uuid"
 const KEY_CURRENT_LEVEL = "currentLevel"
-const KEY_MAX_LEVEL_FINISHED = "maxLevel"
+const KEY_MAX_LEVEL_AVAILABLE = "maxLevel"
 const KEY_LEVELS_INFOS_MS = "levelsInfos"
+const KEY_SECRET = "secretFound"
 const KEY_MOVEMENT_TYPE = "movementType"
 
 const SAVE_VERSION = 2
@@ -58,11 +59,11 @@ func loadGameData():
 	# Check if previous version
 	if gameData.version == 1:
 		initGameData()
-		gameData[KEY_MAX_LEVEL_FINISHED] = LevelsList.LIST[LevelsList.LIST.size() - 1]
+		gameData[KEY_MAX_LEVEL_AVAILABLE] = LevelsList.LIST[LevelsList.LIST.size() - 1]
 		gameData[KEY_CURRENT_LEVEL] = LevelsList.FROM_VERSION_1
 	else :
-		if not KEY_MAX_LEVEL_FINISHED in gameData:
-			gameData[KEY_MAX_LEVEL_FINISHED] = ""
+		if not KEY_MAX_LEVEL_AVAILABLE in gameData:
+			gameData[KEY_MAX_LEVEL_AVAILABLE] = ""
 
 		if not KEY_MOVEMENT_TYPE in gameData:
 			gameData[KEY_MOVEMENT_TYPE] = MovementTypeEnum.MOVE_AND_HYBRID
@@ -70,9 +71,12 @@ func loadGameData():
 		if not KEY_UUID in gameData:
 			_uuid_request_start()
 
-		if LevelSystem.TEST_LEVEL != null:
+		if not KEY_SECRET in gameData:
+			gameData[KEY_SECRET] = []
+
+		if LevelSystem.TEST_RUN != null:
 			print("Test level found")
-			gameData[KEY_CURRENT_LEVEL] = LevelSystem.TEST_LEVEL
+			gameData[KEY_CURRENT_LEVEL] = LevelSystem.TEST_RUN
 
 		save_file.close()
 		loadedData = true
@@ -82,13 +86,14 @@ func loadGameData():
 			_launch_request_start()
 
 func initGameData(new_uuid = true):
-	if LevelSystem.TEST_LEVEL != null:
+	if LevelSystem.TEST_RUN != null:
 		print("Test level found")
-		gameData[KEY_CURRENT_LEVEL] = LevelSystem.TEST_LEVEL
+		gameData[KEY_CURRENT_LEVEL] = LevelSystem.TEST_RUN
 	else:
 		gameData[KEY_CURRENT_LEVEL] = LevelsList.LIST[0]
 	gameData[KEY_LEVELS_INFOS_MS] = {}
-	gameData[KEY_MAX_LEVEL_FINISHED] = LevelsList.LIST[0]
+	gameData[KEY_SECRET] = []
+	gameData[KEY_MAX_LEVEL_AVAILABLE] = LevelsList.LIST[0]
 	gameData[KEY_ALLOW_TELEMETRY] = true
 	gameData[KEY_MOVEMENT_TYPE] = MovementTypeEnum.MOVE_AND_HYBRID
 	gameData["version"] = SAVE_VERSION
@@ -169,25 +174,32 @@ func _request_completed(_result, _response_code, _headers, _body):
 	remove_child(requestNode)
 	requestNode = null
 
-### RUN
-func run_finished():
+func _check_record():
 	var runId = runInfos.id
 	if not runId in gameData[KEY_LEVELS_INFOS_MS].keys() or gameData[KEY_LEVELS_INFOS_MS][runId] == null:
 		gameData[KEY_LEVELS_INFOS_MS][runId] = runDurationMs
+		saveGameData()
 	elif runDurationMs < gameData[KEY_LEVELS_INFOS_MS][runId] :
 		# New record
 		gameData[KEY_LEVELS_INFOS_MS][runId] = runDurationMs
+		saveGameData()
+
+### RUN
+func run_finished():
+	var runId = runInfos.id
+	_check_record()
 
 	# Check if it is a new max level reached (when not demo)
 	if not LevelSystem.IsDemoMode:
 		var reachedIndex = LevelSystem.get_index_from_string(runId)
-		var maxLevelIndex = LevelSystem.get_index_from_string(gameData[KEY_MAX_LEVEL_FINISHED])
+		var maxLevelIndex = LevelSystem.get_index_from_string(gameData[KEY_MAX_LEVEL_AVAILABLE])
 		if reachedIndex > maxLevelIndex:
-			gameData[KEY_MAX_LEVEL_FINISHED] = runId;
+			gameData[KEY_MAX_LEVEL_AVAILABLE] = runId;
 
 		# Edit current and save
 		if(runInfos.hasNextRun):
 			gameData[KEY_CURRENT_LEVEL] = LevelSystem.LEVELS_LIST[runInfos.index + 1]
+			gameData[KEY_MAX_LEVEL_AVAILABLE] = gameData[KEY_CURRENT_LEVEL]
 
 		saveGameData()
 
@@ -195,7 +207,10 @@ func run_finished():
 	if gameData[KEY_ALLOW_TELEMETRY]:
 		_run_request_start()
 
-func start_run():
+func start_run(runId = null, secret: bool = false):
+	if runId != null:
+		SaveSystem.gameData[SaveSystem.KEY_CURRENT_LEVEL] = runId
+
 	if not loadedData:
 		loadGameData()
 
@@ -203,19 +218,14 @@ func start_run():
 	if LevelSystem.IsDemoMode:
 		runInfos = LevelSystem.get_run_infos(LevelsList.DEMO_RUN)
 	else:
-		runInfos = LevelSystem.get_run_infos(gameData[KEY_CURRENT_LEVEL])
+		runInfos = LevelSystem.get_run_infos(gameData[KEY_CURRENT_LEVEL], secret)
 	runStartMs = OS.get_ticks_msec()
-
-	var levelPath = runInfos.levels.front()
-	if not ".tscn" in levelPath:
-		levelPath += ".tscn"
-
-	print_debug("Loading level: %s" % [levelPath])
-	return load(levelPath)
 
 func level_finished():
 	print_debug("Level finished")
-	runInfos.levels.pop_front()
+	if runInfos.levels.size() > 0:
+		runInfos.levels.pop_front()
+
 	if runInfos.levels.size() > 0:
 		# Run is not finished
 		print_debug("\n######\nLoading level %s" % runInfos.levels.front())
@@ -224,3 +234,16 @@ func level_finished():
 	# Run is finished
 	runDurationMs = OS.get_ticks_msec() - runStartMs
 	return null
+
+func secret_found():
+	if runInfos == null:
+		print_debug("Secret found without run")
+		return
+
+	runInfos.secretFound = true
+
+	var secret_name = runInfos.id
+	if not (secret_name in gameData[KEY_SECRET]):
+		print_debug("Secret Found in %s" % [secret_name])
+		gameData[KEY_SECRET].append(secret_name)
+		saveGameData()

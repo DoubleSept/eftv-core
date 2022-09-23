@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://eftv-core/scripts/blockMove/moveOnce.gd" type="Script" id=1]
+[ext_resource path="res://eftv-core/scripts/blockMove/MoveOnce.gd" type="Script" id=1]
 [ext_resource path="res://eftv-core/assets/textures/metal/Metal29_colGrey.jpg" type="Texture" id=2]
 [ext_resource path="res://eftv-core/assets/textures/metal/Metal29_met.jpg" type="Texture" id=3]
 [ext_resource path="res://eftv-core/assets/textures/metal/Metal29_nrm.jpg" type="Texture" id=4]
@@ -30,14 +30,15 @@ data = PoolVector3Array( 8, -6, 8, 8, -6, -8, -8, -6, 8, -8, -6, 8, 8, -6, -8, -
 [node name="movableOnceCoude" type="KinematicBody"]
 collision_layer = 3
 collision_mask = 3
+axis_lock_motion_y = true
 move_lock_y = true
 script = ExtResource( 1 )
+max_speed = 20
 
 [node name="mesh" type="MeshInstance" parent="."]
 layers = 3
 material_override = SubResource( 1 )
 mesh = ExtResource( 6 )
-material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 2 )
@@ -50,4 +51,5 @@ volume_db = -20.0
 transform = Transform( 0.456416, 0, -0.889767, 0.760469, 0.519149, 0.390091, 0.461922, -0.854684, 0.236948, 0, 14.1669, 0 )
 visible = false
 editor_only = true
+
 [connection signal="finished" from="denySound" to="." method="_on_denySound_finished"]

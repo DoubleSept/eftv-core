@@ -4,6 +4,8 @@ export (bool) var use_vr = true
 
 onready var viewOrtho = self.find_node("viewportOrthogonal", true, false)
 onready var viewPlayer = self.find_node("viewportPlayer", true, false)
+onready var secretAnimationOrtho : AnimationPlayer = self.find_node("SecretAnimationOrtho", true, false)
+onready var secretAnimationPlayer : AnimationPlayer = self.find_node("SecretAnimationPlayer", true, false)
 onready var level = viewPlayer.find_node("sceneNode", true, false)
 
 onready var noVR_camera : Camera = viewPlayer.find_node("NoVR_Camera", true, false)
@@ -11,7 +13,7 @@ onready var VR_camera : Camera = viewPlayer.find_node("Player_Camera", true, fal
 onready var orthoCam: Node
 onready var selecteur: Node
 
-onready var onScreenHolder= $vc/GameMapContainer/OptionalOnScreenHolder
+onready var onScreenHolder= find_node("OptionalOnScreenHolder")
 
 var current_level_resource : Resource
 
@@ -33,7 +35,10 @@ func _ready():
 	if(level==null):
 		print_debug("Null level at start")
 
-	current_level_resource = SaveSystem.start_run()
+	if (LevelSystem.TEST_LEVEL != null):
+		current_level_resource = load(LevelSystem.TEST_LEVEL)
+	else:
+		current_level_resource = load(SaveSystem.runInfos.levels.front())
 	load_level(current_level_resource)
 
 func _on_sceneNode_level_finished():
@@ -47,6 +52,11 @@ func _on_sceneNode_level_finished():
 		print_debug("Loading next scene: %s" % [next_level_resource.resource_path])
 
 	call_deferred("load_level", next_level_resource)
+
+func _on_secret_found():
+	print("SECRET FOUND")
+	secretAnimationOrtho.play("secret_found")
+	secretAnimationPlayer.play("secret_found")
 
 func load_level(level_resource):
 	var old_path = current_level_resource.resource_path  if (current_level_resource != null) else "No previous path"
@@ -79,7 +89,7 @@ func load_level(level_resource):
 	print_debug("Level loading 3/4 (%s): Player and Camera" % [current_level_resource.resource_path])
 
 	var player = viewPlayer.find_node("player", true, false)
-	player.set_using_vr(use_vr)
+	secretAnimationPlayer = player.find_node("SecretAnimationPlayer", true, false)
 
 	moveOrthogonalCameraToViewport()
 	print_debug("Level loading 4/4 (%s): LOADED" % [current_level_resource.resource_path])

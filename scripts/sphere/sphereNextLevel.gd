@@ -3,10 +3,9 @@ extends Area
 onready var triggered = false
 
 func _ready():
-	pass 
+	pass
 
 func _on_body_entered(body: Node):
-	print_debug("SPHERE")
 	print_debug("End sphere: "+body.name)
 	if(body.get_name() == "player" and triggered == false):
 		triggered = true

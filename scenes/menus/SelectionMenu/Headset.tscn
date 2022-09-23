@@ -1,10 +1,25 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://eftv-core/scenes/menus/SelectionMenu/Headset.gd" type="Script" id=1]
 [ext_resource path="res://eftv-core/elements/environments/environment-bluesky.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/Label3D.tscn" type="PackedScene" id=3]
+[ext_resource path="res://eftv-core/scenes/menus/_components/3DText.tscn" type="PackedScene" id=3]
 [ext_resource path="res://eftv-core/scenes/menus/_components/BaseHeadsetMenuElements.tscn" type="PackedScene" id=5]
-[ext_resource path="res://eftv-core/assets/fonts/menuFont_headset.tres" type="DynamicFont" id=6]
+[ext_resource path="res://eftv-core/scenes/menus/MainMenu/Font3D_Material.tres" type="Material" id=6]
+[ext_resource path="res://eftv-core/scenes/menus/_components/Menu3DTextBlack.tres" type="Material" id=7]
+[ext_resource path="res://eftv-core/scenes/menus/MainMenu/Fond3D.tres" type="DynamicFont" id=8]
+
+[sub_resource type="TextMesh" id=7]
+material = ExtResource( 6 )
+text = "The Tests"
+font = ExtResource( 8 )
+depth = 0.2
+
+[sub_resource type="TextMesh" id=6]
+material = ExtResource( 6 )
+text = "00:00"
+font = ExtResource( 8 )
+uppercase = true
+depth = 0.2
 
 [node name="MenuHeadset" type="Spatial"]
 script = ExtResource( 1 )
@@ -14,25 +29,17 @@ script = ExtResource( 1 )
 [node name="BaseHeadsetMenuElements" parent="." instance=ExtResource( 5 )]
 
 [node name="Spatial" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -8 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -14 )
 
 [node name="WaitingOther" parent="Spatial" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.05194, 0 )
-text = "TEXT_WAITING_OTHER"
-text_scale = 0.006
-font = ExtResource( 6 )
-color = Color( 0.4, 0.4, 0.4, 1 )
-
-[node name="Time" parent="Spatial" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 3.05194, 0 )
-text = "00:00"
-text_scale = 0.012
-font = ExtResource( 6 )
-color = Color( 0.8, 0.8, 0.8, 1 )
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 1, 9.0519, 0 )
 
 [node name="Title" parent="Spatial" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 5.05194, 0 )
-text = "The Beginning"
-text_scale = 0.012
-font = ExtResource( 6 )
-color = Color( 0.8, 0.8, 0.8, 1 )
+mesh = SubResource( 7 )
+material/0 = ExtResource( 7 )
+
+[node name="Time" parent="Spatial" instance=ExtResource( 3 )]
+transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 1, 1, 2.05194, 0 )
+mesh = SubResource( 6 )
+material/0 = ExtResource( 7 )

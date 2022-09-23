@@ -1,9 +1,72 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://eftv-core/scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://eftv-core/scenes/menus/_components/BackArrow.tscn" type="PackedScene" id=2]
+[ext_resource path="res://eftv-core/assets/fonts/barlow/BarlowCondensed-BoldItalic.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://eftv-core/scripts/game/SecretFound.gd" type="Script" id=4]
 
-[node name="world" type="Spatial"]
+[sub_resource type="DynamicFont" id=1]
+size = 84
+outline_size = 3
+outline_color = Color( 0.321569, 0.490196, 1, 1 )
+font_data = ExtResource( 3 )
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "secret_found"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 2.7, 2.9 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="GameMain" type="Spatial"]
 script = ExtResource( 1 )
 __meta__ = {
 "__editor_plugin_screen__": "3D"
@@ -42,6 +105,25 @@ render_target_update_mode = 3
 margin_right = 1920.0
 margin_bottom = 1080.0
 mouse_filter = 2
+
+[node name="SecretFound" type="RichTextLabel" parent="vc/GameMapContainer"]
+visible = false
+margin_top = 489.0
+margin_right = 1920.0
+margin_bottom = 591.0
+mouse_filter = 2
+size_flags_vertical = 4
+custom_colors/default_color = Color( 1, 1, 0.290196, 1 )
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+meta_underlined = false
+fit_content_height = true
+script = ExtResource( 4 )
+
+[node name="SecretAnimationOrtho" type="AnimationPlayer" parent="vc/GameMapContainer/SecretFound"]
+reset_on_save = false
+anims/RESET = SubResource( 2 )
+anims/secret_found = SubResource( 3 )
 
 [node name="viewportPlayer" type="Viewport" parent="."]
 arvr = true

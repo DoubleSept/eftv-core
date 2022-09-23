@@ -6,16 +6,11 @@ var logoGrowthDirection = 1.0
 var SaveSystem
 var isFirstGame = false
 
-onready var logo_partPV = $sections/logoContainer/logo/pv
-onready var logo_partFromThe = $sections/logoContainer/logo/fromThe
+onready var menus_node = $sections/menus
+onready var tag_line = find_node("TagLine")
 
-onready var LOADING_MENU = $sections/menus/loadingScreen
-onready var NO_HEADSET = $sections/menus/noHeadset
-onready var BASE_MENU = $sections/menus/baseMenu
-onready var FIRST_GAME = $sections/menus/firstGame
-onready var SETTINGS_MENU = $sections/menus/SettingsMenu
+var mainMenu = find_node("baseMenu")
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	# Check if it is first launch
 	SaveSystem = get_node("/root/SaveSystem")
@@ -24,15 +19,16 @@ func _ready():
 	set_process_input(true)
 
 	if SaveSystem.gameData[SaveSystem.KEY_LEVELS_INFOS_MS].size() == 0:
-		_on_switchMenu(FIRST_GAME)
+		mainMenu = find_node("firstGame")
 	else:
-		_on_switchMenu(BASE_MENU)
+		mainMenu = find_node("baseMenu")
+	_on_switchMenu(mainMenu)
 
 	if LevelsList.TAGLINE != null:
-		$sections/TagLine.visible = true
-		$sections/TagLine.text = LevelsList.TAGLINE
+		tag_line.visible = true
+		tag_line.text = LevelsList.TAGLINE
 	else:
-		$sections/TagLine.visible = false
+		tag_line.visible = false
 
 func _input(event):
 	if(event.is_action_pressed("ui_cancel")):
@@ -41,11 +37,8 @@ func _input(event):
 func _on_switchMenu(displayMenu : Control):
 	print_debug("Switch to menu: ", displayMenu.name)
 
-	BASE_MENU.visible = false
-	LOADING_MENU.visible = false
-	FIRST_GAME.visible = false
-	NO_HEADSET.visible = false
-	SETTINGS_MENU.visible = false
+	for node in menus_node.get_children():
+		node.visible = false
 
 	displayMenu.visible = true
 
@@ -53,33 +46,33 @@ func _on_exit_button_pressed():
 	get_tree().quit()
 
 func _on_start():
-	_on_switchMenu(LOADING_MENU)
+	LevelSystem.IsDemoMode = false
+	if not (SaveSystem.KEY_CURRENT_LEVEL in SaveSystem.gameData):
+		SaveSystem.gameData[SaveSystem.KEY_CURRENT_LEVEL] = LevelsList.LIST.front()
+	SaveSystem.start_run()
+	_on_switchMenu(find_node("loading"))
 	var _changed = get_tree().change_scene(Constants.SCENE_MAIN)
 
-# LOGO ANIMATION
-func _process(delta):
-	var pv_new_scale = logo_partPV.scale.x - logoGrowthDirection *delta*0.01
-	logo_partPV.scale = Vector2(pv_new_scale, pv_new_scale)
-
-	var from_new_scale = logo_partFromThe.scale.x - logoGrowthDirection *delta*0.02
-	logo_partFromThe.scale = Vector2(from_new_scale, from_new_scale)
-
-	# Change direction when necessary
-	if pv_new_scale < 0.34 or pv_new_scale > 0.37:
-		logoGrowthDirection = logoGrowthDirection * (-1.0)
-
 func _on_noHeadset():
-	_on_switchMenu(NO_HEADSET)
+	_on_switchMenu(find_node("noHeadset"))
 
 func _on_settings():
-	_on_switchMenu(SETTINGS_MENU)
+	_on_switchMenu(find_node("settings"))
 
 func _on_baseMenu():
-	_on_switchMenu(BASE_MENU)
+	_on_switchMenu(mainMenu)
+
+func _on_selection_pressed():
+	get_tree().set_input_as_handled()
+	var _changed = get_tree().change_scene(Constants.SCENE_MENU_SELECTION)
+
+func _on_demo_pressed():
+	LevelSystem.IsDemoMode = true
+	_on_switchMenu(find_node("loading"))
+	var _changed = get_tree().change_scene(Constants.SCENE_MAIN)
 
 func _on_exit():
 	get_tree().quit()
-
 
 func _on_newTranslation():
 	emit_signal("newTranslation")

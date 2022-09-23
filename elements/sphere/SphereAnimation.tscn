@@ -1,0 +1,64 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://eftv-core/elements/sphere/SphereAnimation.gd" type="Script" id=1]
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("meshOuter:mesh:material:refraction_scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -0.1 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("meshOuter:mesh:material:roughness")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.15 ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "SphereAnimation"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("meshOuter:mesh:material:refraction_scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3, 4 ),
+"transitions": PoolRealArray( 1, 1.46409, 1, 1, 0.420448 ),
+"update": 0,
+"values": [ -0.1, -0.2, -0.1, -0.2, -0.1 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("meshOuter:mesh:material:roughness")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 2, 4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.2, 0.12, 0.2 ]
+}
+
+[node name="SphereAnimation" type="AnimationPlayer"]
+anims/RESET = SubResource( 4 )
+anims/SphereAnimation = SubResource( 5 )
+script = ExtResource( 1 )

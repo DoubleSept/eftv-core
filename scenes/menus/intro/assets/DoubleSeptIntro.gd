@@ -14,6 +14,10 @@ var next_scene
 func _ready():
 	yield(get_tree().create_timer(1.0), "timeout")
 	ap.current_animation = "Neon"
+	if(Constants.isEditor):
+		get_tree().change_scene(Constants.SCENE_MENU_TELEMETRY)
+	else:
+		OS.window_fullscreen = true
 
 func _on_Animation_animation_finished(anim_name):
 	get_tree().change_scene(Constants.SCENE_MENU_TELEMETRY)

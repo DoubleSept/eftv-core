@@ -2,12 +2,19 @@ extends Control
 
 export (int) var trigger_button_id = JOY_VR_TRIGGER
 
-onready var title_node = $Margin1/Margin2/Margin3/VBoxContainer/Title
-onready var descr_node = $Margin1/Margin2/Margin3/VBoxContainer/Description
+onready var title_node = $Extern/Intern/Elements/Title
+onready var descr_node = $Extern/Intern/Elements/Description
+onready var next_node = $Extern/Intern/Elements/Next
 
 var player_node
 var controllers_nodes = []
 var isSwitching = false
+
+var bbcodeStart = "[center]"
+var bbcodeEnd = "[/center]"
+
+var body = "5DCDFF"
+var titleColor = "FFFF4A"
 
 func _ready():
 	updateWindow()
@@ -17,6 +24,7 @@ func _ready():
 	controllers_nodes.append( currentScene.find_node("Right_Hand", true, false))
 	player_node = currentScene.find_node("Player", true, false)
 	print("Code execution")
+	$Extern/Intern/Elements/Title/AnimationPlayer.play("TitleShadow")
 
 func updateWindow():
 	var mode = SaveSystem.gameData[SaveSystem.KEY_MOVEMENT_TYPE]
@@ -27,7 +35,8 @@ func updateWindow():
 	elif mode == SaveSystem.MovementTypeEnum.MOVE_AND_HYBRID:
 		modeStr = "HYBRID"
 
-	title_node.text = tr("MENU_MOVEMENT_%s" % [modeStr])
+	title_node.bbcode_text = bbcodeStart + tr("MENU_MOVEMENT_%s" % [modeStr]) + bbcodeEnd
+	next_node.bbcode_text = bbcodeStart + tr("MENU_TRIGGER_TO_CHANGE") + bbcodeEnd
 	descr_node.text = tr("MENU_MOVEMENT_%s_DESCR" % [modeStr])
 
 func get_movement_idx(value):

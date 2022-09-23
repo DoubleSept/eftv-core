@@ -1,7 +1,10 @@
 tool
 extends KinematicBody
+class_name BasicMovable
 
 export (Color) var mesh_color = Color(0,0.5,1.0) setget set_mesh_color
+export (bool) var is_dark = false setget set_is_dark
+
 export (float) var max_speed = 20
 export (float) var min_movement = 0.05
 
@@ -48,7 +51,7 @@ func _physics_process(delta):
 
 func move(newTargetPosition: Vector3, cancelAxisX = false, cancelAxisY = false, cancelAxisZ = false):
 	if not Engine.editor_hint:
-		if player.collides_with(self):
+		if player.last_movable_floor() == self:
 			if not sound_playing:
 				sound_playing = true
 				$denySound.play()
@@ -76,10 +79,22 @@ func _hovered():
 func _unhovered():
 	hovered = false
 
+func _update_material():
+	var newMaterial = load("res://eftv-core/assets/textures/metal.tres").duplicate()
+	newMaterial.albedo_color = mesh_color
+	if (is_dark):
+			newMaterial.metallic =  0.7
+			newMaterial.metallic =  0.6
+			newMaterial.roughness = 0
+	for node in get_children():
+		if node is MeshInstance:
+			node.material_override = newMaterial
+
 func set_mesh_color(color):
 	mesh_color = color
-	var newMaterial = load("res://eftv-core/assets/textures/metalCoude.tres").duplicate()
-	newMaterial.albedo_color = mesh_color
-	for node in get_children():
-		if(node.get_class() == "MeshInstance"):
-			node.material_override = newMaterial
+	_update_material()
+
+func set_is_dark(new_value):
+	if new_value != is_dark:
+		is_dark = new_value
+		_update_material()

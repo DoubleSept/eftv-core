@@ -1,9 +1,10 @@
 [gd_resource type="DynamicFont" load_steps=2 format=2]
 
-[ext_resource path="res://eftv-core/assets/fonts/Heebo-Light.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://eftv-core/assets/fonts/barlow/BarlowCondensed-Medium.ttf" type="DynamicFontData" id=1]
 
 [resource]
-size = 24
+size = 28
+outline_color = Color( 0.858824, 1, 0.992157, 1 )
 use_mipmaps = true
 use_filter = true
 extra_spacing_top = 1

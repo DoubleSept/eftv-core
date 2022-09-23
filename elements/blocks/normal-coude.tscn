@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://eftv-core/scripts/blockMove/basicMovable.gd" type="Script" id=1]
+[ext_resource path="res://eftv-core/scripts/blockMove/BasicMovable.gd" type="Script" id=1]
 [ext_resource path="res://eftv-core/assets/textures/metal/Metal29_colGrey.jpg" type="Texture" id=2]
 [ext_resource path="res://eftv-core/assets/textures/metal/Metal29_met.jpg" type="Texture" id=3]
 [ext_resource path="res://eftv-core/assets/textures/metal/Metal29_rgh.jpg" type="Texture" id=5]
@@ -30,12 +30,12 @@ extents = Vector3( 8, 8, 8 )
 collision_layer = 3
 collision_mask = 3
 script = ExtResource( 1 )
+max_speed = 20
 
 [node name="mesh" type="MeshInstance" parent="."]
 layers = 3
 material_override = SubResource( 4 )
 mesh = ExtResource( 6 )
-material/0 = null
 
 [node name="denySound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
@@ -52,4 +52,5 @@ shape = SubResource( 2 )
 [node name="CollisionShape2" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 16 )
 shape = SubResource( 3 )
+
 [connection signal="finished" from="denySound" to="." method="_on_denySound_finished"]
