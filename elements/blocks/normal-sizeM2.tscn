@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://eftv-core/scripts/blockMove/BasicMovable.gd" type="Script" id=1]
+[ext_resource path="res://eftv-core/scripts/blockMove/basicMovable.gd" type="Script" id=1]
 [ext_resource path="res://eftv-core/assets/textures/metal/Metal29_colGrey.jpg" type="Texture" id=2]
 [ext_resource path="res://eftv-core/assets/textures/metal/Metal29_met.jpg" type="Texture" id=3]
 [ext_resource path="res://eftv-core/assets/textures/metal/Metal29_rgh.jpg" type="Texture" id=5]

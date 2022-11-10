@@ -119,14 +119,20 @@ custom_styles/normal = SubResource( 8 )
 text = "MENU_EXIT"
 
 [node name="firstGame" type="VBoxContainer" parent="sections/menus"]
+visible = false
 margin_right = 1920.0
-margin_bottom = 646.0
+margin_bottom = 336.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 10
 
-[node name="Start" parent="sections/menus/firstGame" instance=ExtResource( 9 )]
+[node name="VBoxContainer" type="VBoxContainer" parent="sections/menus/firstGame"]
+margin_right = 1920.0
+margin_bottom = 251.0
+size_flags_vertical = 6
+
+[node name="Start" parent="sections/menus/firstGame/VBoxContainer" instance=ExtResource( 9 )]
 margin_bottom = 145.0
 focus_neighbour_bottom = NodePath("../Settings")
 focus_next = NodePath("../Settings")
@@ -136,9 +142,9 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_fonts/normal_font = SubResource( 13 )
 text = "MENU_START"
 
-[node name="Settings" parent="sections/menus/firstGame" instance=ExtResource( 9 )]
-margin_top = 155.0
-margin_bottom = 257.0
+[node name="Settings" parent="sections/menus/firstGame/VBoxContainer" instance=ExtResource( 9 )]
+margin_top = 149.0
+margin_bottom = 251.0
 focus_neighbour_top = NodePath("../Start")
 focus_previous = NodePath("../Start")
 size_flags_vertical = 1
@@ -147,18 +153,16 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "MENU_OPTIONS"
 
 [node name="MarginContainer2" type="MarginContainer" parent="sections/menus/firstGame"]
-margin_top = 267.0
+margin_top = 261.0
 margin_right = 1920.0
-margin_bottom = 646.0
+margin_bottom = 336.0
 rect_min_size = Vector2( 0, 10 )
 size_flags_horizontal = 3
-size_flags_vertical = 3
 
 [node name="Exit" parent="sections/menus/firstGame/MarginContainer2" instance=ExtResource( 8 )]
 margin_left = 838.0
-margin_top = 304.0
 margin_right = 1082.0
-margin_bottom = 379.0
+margin_bottom = 75.0
 size_flags_vertical = 8
 custom_colors/font_color = Color( 1, 1, 1, 0.588235 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
@@ -172,26 +176,30 @@ custom_styles/normal = SubResource( 8 )
 text = "MENU_EXIT"
 
 [node name="settings" type="VBoxContainer" parent="sections/menus"]
-visible = false
-margin_top = 431.0
 margin_right = 1920.0
-margin_bottom = 867.0
+margin_bottom = 646.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 10
 script = ExtResource( 15 )
 
-[node name="HBoxContainer" type="HBoxContainer" parent="sections/menus/settings"]
+[node name="VBoxContainer" type="VBoxContainer" parent="sections/menus/settings"]
+margin_top = 125.0
+margin_right = 1920.0
+margin_bottom = 383.0
+size_flags_vertical = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="sections/menus/settings/VBoxContainer"]
 margin_right = 1920.0
 margin_bottom = 127.0
 custom_constants/separation = 20
 
-[node name="Language" type="Label" parent="sections/menus/settings/HBoxContainer"]
+[node name="Language" type="Label" parent="sections/menus/settings/VBoxContainer/HBoxContainer"]
 margin_right = 950.0
 margin_bottom = 127.0
-focus_neighbour_bottom = NodePath("../../Exit")
-focus_next = NodePath("../../Exit")
+focus_neighbour_bottom = NodePath("../../../Exit")
+focus_next = NodePath("../../../Exit")
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -200,7 +208,7 @@ custom_fonts/font = ExtResource( 7 )
 text = "TEXT_LANGUAGE"
 align = 2
 
-[node name="Button" type="Button" parent="sections/menus/settings/HBoxContainer"]
+[node name="Button" type="Button" parent="sections/menus/settings/VBoxContainer/HBoxContainer"]
 margin_left = 970.0
 margin_right = 1920.0
 margin_bottom = 127.0
@@ -218,10 +226,10 @@ custom_styles/normal = ExtResource( 12 )
 text = "TEXT_LANGUAGE_NAME"
 align = 0
 
-[node name="Version" type="Label" parent="sections/menus/settings"]
-margin_top = 137.0
+[node name="Version" type="Label" parent="sections/menus/settings/VBoxContainer"]
+margin_top = 131.0
 margin_right = 1920.0
-margin_bottom = 264.0
+margin_bottom = 258.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -230,17 +238,11 @@ custom_fonts/font = ExtResource( 7 )
 text = "Version 4.0"
 align = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="sections/menus/settings"]
-margin_top = 274.0
-margin_right = 1920.0
-margin_bottom = 299.0
-rect_min_size = Vector2( 0, 25 )
-
 [node name="Exit" parent="sections/menus/settings" instance=ExtResource( 8 )]
 margin_left = 818.0
-margin_top = 309.0
+margin_top = 519.0
 margin_right = 1102.0
-margin_bottom = 436.0
+margin_bottom = 646.0
 custom_colors/font_color = Color( 1, 1, 1, 0.588235 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 custom_colors/font_color_pressed = Color( 0.509804, 0.509804, 0.509804, 1 )
@@ -254,51 +256,56 @@ text = "TEXT_BACK"
 
 [node name="baseMenu" type="VBoxContainer" parent="sections/menus"]
 visible = false
-margin_top = 670.0
 margin_right = 1920.0
-margin_bottom = 1193.0
+margin_bottom = 646.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 10
 
-[node name="Continue" parent="sections/menus/baseMenu" instance=ExtResource( 9 )]
+[node name="VBoxContainer" type="VBoxContainer" parent="sections/menus/baseMenu"]
+margin_top = 70.0
+margin_right = 1920.0
+margin_bottom = 490.0
+size_flags_vertical = 6
+
+[node name="Continue" parent="sections/menus/baseMenu/VBoxContainer" instance=ExtResource( 9 )]
 size_flags_vertical = 1
 custom_colors/default_color = Color( 0.266667, 0.552941, 0.94902, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "MENU_CONTINUE"
 
-[node name="Selection" parent="sections/menus/baseMenu" instance=ExtResource( 9 )]
-margin_top = 112.0
-margin_bottom = 214.0
+[node name="Selection" parent="sections/menus/baseMenu/VBoxContainer" instance=ExtResource( 9 )]
+margin_top = 106.0
+margin_bottom = 208.0
 size_flags_vertical = 1
 custom_colors/default_color = Color( 0.266667, 0.552941, 0.94902, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "MENU_SELECTION"
 
-[node name="Demo" parent="sections/menus/baseMenu" instance=ExtResource( 9 )]
-margin_top = 224.0
-margin_bottom = 326.0
+[node name="Demo" parent="sections/menus/baseMenu/VBoxContainer" instance=ExtResource( 9 )]
+margin_top = 212.0
+margin_bottom = 314.0
 size_flags_vertical = 1
 custom_colors/default_color = Color( 0.266667, 0.552941, 0.94902, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "MENU_DEMO"
 
-[node name="Settings" parent="sections/menus/baseMenu" instance=ExtResource( 9 )]
-margin_top = 336.0
-margin_bottom = 438.0
+[node name="Settings" parent="sections/menus/baseMenu/VBoxContainer" instance=ExtResource( 9 )]
+margin_top = 318.0
+margin_bottom = 420.0
 size_flags_vertical = 1
 custom_colors/default_color = Color( 0.266667, 0.552941, 0.94902, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "MENU_OPTIONS"
 
 [node name="MarginContainer" type="MarginContainer" parent="sections/menus/baseMenu"]
-margin_top = 448.0
+margin_top = 571.0
 margin_right = 1920.0
-margin_bottom = 523.0
+margin_bottom = 646.0
 rect_min_size = Vector2( 0, 10 )
 size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_vertical = 9
 
 [node name="Exit" parent="sections/menus/baseMenu/MarginContainer" instance=ExtResource( 8 )]
 margin_left = 838.0
@@ -323,38 +330,38 @@ margin_right = 1920.0
 margin_bottom = 893.0
 
 [node name="text" type="Label" parent="sections/menus/loading"]
-margin_left = 722.0
-margin_right = 1197.0
+margin_left = 740.0
+margin_right = 1179.0
 margin_bottom = 101.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 10 )
-text = "TEXT_LOADING.."
+text = "TEXT_LOADING."
 script = ExtResource( 11 )
 
 [connection signal="pressed" from="sections/menus/noHeadset/Exit" to="." method="_on_exit"]
-[connection signal="on_click" from="sections/menus/firstGame/Start" to="." method="_on_start"]
-[connection signal="on_click" from="sections/menus/firstGame/Settings" to="." method="_on_settings"]
+[connection signal="on_click" from="sections/menus/firstGame/VBoxContainer/Start" to="." method="_on_start"]
+[connection signal="on_click" from="sections/menus/firstGame/VBoxContainer/Settings" to="." method="_on_settings"]
 [connection signal="pressed" from="sections/menus/firstGame/MarginContainer2/Exit" to="." method="_on_exit"]
-[connection signal="newTranslation" from="sections/menus/settings" to="sections/menus/firstGame/Start" method="update"]
-[connection signal="newTranslation" from="sections/menus/settings" to="sections/menus/firstGame/Settings" method="update"]
-[connection signal="newTranslation" from="sections/menus/settings" to="sections/menus/baseMenu/Continue" method="update"]
-[connection signal="newTranslation" from="sections/menus/settings" to="sections/menus/baseMenu/Selection" method="update"]
-[connection signal="newTranslation" from="sections/menus/settings" to="sections/menus/baseMenu/Demo" method="update"]
-[connection signal="newTranslation" from="sections/menus/settings" to="sections/menus/baseMenu/Settings" method="update"]
-[connection signal="focus_entered" from="sections/menus/settings/HBoxContainer/Language" to="sections/menus/settings/HBoxContainer/Language" method="_on_focus_entered"]
-[connection signal="focus_exited" from="sections/menus/settings/HBoxContainer/Language" to="sections/menus/settings/HBoxContainer/Language" method="_on_focus_exited"]
-[connection signal="gui_input" from="sections/menus/settings/HBoxContainer/Language" to="sections/menus/settings/HBoxContainer/Language" method="_on_gui_input"]
-[connection signal="mouse_entered" from="sections/menus/settings/HBoxContainer/Language" to="sections/menus/settings/HBoxContainer/Language" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="sections/menus/settings/HBoxContainer/Language" to="sections/menus/settings/HBoxContainer/Language" method="_on_mouse_exited"]
-[connection signal="pressed" from="sections/menus/settings/HBoxContainer/Button" to="sections/menus/settings" method="_on_lang_switch"]
-[connection signal="focus_entered" from="sections/menus/settings/Version" to="sections/menus/settings/Version" method="_on_focus_entered"]
-[connection signal="focus_exited" from="sections/menus/settings/Version" to="sections/menus/settings/Version" method="_on_focus_exited"]
-[connection signal="gui_input" from="sections/menus/settings/Version" to="sections/menus/settings/Version" method="_on_gui_input"]
-[connection signal="mouse_entered" from="sections/menus/settings/Version" to="sections/menus/settings/Version" method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="sections/menus/settings/Version" to="sections/menus/settings/Version" method="_on_mouse_exited"]
+[connection signal="newTranslation" from="sections/menus/settings" to="sections/menus/firstGame/VBoxContainer/Start" method="update"]
+[connection signal="newTranslation" from="sections/menus/settings" to="sections/menus/firstGame/VBoxContainer/Settings" method="update"]
+[connection signal="newTranslation" from="sections/menus/settings" to="sections/menus/baseMenu/VBoxContainer/Continue" method="update"]
+[connection signal="newTranslation" from="sections/menus/settings" to="sections/menus/baseMenu/VBoxContainer/Selection" method="update"]
+[connection signal="newTranslation" from="sections/menus/settings" to="sections/menus/baseMenu/VBoxContainer/Demo" method="update"]
+[connection signal="newTranslation" from="sections/menus/settings" to="sections/menus/baseMenu/VBoxContainer/Settings" method="update"]
+[connection signal="focus_entered" from="sections/menus/settings/VBoxContainer/HBoxContainer/Language" to="sections/menus/settings/VBoxContainer/HBoxContainer/Language" method="_on_focus_entered"]
+[connection signal="focus_exited" from="sections/menus/settings/VBoxContainer/HBoxContainer/Language" to="sections/menus/settings/VBoxContainer/HBoxContainer/Language" method="_on_focus_exited"]
+[connection signal="gui_input" from="sections/menus/settings/VBoxContainer/HBoxContainer/Language" to="sections/menus/settings/VBoxContainer/HBoxContainer/Language" method="_on_gui_input"]
+[connection signal="mouse_entered" from="sections/menus/settings/VBoxContainer/HBoxContainer/Language" to="sections/menus/settings/VBoxContainer/HBoxContainer/Language" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="sections/menus/settings/VBoxContainer/HBoxContainer/Language" to="sections/menus/settings/VBoxContainer/HBoxContainer/Language" method="_on_mouse_exited"]
+[connection signal="pressed" from="sections/menus/settings/VBoxContainer/HBoxContainer/Button" to="sections/menus/settings" method="_on_lang_switch"]
+[connection signal="focus_entered" from="sections/menus/settings/VBoxContainer/Version" to="sections/menus/settings/VBoxContainer/Version" method="_on_focus_entered"]
+[connection signal="focus_exited" from="sections/menus/settings/VBoxContainer/Version" to="sections/menus/settings/VBoxContainer/Version" method="_on_focus_exited"]
+[connection signal="gui_input" from="sections/menus/settings/VBoxContainer/Version" to="sections/menus/settings/VBoxContainer/Version" method="_on_gui_input"]
+[connection signal="mouse_entered" from="sections/menus/settings/VBoxContainer/Version" to="sections/menus/settings/VBoxContainer/Version" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="sections/menus/settings/VBoxContainer/Version" to="sections/menus/settings/VBoxContainer/Version" method="_on_mouse_exited"]
 [connection signal="pressed" from="sections/menus/settings/Exit" to="." method="_on_baseMenu"]
-[connection signal="on_click" from="sections/menus/baseMenu/Continue" to="." method="_on_start"]
-[connection signal="on_click" from="sections/menus/baseMenu/Selection" to="." method="_on_selection_pressed"]
-[connection signal="on_click" from="sections/menus/baseMenu/Demo" to="." method="_on_demo_pressed"]
-[connection signal="on_click" from="sections/menus/baseMenu/Settings" to="." method="_on_settings"]
+[connection signal="on_click" from="sections/menus/baseMenu/VBoxContainer/Continue" to="." method="_on_start"]
+[connection signal="on_click" from="sections/menus/baseMenu/VBoxContainer/Selection" to="." method="_on_selection_pressed"]
+[connection signal="on_click" from="sections/menus/baseMenu/VBoxContainer/Demo" to="." method="_on_demo_pressed"]
+[connection signal="on_click" from="sections/menus/baseMenu/VBoxContainer/Settings" to="." method="_on_settings"]
 [connection signal="pressed" from="sections/menus/baseMenu/MarginContainer/Exit" to="." method="_on_exit"]

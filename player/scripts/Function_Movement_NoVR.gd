@@ -30,28 +30,28 @@ func _physics_process(delta):
 		set_physics_process(false)
 		set_process_input(false)
 		return
-		
+
 	set_process_input(true)
-		
+
 	if !player_camera:
 		return
-		
+
 	player_node.translate(get_joystick_movement(delta))
-	
-	
+
+
 func _input(event):
 	if event.is_action_pressed("jump_novr"):
 		if player_node.is_on_floor() && canJump:
 			player_node.jump()
-	
+
 func get_joystick_movement(delta: float) -> Vector3:
 	# Directional movement
 	# --------------------
 	var trackpad_vector = Vector2(
-		-Input.get_joy_axis(0,1), 
+		-Input.get_joy_axis(0,1),
 		Input.get_joy_axis(0,0))
 	var joystick_vector = Vector2(
-		-Input.get_joy_axis(0,5), 
+		-Input.get_joy_axis(0,5),
 		Input.get_joy_axis(0,4))
 
 	if trackpad_vector.length() < CONTROLLER_DEADZONE:
@@ -81,6 +81,6 @@ func get_joystick_movement(delta: float) -> Vector3:
 		return movement
 	else:
 		return Vector3(0,0,0)
-		
+
 func set_camera(camera):
 	player_camera = camera

@@ -18,7 +18,8 @@ func _ready():
 	# Enable input
 	set_process_input(true)
 
-	if SaveSystem.gameData[SaveSystem.KEY_LEVELS_INFOS_MS].size() == 0:
+	if ((SaveSystem.gameData[SaveSystem.KEY_LEVELS_INFOS_MS].size() == 0)
+		or ("IS_DEMO" in LevelsList and LevelsList.IS_DEMO)):
 		mainMenu = find_node("firstGame")
 	else:
 		mainMenu = find_node("baseMenu")
@@ -29,6 +30,8 @@ func _ready():
 		tag_line.text = LevelsList.TAGLINE
 	else:
 		tag_line.visible = false
+
+
 
 func _input(event):
 	if(event.is_action_pressed("ui_cancel")):
@@ -69,6 +72,7 @@ func _on_selection_pressed():
 func _on_demo_pressed():
 	LevelSystem.IsDemoMode = true
 	_on_switchMenu(find_node("loading"))
+	SaveSystem.start_run()
 	var _changed = get_tree().change_scene(Constants.SCENE_MAIN)
 
 func _on_exit():

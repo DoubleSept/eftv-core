@@ -12,7 +12,7 @@ panorama = ExtResource( 4 )
 [sub_resource type="Environment" id=2]
 background_mode = 2
 background_sky = SubResource( 1 )
-background_sky_orientation = Basis( -0.443028, 0, -0.896508, 0, 1, 0, 0.896508, 0, -0.443028 )
+background_sky_orientation = Basis( -0.406081, 0, -0.913837, 0, 1, 0, 0.913837, 0, -0.406081 )
 ambient_light_color = Color( 1, 0.996078, 0.929412, 1 )
 ambient_light_energy = 0.75
 ambient_light_sky_contribution = 0.75
