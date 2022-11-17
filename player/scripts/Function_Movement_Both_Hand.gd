@@ -122,9 +122,6 @@ func _physics_process(delta):
 		# No need to move
 		return
 
-	if(left_right > 0 && forwards_backwards > 0):
-		print("Value LR: %f | Value FB: %f" % [left_right, forwards_backwards])
-
 	# Check if we move or turn
 	var isTurning = false
 	match move_type:
@@ -156,6 +153,7 @@ func _physics_process(delta):
 		movePlayer(delta, forwards_backwards, left_right)
 
 func rotateBuffer(delta, left_right):
+	var nodeToRotate = origin_node
 	if smooth_rotation:
 		# we rotate around our Camera, but we adjust our origin, so we need a little bit of trickery
 		var t1 = Transform()
@@ -165,7 +163,7 @@ func rotateBuffer(delta, left_right):
 		t1.origin = -camera_node.transform.origin
 		t2.origin = camera_node.transform.origin
 		rot = rot.rotated(Vector3(0.0, -1.0, 0.0), smooth_turn_speed * delta * left_right)
-		origin_node.transform *= t2 * rot * t1
+		nodeToRotate.transform *= t2 * rot * t1
 
 		# reset turn step, doesn't apply
 		turn_step = 0.0
@@ -201,7 +199,7 @@ func rotateBuffer(delta, left_right):
 					rot = rot.rotated(Vector3(0.0, 1.0, 0.0), step_turn_angle * PI / 180.0)
 					turn_step += step_turn_delay
 
-			origin_node.transform *= t2 * rot * t1
+			nodeToRotate.transform *= t2 * rot * t1
 
 func movePlayer(delta, forwards_backwards, left_right):
 	var camera_transform = camera_node.global_transform

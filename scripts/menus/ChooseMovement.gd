@@ -5,6 +5,7 @@ export (int) var trigger_button_id = JOY_VR_TRIGGER
 onready var title_node = $Extern/Intern/Elements/Title
 onready var descr_node = $Extern/Intern/Elements/Description
 onready var next_node = $Extern/Intern/Elements/Next
+onready var progress_node : ProgressBar = $Extern/Intern/Elements/ProgressBar
 
 var player_node
 var controllers_nodes = []
@@ -15,6 +16,8 @@ var bbcodeEnd = "[/center]"
 
 var body = "5DCDFF"
 var titleColor = "FFFF4A"
+export var confirmationDelay = 1.5
+var currentDelay = 0
 
 func _ready():
 	updateWindow()
@@ -25,6 +28,7 @@ func _ready():
 	player_node = currentScene.find_node("Player", true, false)
 	print("Code execution")
 	$Extern/Intern/Elements/Title/AnimationPlayer.play("TitleShadow")
+	progress_node.max_value = confirmationDelay
 
 func updateWindow():
 	var mode = SaveSystem.gameData[SaveSystem.KEY_MOVEMENT_TYPE]
@@ -57,6 +61,13 @@ func switchType():
 	updateWindow()
 	SaveSystem.saveGameData()
 
+	# Display mode changed
+	var secretAnimationPlayer : AnimationPlayer = player_node.find_node("SecretAnimationPlayer", true, false)
+	var secretTextMeshPlayer : MeshInstance = player_node.find_node("secretText", true, false)
+	if secretAnimationPlayer != null && secretTextMeshPlayer != null:
+		secretTextMeshPlayer.mesh.text = tr("TEXT_NEW_MOVING_MODE")
+		secretAnimationPlayer.play("secret_found")
+
 func _physics_process(delta):
 	var some_switching = false
 	for controller in controllers_nodes:
@@ -66,6 +77,12 @@ func _physics_process(delta):
 
 	if not some_switching:
 		isSwitching = false
+		currentDelay = 0
 	elif isSwitching == false:
-		switchType()
-		isSwitching = true
+		currentDelay += delta
+		if currentDelay >= confirmationDelay:
+			switchType()
+			isSwitching = true
+			currentDelay = confirmationDelay
+
+	progress_node.value = currentDelay

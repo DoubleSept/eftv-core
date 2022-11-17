@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://eftv-core/scripts/menus/ChooseMovement.gd" type="Script" id=1]
 [ext_resource path="res://eftv-core/assets/fonts/menuFont.tres" type="DynamicFont" id=2]
@@ -79,6 +79,16 @@ use_filter = true
 extra_spacing_top = 5
 font_data = ExtResource( 5 )
 
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.321569, 0.321569, 0.321569, 1 )
+
+[sub_resource type="StyleBoxFlat" id=7]
+bg_color = Color( 0.933333, 0.933333, 0.933333, 1 )
+
+[sub_resource type="Theme" id=8]
+ProgressBar/styles/bg = SubResource( 6 )
+ProgressBar/styles/fg = SubResource( 7 )
+
 [node name="ChooseMovement" type="Control"]
 margin_left = 0.749161
 margin_right = 378.749
@@ -99,11 +109,11 @@ theme = SubResource( 5 )
 
 [node name="Panel" type="Panel" parent="Extern"]
 margin_right = 440.0
-margin_bottom = 633.0
+margin_bottom = 653.0
 
 [node name="Intern" type="MarginContainer" parent="Extern"]
 margin_right = 440.0
-margin_bottom = 633.0
+margin_bottom = 653.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/margin_right = 20
@@ -115,7 +125,7 @@ custom_constants/margin_bottom = 20
 margin_left = 20.0
 margin_top = 5.0
 margin_right = 420.0
-margin_bottom = 613.0
+margin_bottom = 633.0
 rect_min_size = Vector2( 400, 0 )
 size_flags_horizontal = 0
 custom_constants/separation = 10
@@ -163,3 +173,11 @@ bbcode_enabled = true
 bbcode_text = "MENU_TRIGGER_TO_CHANGE"
 text = "MENU_TRIGGER_TO_CHANGE"
 fit_content_height = true
+
+[node name="ProgressBar" type="ProgressBar" parent="Extern/Intern/Elements"]
+margin_top = 618.0
+margin_right = 400.0
+margin_bottom = 628.0
+rect_min_size = Vector2( 0, 10 )
+theme = SubResource( 8 )
+percent_visible = false

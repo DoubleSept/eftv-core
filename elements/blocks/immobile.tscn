@@ -14,7 +14,7 @@ points = PoolVector3Array( -8, 2, 8, -8, -2, 8, -8, 2, -8, -8, -2, -8, -8, 2, -8
 [sub_resource type="SpatialMaterial" id=2]
 flags_world_triplanar = true
 params_specular_mode = 3
-albedo_color = Color( 0, 0.5, 1, 1 )
+albedo_color = Color( 0.494118, 0.494118, 0.494118, 1 )
 albedo_texture = ExtResource( 5 )
 metallic = 0.98
 metallic_texture = ExtResource( 6 )

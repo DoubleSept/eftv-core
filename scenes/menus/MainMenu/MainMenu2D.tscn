@@ -2,7 +2,7 @@
 
 [ext_resource path="res://eftv-core/scripts/menus/menuMain.gd" type="Script" id=1]
 [ext_resource path="res://eftv-core/scenes/menus/_components/LogoContainer.tscn" type="PackedScene" id=2]
-[ext_resource path="res://eftv-core/assets/fonts/Heebo-Thin.otf" type="DynamicFontData" id=3]
+[ext_resource path="res://eftv-core/assets/fonts/Heebo-Regular.otf" type="DynamicFontData" id=3]
 [ext_resource path="res://eftv-core/assets/fonts/barlow/BarlowCondensed-SemiBold.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://eftv-core/assets/fonts/menuFont_mediumButton.tres" type="DynamicFont" id=7]
 [ext_resource path="res://eftv-core/scenes/menus/_components/PlainButton.tscn" type="PackedScene" id=8]
@@ -13,7 +13,7 @@
 [ext_resource path="res://eftv-core/assets/fonts/barlow/BarlowCondensed-SemiBoldItalic.ttf" type="DynamicFontData" id=13]
 [ext_resource path="res://eftv-core/scenes/menus/_components/settingsMenu.gd" type="Script" id=15]
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=16]
 size = 48
 use_mipmaps = true
 use_filter = true
@@ -98,7 +98,7 @@ margin_top = 105.0
 margin_right = 1920.0
 margin_bottom = 182.0
 custom_colors/font_color = Color( 0.247059, 0.0901961, 0.0901961, 1 )
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 16 )
 text = "TEXT_NO_HEADSET_LONG"
 align = 1
 
@@ -119,17 +119,17 @@ custom_styles/normal = SubResource( 8 )
 text = "MENU_EXIT"
 
 [node name="firstGame" type="VBoxContainer" parent="sections/menus"]
-visible = false
 margin_right = 1920.0
-margin_bottom = 336.0
+margin_bottom = 646.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="sections/menus/firstGame"]
+margin_top = 155.0
 margin_right = 1920.0
-margin_bottom = 251.0
+margin_bottom = 406.0
 size_flags_vertical = 6
 
 [node name="Start" parent="sections/menus/firstGame/VBoxContainer" instance=ExtResource( 9 )]
@@ -153,9 +153,9 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "MENU_OPTIONS"
 
 [node name="MarginContainer2" type="MarginContainer" parent="sections/menus/firstGame"]
-margin_top = 261.0
+margin_top = 571.0
 margin_right = 1920.0
-margin_bottom = 336.0
+margin_bottom = 646.0
 rect_min_size = Vector2( 0, 10 )
 size_flags_horizontal = 3
 
@@ -176,6 +176,7 @@ custom_styles/normal = SubResource( 8 )
 text = "MENU_EXIT"
 
 [node name="settings" type="VBoxContainer" parent="sections/menus"]
+visible = false
 margin_right = 1920.0
 margin_bottom = 646.0
 grow_horizontal = 2
@@ -256,17 +257,17 @@ text = "TEXT_BACK"
 
 [node name="baseMenu" type="VBoxContainer" parent="sections/menus"]
 visible = false
+margin_top = 399.0
 margin_right = 1920.0
-margin_bottom = 646.0
+margin_bottom = 904.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="sections/menus/baseMenu"]
-margin_top = 70.0
 margin_right = 1920.0
-margin_bottom = 490.0
+margin_bottom = 420.0
 size_flags_vertical = 6
 
 [node name="Continue" parent="sections/menus/baseMenu/VBoxContainer" instance=ExtResource( 9 )]
@@ -300,9 +301,9 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "MENU_OPTIONS"
 
 [node name="MarginContainer" type="MarginContainer" parent="sections/menus/baseMenu"]
-margin_top = 571.0
+margin_top = 430.0
 margin_right = 1920.0
-margin_bottom = 646.0
+margin_bottom = 505.0
 rect_min_size = Vector2( 0, 10 )
 size_flags_horizontal = 3
 size_flags_vertical = 9
@@ -330,12 +331,12 @@ margin_right = 1920.0
 margin_bottom = 893.0
 
 [node name="text" type="Label" parent="sections/menus/loading"]
-margin_left = 740.0
-margin_right = 1179.0
+margin_left = 731.0
+margin_right = 1188.0
 margin_bottom = 101.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 10 )
-text = "TEXT_LOADING."
+text = "TEXT_LOADING.."
 script = ExtResource( 11 )
 
 [connection signal="pressed" from="sections/menus/noHeadset/Exit" to="." method="_on_exit"]

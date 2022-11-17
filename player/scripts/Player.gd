@@ -7,7 +7,7 @@ export (bool) var can_move = true setget set_can_move
 
 onready var cameraVR : ARVRCamera = $ARVROrigin/Player_Camera
 onready var cameraNOVR : Camera = $ARVROrigin/NoVR_Camera
-onready var player_triangle = $Triangle
+onready var player_triangle = $ARVROrigin/Triangle
 onready var current_camera = cameraVR
 var using_vr : bool = true setget set_using_vr
 
@@ -42,8 +42,8 @@ func _physics_process(delta):
 		emit_signal("player_fall")
 
 	if(player_triangle):
-		player_triangle.rotation = Vector3(player_triangle.rotation.x,
-			current_camera.rotation.y,
+		player_triangle.global_rotation = Vector3(player_triangle.global_rotation.x,
+			current_camera.global_rotation.y,
 			0)
 
 	do_gravity(delta)
@@ -111,6 +111,11 @@ func set_using_vr(value: bool):
 	using_vr = value
 	cameraNOVR.current = not using_vr
 	cameraVR.current = using_vr
+
+	if using_vr:
+		cameraNOVR.find_node("secretText").queue_free()
+	else:
+		cameraVR.find_node("secretText").queue_free()
 
 	if(value == false):
 		$Function_Movement_NoVR.set_camera(cameraNOVR)
