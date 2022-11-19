@@ -177,8 +177,9 @@ text = "MENU_EXIT"
 
 [node name="settings" type="VBoxContainer" parent="sections/menus"]
 visible = false
+margin_top = 340.0
 margin_right = 1920.0
-margin_bottom = 646.0
+margin_bottom = 735.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -186,9 +187,8 @@ custom_constants/separation = 10
 script = ExtResource( 15 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="sections/menus/settings"]
-margin_top = 125.0
 margin_right = 1920.0
-margin_bottom = 383.0
+margin_bottom = 258.0
 size_flags_vertical = 6
 
 [node name="HBoxContainer" type="HBoxContainer" parent="sections/menus/settings/VBoxContainer"]
@@ -236,14 +236,14 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_colors/font_color = Color( 1, 1, 1, 0.592157 )
 custom_fonts/font = ExtResource( 7 )
-text = "Version 4.0"
+text = "Version 4.1"
 align = 1
 
 [node name="Exit" parent="sections/menus/settings" instance=ExtResource( 8 )]
 margin_left = 818.0
-margin_top = 519.0
+margin_top = 268.0
 margin_right = 1102.0
-margin_bottom = 646.0
+margin_bottom = 395.0
 custom_colors/font_color = Color( 1, 1, 1, 0.588235 )
 custom_colors/font_color_hover = Color( 1, 1, 1, 1 )
 custom_colors/font_color_pressed = Color( 0.509804, 0.509804, 0.509804, 1 )
@@ -331,12 +331,12 @@ margin_right = 1920.0
 margin_bottom = 893.0
 
 [node name="text" type="Label" parent="sections/menus/loading"]
-margin_left = 731.0
-margin_right = 1188.0
+margin_left = 722.0
+margin_right = 1197.0
 margin_bottom = 101.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 10 )
-text = "TEXT_LOADING.."
+text = "TEXT_LOADING."
 script = ExtResource( 11 )
 
 [connection signal="pressed" from="sections/menus/noHeadset/Exit" to="." method="_on_exit"]

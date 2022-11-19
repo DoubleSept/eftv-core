@@ -27,11 +27,6 @@ func _on_run_changed(id, name, recordStr, hasPrevious, hasNext, hasSecretEnabled
 	$MarginContainer/GoBack.visible = hasPrevious
 	$MarginContainer/GoNext.visible = hasNext
 
-	if (Steam.is_init()):
-		print("New test: %s (%s)" % [Steam.get_achievement("TEST_2"), Steam.user_stats.get_stat("test_menu")])
-		Steam.set_achievement("TEST_2")
-		Steam.user_stats.set_stat("test_menu", 2)
-
 	if recordStr == null:
 		timeNode.visible = false
 		recordNode.text = tr("TEXT_NO_RECORD")

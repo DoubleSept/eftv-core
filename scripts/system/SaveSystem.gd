@@ -1,5 +1,8 @@
 extends Node
 
+signal run_finished(run_id)
+signal new_secret_found()
+
 enum MovementTypeEnum { MOVE_AND_ROTATE = 10, MOVE_AND_HYBRID = 15, MOVE_AND_STRAFE = 20 }
 
 const SAVE_DIR = "user://saves/"
@@ -187,6 +190,7 @@ func _check_record():
 ### RUN
 func run_finished():
 	var runId = runInfos.id
+	emit_signal("run_finished", runId)
 	_check_record()
 
 	# Check if it is a new max level reached (when not demo)
@@ -239,11 +243,11 @@ func secret_found():
 	if runInfos == null:
 		print_debug("Secret found without run")
 		return
-
 	runInfos.secretFound = true
 
 	var secret_name = runInfos.id
 	if not (secret_name in gameData[KEY_SECRET]):
-		print_debug("Secret Found in %s" % [secret_name])
+		# New secret
+		emit_signal("new_secret_found")
 		gameData[KEY_SECRET].append(secret_name)
 		saveGameData()
