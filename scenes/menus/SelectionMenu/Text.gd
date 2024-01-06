@@ -11,12 +11,22 @@ onready var timeNode = $recordBox/Vbox/Time
 onready var recordNode = $recordBox/Vbox/Record
 onready var startNode = $recordBox/Vbox/Start
 
+var levelsList = []
+var levelsRoot = ""
+
 func _ready():
 	SaveSystem = get_node("/root/SaveSystem")
 
 	titleNode.text = tr("TEXT_LOADING")
 	timeNode.text = "00:00"
 	startNode.grab_focus()
+	
+	if(LevelSystem.IsDemoMode):
+		levelsList = LevelSystem.loadExtras()
+		levelsRoot = LevelSystem.LEVELS_ROOT+"extras/"
+	else:
+		levelsList = LevelSystem.LEVELS_LIST
+		levelsRoot = LevelSystem.LEVELS_ROOT
 
 	update_infos()
 
@@ -37,7 +47,7 @@ func _on_run_changed(id, name, recordStr, hasPrevious, hasNext, hasSecretEnabled
 	titleNode.text = name
 
 	var directory = Directory.new();
-	var previewPath = LevelSystem.LEVELS_ROOT+id+"/preview.png"
+	var previewPath = levelsRoot+id+"/preview.png"
 	if ResourceLoader.exists(previewPath):
 		$Preview.texture = load(previewPath)
 	else:
@@ -47,7 +57,7 @@ func _on_run_changed(id, name, recordStr, hasPrevious, hasNext, hasSecretEnabled
 	get_node("%Secret").visible = hasSecretEnabled
 
 func _on_Start_pressed():
-	SaveSystem.start_run(currentId)
+	SaveSystem.start_run(currentId, false, LevelSystem.IsDemoMode)
 	get_tree().change_scene(Constants.SCENE_MAIN)
 
 func _on_GoNext_pressed():
@@ -59,8 +69,8 @@ func _on_GoBack_pressed():
 	update_infos()
 
 func update_infos():
-	var runId = LevelSystem.LEVELS_LIST[current_index]
-	var runInfos : RunInfos = LevelSystem.get_run_infos(runId)
+	var runId = levelsList[current_index]
+	var runInfos : RunInfos = LevelSystem.get_run_infos(runId, false, LevelSystem.IsDemoMode)
 
 	var maxLevel = SaveSystem.gameData[SaveSystem.KEY_MAX_LEVEL_AVAILABLE]
 
@@ -73,12 +83,18 @@ func update_infos():
 		var minutes = durationMs / 60000
 		var seconds = (int(durationMs) % 60000) / 1000
 		recordStr = "%02d:%02d" % [minutes, seconds]
+		
+	var has_next: bool
+	if LevelSystem.IsDemoMode:
+		has_next = current_index < len(levelsList) - 1
+	else:
+		has_next = runInfos.hasNextRun && runId != maxLevel
 
 	_on_run_changed(runId,
 		runInfos.name,
 		recordStr,
 		current_index > 0,
-		runInfos.hasNextRun && runId != maxLevel,
+		has_next,
 		runId in SaveSystem.gameData[SaveSystem.KEY_SECRET]
 		)
 
@@ -86,5 +102,5 @@ func update_infos():
 
 
 func _on_Secret_pressed():
-	SaveSystem.start_run(currentId, true)
+	SaveSystem.start_run(currentId, true, LevelSystem.IsDemoMode)
 	get_tree().change_scene(Constants.SCENE_MAIN)

@@ -32,7 +32,6 @@ func _ready():
 		tag_line.visible = false
 
 
-
 func _input(event):
 	if(event.is_action_pressed("ui_cancel")):
 		get_tree().quit()
@@ -66,13 +65,14 @@ func _on_baseMenu():
 	_on_switchMenu(mainMenu)
 
 func _on_selection_pressed():
+	LevelSystem.IsDemoMode = false
 	get_tree().set_input_as_handled()
 	var _changed = get_tree().change_scene(Constants.SCENE_MENU_SELECTION)
 
 func _on_demo_pressed():
 	LevelSystem.IsDemoMode = true
 	_on_switchMenu(find_node("loading"))
-	SaveSystem.start_run()
+	SaveSystem.start_run(LevelsList.DEMO_RUN, false, true)
 	var _changed = get_tree().change_scene(Constants.SCENE_MAIN)
 
 func _on_exit():
@@ -80,3 +80,8 @@ func _on_exit():
 
 func _on_newTranslation():
 	emit_signal("newTranslation")
+
+func _on_extras_pressed() -> void:
+	LevelSystem.IsDemoMode = true
+	get_tree().set_input_as_handled()
+	var _changed = get_tree().change_scene(Constants.SCENE_MENU_SELECTION)	

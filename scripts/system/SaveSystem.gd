@@ -211,8 +211,8 @@ func run_finished():
 	if gameData[KEY_ALLOW_TELEMETRY]:
 		_run_request_start()
 
-func start_run(runId = null, secret: bool = false):
-	if runId != null:
+func start_run(runId = null, secret: bool = false, is_extra := false):
+	if runId != null and !is_extra:
 		SaveSystem.gameData[SaveSystem.KEY_CURRENT_LEVEL] = runId
 
 	if not loadedData:
@@ -220,7 +220,7 @@ func start_run(runId = null, secret: bool = false):
 
 	# If demo mode, override current
 	if LevelSystem.IsDemoMode:
-		runInfos = LevelSystem.get_run_infos(LevelsList.DEMO_RUN)
+		runInfos = LevelSystem.get_run_infos(runId, secret, is_extra)
 	else:
 		runInfos = LevelSystem.get_run_infos(gameData[KEY_CURRENT_LEVEL], secret)
 	runStartMs = OS.get_ticks_msec()

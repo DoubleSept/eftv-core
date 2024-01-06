@@ -1,8 +1,9 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://eftv-core/scripts/menus/menuMain.gd" type="Script" id=1]
 [ext_resource path="res://eftv-core/scenes/menus/_components/LogoContainer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://eftv-core/assets/fonts/Heebo-Regular.otf" type="DynamicFontData" id=3]
+[ext_resource path="res://eftv-core/scenes/menus/MainMenu/BaseMenu.gd" type="Script" id=4]
 [ext_resource path="res://eftv-core/assets/fonts/barlow/BarlowCondensed-SemiBold.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://eftv-core/assets/fonts/menuFont_mediumButton.tres" type="DynamicFont" id=7]
 [ext_resource path="res://eftv-core/scenes/menus/_components/PlainButton.tscn" type="PackedScene" id=8]
@@ -119,6 +120,7 @@ custom_styles/normal = SubResource( 8 )
 text = "MENU_EXIT"
 
 [node name="firstGame" type="VBoxContainer" parent="sections/menus"]
+visible = false
 margin_right = 1920.0
 margin_bottom = 646.0
 grow_horizontal = 2
@@ -256,18 +258,18 @@ custom_styles/normal = SubResource( 8 )
 text = "TEXT_BACK"
 
 [node name="baseMenu" type="VBoxContainer" parent="sections/menus"]
-visible = false
-margin_top = 399.0
 margin_right = 1920.0
-margin_bottom = 904.0
+margin_bottom = 646.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 10
+script = ExtResource( 4 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="sections/menus/baseMenu"]
+margin_top = 17.0
 margin_right = 1920.0
-margin_bottom = 420.0
+margin_bottom = 543.0
 size_flags_vertical = 6
 
 [node name="Continue" parent="sections/menus/baseMenu/VBoxContainer" instance=ExtResource( 9 )]
@@ -292,18 +294,26 @@ custom_colors/default_color = Color( 0.266667, 0.552941, 0.94902, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "MENU_DEMO"
 
-[node name="Settings" parent="sections/menus/baseMenu/VBoxContainer" instance=ExtResource( 9 )]
+[node name="Extras" parent="sections/menus/baseMenu/VBoxContainer" instance=ExtResource( 9 )]
 margin_top = 318.0
 margin_bottom = 420.0
+size_flags_vertical = 1
+custom_colors/default_color = Color( 0.266667, 0.552941, 0.94902, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+text = "MENU_EXTRAS"
+
+[node name="Settings" parent="sections/menus/baseMenu/VBoxContainer" instance=ExtResource( 9 )]
+margin_top = 424.0
+margin_bottom = 526.0
 size_flags_vertical = 1
 custom_colors/default_color = Color( 0.266667, 0.552941, 0.94902, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 text = "MENU_OPTIONS"
 
 [node name="MarginContainer" type="MarginContainer" parent="sections/menus/baseMenu"]
-margin_top = 430.0
+margin_top = 571.0
 margin_right = 1920.0
-margin_bottom = 505.0
+margin_bottom = 646.0
 rect_min_size = Vector2( 0, 10 )
 size_flags_horizontal = 3
 size_flags_vertical = 9
@@ -331,12 +341,12 @@ margin_right = 1920.0
 margin_bottom = 893.0
 
 [node name="text" type="Label" parent="sections/menus/loading"]
-margin_left = 722.0
-margin_right = 1197.0
+margin_left = 731.0
+margin_right = 1188.0
 margin_bottom = 101.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 10 )
-text = "TEXT_LOADING."
+text = "TEXT_LOADING"
 script = ExtResource( 11 )
 
 [connection signal="pressed" from="sections/menus/noHeadset/Exit" to="." method="_on_exit"]
@@ -364,5 +374,6 @@ script = ExtResource( 11 )
 [connection signal="on_click" from="sections/menus/baseMenu/VBoxContainer/Continue" to="." method="_on_start"]
 [connection signal="on_click" from="sections/menus/baseMenu/VBoxContainer/Selection" to="." method="_on_selection_pressed"]
 [connection signal="on_click" from="sections/menus/baseMenu/VBoxContainer/Demo" to="." method="_on_demo_pressed"]
+[connection signal="on_click" from="sections/menus/baseMenu/VBoxContainer/Extras" to="." method="_on_extras_pressed"]
 [connection signal="on_click" from="sections/menus/baseMenu/VBoxContainer/Settings" to="." method="_on_settings"]
 [connection signal="pressed" from="sections/menus/baseMenu/MarginContainer/Exit" to="." method="_on_exit"]

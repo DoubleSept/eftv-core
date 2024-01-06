@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://eftv-core/player/scripts/VR_Controller_OLD.gd" type="Script" id=1]
-[ext_resource path="res://eftv-core/VR/assets/Hand_Left.scn" type="PackedScene" id=2]
+[ext_resource path="res://eftv-core/player/Gloves/vr_glove_left.scn" type="PackedScene" id=2]
 
 [sub_resource type="SpatialMaterial" id=1]
 emission_enabled = true
