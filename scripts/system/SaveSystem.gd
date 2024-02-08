@@ -238,6 +238,7 @@ func level_finished():
 
 	# Run is finished
 	runDurationMs = OS.get_ticks_msec() - runStartMs
+	print_debug("Level finished, run (ms): %f" % [runDurationMs])
 	return null
 
 func secret_found():
