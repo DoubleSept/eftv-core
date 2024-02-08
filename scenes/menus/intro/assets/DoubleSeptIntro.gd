@@ -18,6 +18,8 @@ func _ready():
 		get_tree().change_scene(Constants.SCENE_MENU_TELEMETRY)
 	else:
 		OS.window_fullscreen = true
+		
+	print(LevelSystem.loadExtras())
 
 func _on_Animation_animation_finished(anim_name):
 	get_tree().change_scene(Constants.SCENE_MENU_TELEMETRY)

@@ -10,9 +10,6 @@ margin_left = 25.0
 margin_top = 25.0
 margin_right = 40.0
 margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="arrowButton" type="TextureButton" parent="."]
 margin_right = 60.0

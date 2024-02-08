@@ -2,11 +2,16 @@ tool
 extends KinematicBody
 class_name BasicMovable
 
+signal released
+
 export (Color) var mesh_color = Color(0,0.5,1.0) setget set_mesh_color
 export (bool) var is_dark = false setget set_is_dark
 
 export (float) var max_speed = 20
 export (float) var min_movement = 0.05
+
+export var is_visible_ortho = true setget set_visible_ortho
+export var is_visible_headset = true setget set_visible_headset
 
 var is_movable = true
 var sound_playing = false
@@ -14,9 +19,12 @@ var hovered = false
 onready var player : Node
 
 var targetPosition = null
+var selectionDeltaPosition : Vector3 = Vector3(0,0,0)
 var _cancelAxisX: bool = false
 var _cancelAxisY: bool = false
 var _cancelAxisZ: bool = false
+
+const LERP_SPEED := 2.0
 
 func _ready():
 	set_mesh_color(mesh_color)
@@ -31,15 +39,21 @@ func _physics_process(delta):
 	if targetPosition == null:
 		set_physics_process(false)
 		return
-
-	var moveVector = targetPosition - self.global_transform.origin
+	
+	var eTarget = targetPosition - selectionDeltaPosition
+	var eSelf = self.global_translation
 
 	if _cancelAxisX:
-		moveVector.x = 0
+		eTarget.x = 0
+		eSelf.x = 0
 	if _cancelAxisY:
-		moveVector.y = 0
+		eTarget.y = 0
+		eSelf.y = 0
 	if _cancelAxisZ:
-		moveVector.z = 0
+		eTarget.z = 0
+		eSelf.z = 0
+		
+	var moveVector = lerp(eTarget, eSelf, LERP_SPEED*delta) - eSelf
 
 	if(moveVector.length() > max_speed):
 		moveVector = (max_speed/moveVector.length()) * moveVector
@@ -49,6 +63,10 @@ func _physics_process(delta):
 		move_and_collide(Vector3(0, moveVector.y, 0), false, true, false)
 		move_and_collide(Vector3(0, 0, moveVector.z), false, true, false)
 
+func _on_select(newTargetPosition: Vector3, cancelAxisX = false, cancelAxisY = false, cancelAxisZ = false):
+	selectionDeltaPosition = newTargetPosition - self.global_translation
+	print("DELTA: %s" % selectionDeltaPosition)
+	
 func move(newTargetPosition: Vector3, cancelAxisX = false, cancelAxisY = false, cancelAxisZ = false):
 	if not Engine.editor_hint:
 		if player.last_movable_floor() == self:
@@ -71,7 +89,9 @@ func _on_denySound_finished():
 	pass # Replace with function body.
 
 func _on_release():
+	emit_signal("released")
 	targetPosition = null
+	selectionDeltaPosition = Vector3(0,0,0)
 
 func _hovered():
 	hovered = true
@@ -98,3 +118,11 @@ func set_is_dark(new_value):
 	if new_value != is_dark:
 		is_dark = new_value
 		_update_material()
+
+func set_visible_ortho(new_visible):
+	is_visible_ortho = new_visible
+	$mesh.set_layer_mask_bit(1, new_visible)
+
+func set_visible_headset(new_visible):
+	is_visible_headset = new_visible
+	$mesh.set_layer_mask_bit(0, new_visible)

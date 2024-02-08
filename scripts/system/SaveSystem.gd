@@ -112,6 +112,7 @@ func _uuid_request_start():
 	requestNode = HTTPRequest.new()
 	add_child(requestNode)
 	requestNode.connect("request_completed", self, "_uuid_request_completed")
+	gameData[KEY_UUID] = "tmp"
 	var _error = requestNode.request(
 		LevelsList.URL_TELEMETRY+ "user",
 		PoolStringArray(),

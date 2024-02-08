@@ -42,16 +42,21 @@ func _ready():
 	load_level(current_level_resource)
 
 func _on_sceneNode_level_finished():
-	print_debug("\n\nENDING LEVEL %s" % [current_level_resource.resource_path])
-	var next_level_resource = SaveSystem.level_finished()
-	if next_level_resource == null:
-		print_debug("End Run")
-		var _changed = get_tree().change_scene(Constants.SCENE_MENU_END_RUN)
-		return
-	else:
-		print_debug("Loading next scene: %s" % [next_level_resource.resource_path])
+	if LevelSystem.TEST_LEVEL == null:
+		print_debug("\n\nENDING LEVEL %s" % [current_level_resource.resource_path])
+		var next_level_resource = SaveSystem.level_finished()
+		if next_level_resource == null:
+			print_debug("End Run")
+			var _changed = get_tree().change_scene(Constants.SCENE_MENU_END_RUN)
+			return
+		else:
+			print_debug("Loading next scene: %s" % [next_level_resource.resource_path])
 
-	call_deferred("load_level", next_level_resource)
+		call_deferred("load_level", next_level_resource)
+	elif Constants.isWebEdition:
+		get_tree().change_scene(Constants.SCENE_MENU_MAIN)
+	else:
+		get_tree().change_scene(Constants.SCENE_MENU_MAIN)
 
 func _on_secret_found():
 	print("SECRET FOUND")

@@ -2,6 +2,7 @@ extends KinematicBody
 class_name EftvPlayer
 
 signal player_fall
+signal new_floor(floorNode)
 
 export (bool) var can_move = true setget set_can_move
 
@@ -24,6 +25,7 @@ export var can_jump = true setget set_can_jump
 export var spotlight_enabled = false setget set_spotlight
 export var spotlight_angle = 30 setget set_spotlight_angle
 export var spotlight_range = 40 setget set_spotlight_range
+export var is_visible_ortho = true setget set_visible_ortho
 
 var last_movable_floor: BasicMovable = null
 
@@ -31,6 +33,7 @@ func _ready():
 	set_physics_process(can_move)
 	set_using_vr(Constants.useVR)
 	updateMovementType()
+	set_visible_ortho(is_visible_ortho)
 
 func updateMovementType():
 	$Function_Movement_Both_Hand.move_type = SaveSystem.gameData[SaveSystem.KEY_MOVEMENT_TYPE] as int
@@ -57,7 +60,9 @@ func _physics_process(delta):
 				var movable: BasicMovable = current.collider
 				if lowestElmt == null or movable.global_translation.y < lowestElmt.global_translation.y:
 					lowestElmt = movable
-		last_movable_floor = lowestElmt
+		if(lowestElmt != last_movable_floor):
+			last_movable_floor = lowestElmt
+			emit_signal("new_floor", last_movable_floor)
 
 
 func do_gravity(delta):
@@ -145,3 +150,7 @@ func set_spotlight_range(new_range):
 func set_spotlight_angle(new_angle):
 	spotlight_angle = new_angle
 	$ARVROrigin/NoVR_Camera/DarkPlayerSpotlight.spot_angle = new_angle
+	
+func set_visible_ortho(new_visible):
+	is_visible_ortho = new_visible
+	$ARVROrigin/Triangle.set_layer_mask_bit(1, new_visible)

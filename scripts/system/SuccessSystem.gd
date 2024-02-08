@@ -23,8 +23,8 @@ func _process(delta):
 
 	if Steam.is_init() && not done:
 		done = true
-		print("Cleared ?" + str (Steam.user_stats.get_stat("secrets_found")))
-		print("Cleared ?" + str (Steam.user_stats.get_stat("time_played")))
+		print_debug("Cleared ?" + str (Steam.user_stats.get_stat("secrets_found")))
+		print_debug("Cleared ?" + str (Steam.user_stats.get_stat("time_played")))
 		Steam.user_stats.set_stat(
 			"secrets_found", 0)
 		Steam.user_stats.set_stat(

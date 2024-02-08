@@ -55,7 +55,6 @@ visible = false
 visible = false
 
 [node name="secretText" parent="ARVROrigin/Player_Camera" instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.344904, -4.2735 )
 
 [node name="Left_Hand" parent="ARVROrigin" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1.25, 0 )

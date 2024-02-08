@@ -238,7 +238,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_colors/font_color = Color( 1, 1, 1, 0.592157 )
 custom_fonts/font = ExtResource( 7 )
-text = "Version 4.1"
+text = "Version 5.0"
 align = 1
 
 [node name="Exit" parent="sections/menus/settings" instance=ExtResource( 8 )]
@@ -358,6 +358,7 @@ script = ExtResource( 11 )
 [connection signal="newTranslation" from="sections/menus/settings" to="sections/menus/baseMenu/VBoxContainer/Continue" method="update"]
 [connection signal="newTranslation" from="sections/menus/settings" to="sections/menus/baseMenu/VBoxContainer/Selection" method="update"]
 [connection signal="newTranslation" from="sections/menus/settings" to="sections/menus/baseMenu/VBoxContainer/Demo" method="update"]
+[connection signal="newTranslation" from="sections/menus/settings" to="sections/menus/baseMenu/VBoxContainer/Extras" method="update"]
 [connection signal="newTranslation" from="sections/menus/settings" to="sections/menus/baseMenu/VBoxContainer/Settings" method="update"]
 [connection signal="focus_entered" from="sections/menus/settings/VBoxContainer/HBoxContainer/Language" to="sections/menus/settings/VBoxContainer/HBoxContainer/Language" method="_on_focus_entered"]
 [connection signal="focus_exited" from="sections/menus/settings/VBoxContainer/HBoxContainer/Language" to="sections/menus/settings/VBoxContainer/HBoxContainer/Language" method="_on_focus_exited"]

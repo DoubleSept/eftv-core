@@ -9,6 +9,8 @@ var TEST_LEVEL = null
 
 var IsDemoMode = false
 
+var IsLevelsModsInitialized = false
+
 const LEVELS_LIST = LevelsList.LIST
 
 func get_index_from_string(search: String):
@@ -53,8 +55,45 @@ func get_run_infos(runName: String, secret: bool = false, is_extra: bool = false
 		runInfos.levels.push_back(levelPath)
 
 	return runInfos
+	
+func initLevelsMods():
+	IsLevelsModsInitialized = true
+	
+	if OS.has_feature("editor"):
+		return
+		
+	var basDir := OS.get_executable_path().get_base_dir()
+	var modDir = basDir.plus_file("mods")
+	var lvlDir = modDir.plus_file("levels")
+	var dir = Directory.new()
+	
+	if dir.dir_exists(modDir) and dir.dir_exists(lvlDir):
+		if dir.open(lvlDir) != OK:
+			print("Error loading PCK for levels")
+		else:
+			print("Loading PCK for levels")
+		dir.list_dir_begin(true, true)
+		while true:
+			var currentFile: String = dir.get_next()
+			
+			if currentFile.empty():
+				print("End of mods folder")
+				break
+			if currentFile.ends_with(".pck"):
+				var fullName = dir.get_current_dir().plus_file(currentFile)
+				printraw("Loading levels from: %s " % currentFile)
+				if !ProjectSettings.load_resource_pack(fullName, false):
+					print("(failed)")
+				else:
+					print("(success)")
+	else:
+		print("No mods folder")
+		
 
 func loadExtras():
+	if !IsLevelsModsInitialized:
+		initLevelsMods()
+		
 	var extras = []
 	var dir = Directory.new()
 	if dir.dir_exists("res://levels/extras"):

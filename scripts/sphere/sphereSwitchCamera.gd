@@ -2,6 +2,7 @@ extends Area
 
 export (String) var switch_to_camera = "CameraName"
 var viewOrtho : Viewport
+export var is_visible_ortho = true setget set_visible_ortho
 
 var switch_camera_node : Camera = null
 
@@ -23,3 +24,8 @@ func _on_body_entered(body: Node):
 
 			previous_camera_node.current = false
 			previous_camera_node.hide_selecteur()
+
+func set_visible_ortho(new_visible):
+	is_visible_ortho = new_visible
+	$meshOuter.set_layer_mask_bit(1, new_visible)
+	$meshInner.set_layer_mask_bit(1, new_visible)

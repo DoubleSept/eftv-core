@@ -2,7 +2,9 @@ extends Node
 
 var isStandalone = OS.has_feature("standalone")
 var isEditor = OS.has_feature("editor")
-var useVR = isStandalone
+var isVideoMode = false
+var isWebEdition = false
+var useVR = isStandalone or isVideoMode
 
 var pathPart = "VR" if useVR else "NoVR"
 
