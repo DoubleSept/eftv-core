@@ -51,5 +51,5 @@ func _on_nextRun_pressed():
 	get_tree().change_scene(Constants.SCENE_MAIN)
 
 func _on_Secret_pressed():
-	SaveSystem.start_run(SaveSystem.runInfos.id, true)
+	SaveSystem.start_run(SaveSystem.runInfos.id, true, LevelSystem.IsDemoMode)
 	get_tree().change_scene(Constants.SCENE_MAIN)

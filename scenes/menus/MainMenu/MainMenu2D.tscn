@@ -238,7 +238,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 1
 custom_colors/font_color = Color( 1, 1, 1, 0.592157 )
 custom_fonts/font = ExtResource( 7 )
-text = "Version 5.0"
+text = "Version 5.1"
 align = 1
 
 [node name="Exit" parent="sections/menus/settings" instance=ExtResource( 8 )]
@@ -341,12 +341,12 @@ margin_right = 1920.0
 margin_bottom = 893.0
 
 [node name="text" type="Label" parent="sections/menus/loading"]
-margin_left = 731.0
-margin_right = 1188.0
+margin_left = 740.0
+margin_right = 1179.0
 margin_bottom = 101.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 10 )
-text = "TEXT_LOADING"
+text = "TEXT_LOADING."
 script = ExtResource( 11 )
 
 [connection signal="pressed" from="sections/menus/noHeadset/Exit" to="." method="_on_exit"]
